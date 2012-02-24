@@ -48,7 +48,7 @@ namespace gMusic
 			
 			public override int RowsInSection (UITableView tableview, int section)
 			{
-				return Util.SongGroups[section].Count();
+				return Util.SongGroups[section].Count;
 			}
 			public override int NumberOfSections (UITableView tableView)
 			{
@@ -61,7 +61,7 @@ namespace gMusic
 			public override UITableViewCell GetCell (UITableView tableView, MonoTouch.Foundation.NSIndexPath indexPath)
 			{
 				var songGroup = Util.SongGroups[indexPath.Section];
-				Song thesong = songGroup.ElementAt(indexPath.Row).id; //Util.Songs[songGroup.Start + indexPath.Row];
+				Song thesong = Util.Songs[songGroup.Start + indexPath.Row];
 				return thesong.GetCell (tableView);
 			}
 			

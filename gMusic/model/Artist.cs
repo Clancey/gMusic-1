@@ -18,21 +18,9 @@ namespace gMusic
 {
 	public class Artist : web.artists
 	{
-		[Ignore]
-		public string IndexChar {get{return indexChar ?? getIndex(name);} }
+		public string IndexChar {get;set; }
 		public int Order {get;set;}
 		
-		
-		static string getIndex (out string name)
-		{
-			name = name.Trim ().ToLower();
-			if (name.StartsWith ("the "))
-				name = name.Replace ("the ", "");
-			var firstLetter = (string.IsNullOrEmpty (name)) ? " ".First () : name.First ();
-			if (char.IsLetter (firstLetter))
-				return firstLetter.ToString ().ToUpper ();
-			return "#";
-		}
 	}
 }
 

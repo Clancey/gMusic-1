@@ -13,7 +13,6 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
-using System.Linq;
 using System.Collections.Generic;
 
 namespace gMusic
@@ -21,11 +20,11 @@ namespace gMusic
 	public static class Util
 	{
 		public static List<Song> Songs = new List<Song>();
-		public static List<IGrouping<string, string>> SongGroups =  new List<IGrouping<string, string>> ();
+		public static List<SongGroup> SongGroups = new List<SongGroup>();
 		public static Dictionary<string,Song> SongsDict = new Dictionary<string, Song>();
 		
 		public static List<Artist> Artists = new List<Artist>();
-		public static List<System.Linq.IGrouping<string,int>> ArtistGroups = new List<System.Linq.IGrouping<string,int>>();
+		public static List<ArtistGroup> ArtistGroups = new List<ArtistGroup>();
 		public static Dictionary<int,Artist> ArtistsDict = new Dictionary<int, Artist>();
 	}
 }
