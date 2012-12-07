@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<addon format="1" id="sectionedlist">
+  <name>Sectioned List Adapter</name>
+  <publisher>Redth</publisher>
+  <publisher-url>http://redth.info/</publisher-url>
+  <version>1.0</version>
+  <summary>Sectioned List Adapter for Mono for Android List Activities</summary>
+  <screenshots>
+    <img src="screenshots/screenshot1.png" title="Sectioned List Adapter " />
+  </screenshots>
+  <samples>
+    <sample id="Redth.MonoForAndroid.SectionedListAdapter">
+      <name>Sectioned List Adapter</name>
+      <summary>Demonstrates using Sectioned List Adapter on Android</summary>
+    </sample>
+  </samples>
+</addon>

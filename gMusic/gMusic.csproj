@@ -2,63 +2,34 @@
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.0</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{C7EBAFD0-98EC-49AA-AB51-6E8BFC72EFF5}</ProjectGuid>
+    <ProjectGuid>{6243C111-804A-4D04-95F8-7AF434494994}</ProjectGuid>
     <ProjectTypeGuids>{6BC8ED88-2882-458C-8E55-DFD12B67127B};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>gMusic</RootNamespace>
+    <OutputType>Library</OutputType>
+    <RootNamespace>GoogleMusic</RootNamespace>
+    <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
     <AssemblyName>gMusic</AssemblyName>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
-    <DebugSymbols>true</DebugSymbols>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>True</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\iPhoneSimulator\Debug</OutputPath>
-    <DefineConstants>DEBUG;</DefineConstants>
+    <Optimize>False</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;gmusic</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
-    <MtouchDebug>true</MtouchDebug>
-    <MtouchProfiling>true</MtouchProfiling>
-    <MtouchLink>None</MtouchLink>
+    <ConsolePause>False</ConsolePause>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\iPhoneSimulator\Release</OutputPath>
+    <Optimize>True</Optimize>
+    <OutputPath>bin\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
-    <MtouchLink>None</MtouchLink>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\iPhone\Debug</OutputPath>
-    <DefineConstants>DEBUG;</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
-    <CodesignKey>iPhone Developer</CodesignKey>
-    <MtouchDebug>true</MtouchDebug>
-    <MtouchProfiling>true</MtouchProfiling>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
-    <DebugType>none</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\iPhone\Release</OutputPath>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
-    <CodesignKey>iPhone Developer</CodesignKey>
-    <MtouchUseLlvm>true</MtouchUseLlvm>
-    <MtouchArch>ARMv7</MtouchArch>
-    <MtouchUseSGen>true</MtouchUseSGen>
-    <IpaPackageName />
-    <MtouchI18n />
+    <ConsolePause>False</ConsolePause>
+    <DefineConstants>gmusic</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -67,44 +38,204 @@
     <Reference Include="monotouch" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Json" />
+    <Reference Include="FlurryAnalytics">
+      <HintPath>..\References\iOS\FlurryAnalytics.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Info.plist" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Main.cs" />
-    <Compile Include="AppDelegate.cs" />
-    <Compile Include="Api.cs" />
-    <Compile Include="Requests.cs" />
-    <Compile Include="SQLite.cs" />
-    <Compile Include="model\webdb.cs" />
-    <Compile Include="WebDatabase.cs" />
-    <Compile Include="model\Track.cs" />
-    <Compile Include="model\loadAllResponse.cs" />
-    <Compile Include="Database.cs" />
-    <Compile Include="model\Song.cs" />
-    <Compile Include="model\IndexClass.cs" />
-    <Compile Include="model\sortClass.cs" />
-    <Compile Include="Indexer.cs" />
-    <Compile Include="model\web\songs.cs" />
-    <Compile Include="model\groupClass.cs" />
-    <Compile Include="model\web\artists.cs" />
-    <Compile Include="model\Artist.cs" />
-    <Compile Include="Util.cs" />
-    <Compile Include="BaseViewController.cs" />
-    <Compile Include="SongViewController.cs" />
-    <Compile Include="Song.cs" />
-    <Compile Include="ICell.cs" />
+    <Folder Include="Resources\" />
+    <Folder Include="Bass.Net\" />
+    <Folder Include="Data\" />
+    <Folder Include="Images\" />
+    <Folder Include="Models\" />
+    <Folder Include="Parser\" />
+    <Folder Include="Utilities\" />
+    <Folder Include="ViewControllers\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <Folder Include="model\" />
-    <Folder Include="model\web\" />
+    <Compile Include="..\Bass.Net\BASS3DMode.cs">
+      <Link>Bass.Net\BASS3DMode.cs</Link>
+    </Compile>
+    <Compile Include="..\Bass.Net\BASSAttribute.cs">
+      <Link>Bass.Net\BASSAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\Bass.Net\BASSChannelType.cs">
+      <Link>Bass.Net\BASSChannelType.cs</Link>
+    </Compile>
+    <Compile Include="..\Bass.Net\BASSFlag.cs">
+      <Link>Bass.Net\BASSFlag.cs</Link>
+    </Compile>
+    <Compile Include="..\Bass.Net\BASSMode.cs">
+      <Link>Bass.Net\BASSMode.cs</Link>
+    </Compile>
+    <Compile Include="..\Bass.Net\BASSStreamFilePosition.cs">
+      <Link>Bass.Net\BASSStreamFilePosition.cs</Link>
+    </Compile>
+    <Compile Include="..\Bass.Net\BASSStreamSystem.cs">
+      <Link>Bass.Net\BASSStreamSystem.cs</Link>
+    </Compile>
+    <Compile Include="..\Bass.Net\BASSSync.cs">
+      <Link>Bass.Net\BASSSync.cs</Link>
+    </Compile>
+    <Compile Include="..\Bass.Net\BASSVam.cs">
+      <Link>Bass.Net\BASSVam.cs</Link>
+    </Compile>
+    <Compile Include="..\Bass.Net\BASS_CHANNELINFO.cs">
+      <Link>Bass.Net\BASS_CHANNELINFO.cs</Link>
+    </Compile>
+    <Compile Include="..\Bass.Net\BASS_FILEPROCS.cs">
+      <Link>Bass.Net\BASS_FILEPROCS.cs</Link>
+    </Compile>
+    <Compile Include="..\Bass.Net\BASS_SAMPLE.cs">
+      <Link>Bass.Net\BASS_SAMPLE.cs</Link>
+    </Compile>
+    <Compile Include="..\Bass.Net\Bass.cs">
+      <Link>Bass.Net\Bass.cs</Link>
+    </Compile>
+    <Compile Include="..\Bass.Net\BassUtil.cs">
+      <Link>Bass.Net\BassUtil.cs</Link>
+    </Compile>
+    <Compile Include="..\Bass.Net\FILECLOSEPROC.cs">
+      <Link>Bass.Net\FILECLOSEPROC.cs</Link>
+    </Compile>
+    <Compile Include="..\Bass.Net\FILELENPROC.cs">
+      <Link>Bass.Net\FILELENPROC.cs</Link>
+    </Compile>
+    <Compile Include="..\Bass.Net\FILEREADPROC.cs">
+      <Link>Bass.Net\FILEREADPROC.cs</Link>
+    </Compile>
+    <Compile Include="..\Bass.Net\FILESEEKPROC.cs">
+      <Link>Bass.Net\FILESEEKPROC.cs</Link>
+    </Compile>
+    <Compile Include="..\Bass.Net\SYNCPROC.cs">
+      <Link>Bass.Net\SYNCPROC.cs</Link>
+    </Compile>
+    <Compile Include="..\Bass.Net\c.cs">
+      <Link>Bass.Net\c.cs</Link>
+    </Compile>
+    <Compile Include="..\Bass.Net\BASSConfig.cs">
+      <Link>Bass.Net\BASSConfig.cs</Link>
+    </Compile>
+    <Compile Include="Bass.Net\BASSActive.cs" />
+    <Compile Include="Data\Api.cs" />
+    <Compile Include="Data\Database.cs" />
+    <Compile Include="Images\IImageUpdated.cs" />
+    <Compile Include="Models\Album.cs" />
+    <Compile Include="Models\Artist.cs" />
+    <Compile Include="Models\cookie.cs" />
+    <Compile Include="Models\Genre.cs" />
+    <Compile Include="Models\OfflineClass.cs" />
+    <Compile Include="Models\Playlist.cs" />
+    <Compile Include="Models\PlaylistSongs.cs" />
+    <Compile Include="Models\Song.cs" />
+    <Compile Include="Models\stringClass.cs" />
+    <Compile Include="Parser\GoogleServiceModel.cs" />
+    <Compile Include="ViewControllers\IBaseViewController.cs" />
+    <Compile Include="GoogleMusicApi.cs" />
+    <Compile Include="Data\SQLite.cs" />
+    <Compile Include="Utilities\EventArgs.cs" />
+    <Compile Include="Utilities\Util.cs" />
+    <Compile Include="Utilities\Settings.cs" />
+    <Compile Include="Utilities\Requests.cs" />
+    <Compile Include="ViewControllers\IMainViewController.cs" />
+    <Compile Include="Utilities\Local.cs" />
+    <Compile Include="Images\Images.cs" />
+    <Compile Include="Utilities\StreamingPlayback.cs" />
+    <Compile Include="Utilities\Scrobbler.cs" />
+    <Compile Include="ViewControllers\SongListController.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\ClanceysLib\ClanceysLib\ClanceysLib.csproj">
-      <Project>{D7BF0006-ABE7-42FC-9D36-CCEAD42CB4DC}</Project>
-      <Name>ClanceysLib</Name>
+    <Content Include="Images\alert-bg.png" />
+    <Content Include="Images\alert-bg%402x.png" />
+    <Content Include="Images\alert-black-button.png" />
+    <Content Include="Images\alert-black-button%402x.png" />
+    <Content Include="Images\alert-green-button.png" />
+    <Content Include="Images\alert-green-button%402x.png" />
+    <Content Include="Images\alert-red-button.png" />
+    <Content Include="Images\alert-red-button%402x.png" />
+    <Content Include="Images\alert-window.png" />
+    <Content Include="Images\alert-window%402x.png" />
+    <Content Include="Images\back.png" />
+    <Content Include="Images\back%402x.png" />
+    <Content Include="Images\bg.png" />
+    <Content Include="Images\bg%402x.png" />
+    <Content Include="Images\bgipad.png" />
+    <Content Include="Images\bgipad%402x.png" />
+    <Content Include="Images\blackbutton.png" />
+    <Content Include="Images\blackbutton%402x.png" />
+    <Content Include="Images\default_album_large.png" />
+    <Content Include="Images\default_album_large%402x.png" />
+    <Content Include="Images\default_album.png" />
+    <Content Include="Images\default_album%402x.png" />
+    <Content Include="Images\divider.png" />
+    <Content Include="Images\divider%402x.png" />
+    <Content Include="Images\empty.png" />
+    <Content Include="Images\forward.png" />
+    <Content Include="Images\forward%402x.png" />
+    <Content Include="Images\ipadEmpty.png" />
+    <Content Include="Images\ipadIcon.png" />
+    <Content Include="Images\list.png" />
+    <Content Include="Images\list%402x.png" />
+    <Content Include="Images\menu-shadow.png" />
+    <Content Include="Images\menu.png" />
+    <Content Include="Images\menu%402x.png" />
+    <Content Include="Images\menubar-button.png" />
+    <Content Include="Images\menubar-button%402x.png" />
+    <Content Include="Images\menubar-right.png" />
+    <Content Include="Images\menubar-right%402x.png" />
+    <Content Include="Images\menubar.png" />
+    <Content Include="Images\menubar%402x.png" />
+    <Content Include="Images\next.png" />
+    <Content Include="Images\next%402x.png" />
+    <Content Include="Images\nextTv.png" />
+    <Content Include="Images\nowPlaying.png" />
+    <Content Include="Images\nowPlaying%402x.png" />
+    <Content Include="Images\pause.png" />
+    <Content Include="Images\pause%402x.png" />
+    <Content Include="Images\pauseTv.png" />
+    <Content Include="Images\play.png" />
+    <Content Include="Images\play%402x.png" />
+    <Content Include="Images\playTv.png" />
+    <Content Include="Images\previous.png" />
+    <Content Include="Images\previous%402x.png" />
+    <Content Include="Images\previousTv.png" />
+    <Content Include="Images\refresh.png" />
+    <Content Include="Images\refresh%402x.png" />
+    <Content Include="Images\repeatAll.png" />
+    <Content Include="Images\repeatAll%402x.png" />
+    <Content Include="Images\repeatOff.png" />
+    <Content Include="Images\repeatOff%402x.png" />
+    <Content Include="Images\repeatOne.png" />
+    <Content Include="Images\repeatOne%402x.png" />
+    <Content Include="Images\shuffleButton.png" />
+    <Content Include="Images\shuffleButton%402x.png" />
+    <Content Include="Images\shuffleGray.png" />
+    <Content Include="Images\shuffleGray%402x.png" />
+    <Content Include="Images\shuffleOff.png" />
+    <Content Include="Images\shuffleOff%402x.png" />
+    <Content Include="Images\shuffleOn.png" />
+    <Content Include="Images\shuffleOn%402x.png" />
+    <Content Include="Images\slider-handle.png" />
+    <Content Include="Images\slider-handle%402x.png" />
+    <Content Include="Images\texture.png" />
+    <Content Include="Images\texture%402x.png" />
+    <Content Include="Images\thumbsDown.png" />
+    <Content Include="Images\thumbsDown%402x.png" />
+    <Content Include="Images\thumbsUp.png" />
+    <Content Include="Images\thumbsUp%402x.png" />
+    <Content Include="Images\thumbsUpPressed.png" />
+    <Content Include="Images\thumbsUpPressed%402x.png" />
+    <Content Include="Images\topBar.png" />
+    <Content Include="Images\topBar%402x.png" />
+    <Content Include="Images\upArrow.png" />
+    <Content Include="Images\upArrow%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\lastfm-sharp\lastfm-sharp.csproj">
+      <Project>{D14A113A-F306-4831-9C25-E4B18F6E0C34}</Project>
+      <Name>lastfm-sharp</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>
