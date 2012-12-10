@@ -3,7 +3,7 @@ using SQLite;
 using GoogleMusic;
 using System.Linq;
 using System.IO;
-
+using Xamarin.Data;
 namespace GoogleMusic
 {
 	[Serializable]
@@ -18,7 +18,7 @@ namespace GoogleMusic
 		public string Id { get; set; }
 
 		public string Title { get; set; }
-
+		[OrderBy]
 		public string TitleNorm { get; set; }
 
 		[Indexed]
@@ -42,6 +42,7 @@ namespace GoogleMusic
 		public int Rating{ get; set; }
 
 		[Indexed]
+		[GroupBy]
 		public string IndexCharacter { get; set; }
 
 		public string Album { get; set; }

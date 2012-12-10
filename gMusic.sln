@@ -120,6 +120,6 @@ Global
 		{C9B364AD-FAAB-4437-9463-7358657F80FB} = {95F08D73-3E88-4642-BD06-231B4CBDFB76}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = gMusic.Droid\gMusic.Droid.csproj
+		StartupItem = gMusic.iOS\gMusic.iOS.csproj
 	EndGlobalSection
 EndGlobal

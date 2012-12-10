@@ -219,6 +219,12 @@
     <Compile Include="UI\Activites\MainActivity.cs" />
     <Compile Include="UI\Activites\BaseActivity.cs" />
     <Compile Include="UI\Activites\MainService.cs" />
+    <Compile Include="..\..\InstantDatabase\InstantDatabase\InstantDatabase.cs">
+      <Link>gMusic\Data\InstantDatabase.cs</Link>
+    </Compile>
+    <Compile Include="..\..\InstantDatabase\InstantDatabase\Model\Group.cs">
+      <Link>gMusic\Data\Group.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -484,7 +490,6 @@
     <AndroidResource Include="Resources\layout\Main.axml" />
     <AndroidResource Include="Resources\values\Strings.xml" />
     <AndroidResource Include="Resources\drawable\Icon.png" />
-    <AndroidResource Include="Resources\layout\SectionedListSeparator.axml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup>

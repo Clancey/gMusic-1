@@ -17,14 +17,15 @@ using SQLite;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
-
+using Xamarin.Data;
 namespace GoogleMusic
 {
-	public class Database: SQLiteConnection
+	public class Database: InstantDatabase
 	{
 		internal Database (string file) : base (file)
 		{
 			CreateTable<Song>();
+			MakeClassInstant<Song> ();
 			CreateTable<Artist>();
 			CreateTable<Album>();
 			CreateTable<Genre>();
@@ -59,7 +60,7 @@ namespace GoogleMusic
 				if (string.IsNullOrEmpty (user))
 					throw new Exception ("Database user cannot be null");
 				
-				var db = user + ".db3";
+				var db = user + ".db3";// "-Databases.db";
 				dbPath = Path.Combine (BaseDir, db);
 				if (CurrentUser == user && Main != null)
 					return;
@@ -85,7 +86,7 @@ namespace GoogleMusic
 		public static string CurrentUser {get;set;}
 		public static bool DatabaseExists(string user)
 		{
-			var db = user + ".db3";
+			var db = user +  ".db3";//"-Databases.db";
 			dbPath = Path.Combine (BaseDir, db);
 			return File.Exists(dbPath);
 		}
@@ -245,10 +246,10 @@ namespace GoogleMusic
 			foreach(var file in Directory.EnumerateFiles(Util.MusicDir))
 			{
 				var songId = Path.GetFileNameWithoutExtension(file);
-				if(Util.SongsDict.ContainsKey(songId))
-					UpdateOffline(Util.SongsDict[songId],true);
-				else
-					File.Delete(file);
+				//if(Util.SongsDict.ContainsKey(songId))
+				UpdateOffline(Database.Main.GetObject<Song>(songId),true);
+				//else
+					//File.Delete(file);
 			}
 		}
 		//static public WebDatabase WebDatabase { get; private set; }

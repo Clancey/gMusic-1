@@ -39,7 +39,7 @@ namespace GoogleMusic
 				return SearchResults.Count;
 			else if(Settings.ShowOfflineOnly)
 				return Util.OfflineSongsGrouped[section].Count();
-			return Util.SongsGrouped[section].Count();
+			return Database.Main.RowsInSection<Song> (section);
 		}
 
 		public override int NumberOfSections ()
@@ -48,7 +48,7 @@ namespace GoogleMusic
 				return 1;
 			if(Settings.ShowOfflineOnly)
 				return Util.OfflineSongsGrouped.Count();
-			return Util.SongsGrouped.Count();
+			return Database.Main.NumberOfSections<Song> ();
 		}
 
 		public override int GetItemViewType (int section, int row)
@@ -63,12 +63,12 @@ namespace GoogleMusic
 		string[] array;
 		public override string[] SectionIndexTitles ()
 		{
-			if(IsSearching)
+			if (IsSearching)
 				array = new string[]{};
-			else if(Settings.ShowOfflineOnly)
-				array =Util.OfflineSongsGrouped.Select(x=> x.Key).ToArray();
+			else if (Settings.ShowOfflineOnly)
+				array = Util.OfflineSongsGrouped.Select (x => x.Key).ToArray ();
 			else
-				array = Util.SongsGrouped.Select(x=> x.Key).ToArray();
+				array = Database.Main.QuickJump<Song> ();
 			return array;
 		}
 		
@@ -78,7 +78,7 @@ namespace GoogleMusic
 				return "";
 			else if(Settings.ShowOfflineOnly)
 				return Util.OfflineSongsGrouped[section].Key;			
-			return Util.SongsGrouped[section].Key;
+			return Database.Main.SectionHeader<Song> (section);
 		}
 
 		public override void RowSelected (Song song)
@@ -108,12 +108,7 @@ namespace GoogleMusic
 			}
 			else
 			{
-				if(Util.SongsGrouped.Count > section && Util.SongsGrouped[section].Count() > row)
-					thesong= Util.SongsGrouped[section].ElementAt(row);
-				else{
-					thesong = new Song();
-					tableView.ReloadData();
-				}
+				thesong = Database.Main.ObjectForRow<Song>(section,row);
 			}
 			return thesong;
 		}

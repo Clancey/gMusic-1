@@ -50,6 +50,6 @@
     <Folder Include="Resources\layout\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\layout\SectionedListSeparator.axml" />
+    <AndroidResource Include="Resources\layout\SectionedListSeparator.axml" />
   </ItemGroup>
 </Project>

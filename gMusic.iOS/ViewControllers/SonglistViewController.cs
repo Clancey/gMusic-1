@@ -43,9 +43,20 @@ namespace GoogleMusic
 			if (Settings.ShowOfflineOnly)
 				lock (Util.OfflineSongs)
 					songs = Util.OfflineSongs.Where (x => ((albumId == -1 && x.ArtistId == artistId) || x.AlbumId == albumId)).ToList ();
-			else
-				lock (Util.Songs)
-					songs = Util.Songs.Where (x => ((albumId == -1 && x.ArtistId == artistId) || x.AlbumId == albumId)).ToList ();
+			else {
+				List<string> ids;
+				lock(Database.Main.DatabaseLocker)
+				{
+					if (albumId == -1) {
+						ids = Database.Main.Query<Song>("select id from song where ArtistId = ? order by TitleNorm ",artistId).Select(x=> x.Id).ToList();
+					} else {
+						ids = Database.Main.Query<Song>("select id from song where AlbumId = ? order by Disc,Track",albumId).Select(x=> x.Id).ToList();
+					}
+				}
+				songs = ids.Select(x=> Database.Main.GetObject<Song>(x)).ToList();
+
+				//songs = Util.Songs.Where (x => ((albumId == -1 && x.ArtistId == artistId) || x.AlbumId == albumId)).ToList ();
+			}
 			if (albumId == -1) {
 				songs = songs.OrderBy (x => x.Title).ToList ();
 				foreach (var song in songs) {

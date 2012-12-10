@@ -19,11 +19,15 @@ namespace GoogleMusic
 		SongViewModel model;
 		protected override void OnCreate (Bundle bundle)
 		{
+			Database.SetDatabase ("james.clancey@gmail.com");
 			ActionFilter = MainService.SongsUpdated;
 			Util.MainVC = new MainActivity ();
 			base.OnCreate (bundle);
+			ListView.FastScrollEnabled = true;
 			ListView.ItemClick += (object sender, AdapterView.ItemClickEventArgs e) => {
-				model.RowSelected( (Song)model[e.Position]);
+				var item = model[e.Position];
+				if(item is Song)
+					model.RowSelected(item as Song);
 			};
 			this.ListAdapter = model = new SongViewModel (this, this);
 

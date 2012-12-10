@@ -15,7 +15,7 @@ namespace GoogleMusic
 		public PlaylistSongElement (PlaylistSongs pSong, bool showArtist, bool isDarkThemed, Action<Song,UITableView,NSIndexPath> accessoryTapped) : base(new Song(),showArtist,isDarkThemed,accessoryTapped)
 		{
 			PlistSong = pSong;
-			Song = Util.SongsDict [PlistSong.SongId];
+			Song = Database.Main.GetObject<Song> (PlistSong.SongId);
 		}
 	}
 

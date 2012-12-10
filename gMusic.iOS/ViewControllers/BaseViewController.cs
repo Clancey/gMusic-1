@@ -515,17 +515,17 @@ namespace GoogleMusic
 				DataLoaded = true;
 				return;
 			}
-			if (!DataLoaded || (Util.Songs.Count == 0 && Settings.SongsCount > 0)) {
-				if (!DataLoaded) {
-					Util.MainVC.ShowLoadingScreen();
-
-				}
-				DataLoaded = true;
-				if(isLoading)
-					return;
-				isLoading = true;
-				Task.Factory.StartNew(loadMusic);	
-			}
+//			if (!DataLoaded || (Util.Songs.Count == 0 && Settings.SongsCount > 0)) {
+//				if (!DataLoaded) {
+//					Util.MainVC.ShowLoadingScreen();
+//
+//				}
+//				DataLoaded = true;
+//				if(isLoading)
+//					return;
+//				isLoading = true;
+//				Task.Factory.StartNew(loadMusic);	
+//			}
 
 			
 			

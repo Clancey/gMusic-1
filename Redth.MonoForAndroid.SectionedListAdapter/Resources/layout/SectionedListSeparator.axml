@@ -5,4 +5,6 @@
     android:layout_height="wrap_content"
     android:gravity="center"
     android:text=""
-    style="?android:attr/listSeparatorTextViewStyle" />
+    style="?android:attr/listSeparatorTextViewStyle"
+    android:textColor="#ff000000"
+    android:background="#ffb0b0b0" />

@@ -75,9 +75,6 @@ public static partial class Util
 		}
 	}
 
-	public static List<Song> Songs = new List<Song> ();
-	public static List<IGrouping<string, Song>> SongsGrouped = new List<IGrouping<string, Song>> ();
-	public static Dictionary<string,Song> SongsDict = new Dictionary<string, Song> ();
 	public static List<Artist> Artists = new List<Artist> ();
 	public static Dictionary<int,Artist> ArtistsDict = new Dictionary<int, Artist> ();
 	#if !mp3tunes
@@ -342,16 +339,23 @@ public static partial class Util
 				Player.PlaySong (CurrentSong);
 			else if (CurrentSong != null)
 				Player.PlaySong (CurrentSong);
-			else if(Util.Songs.Count>0)
-			{
-				Settings.Random = true;
-				var song = Util.Songs[Util.random.Next(0, Util.Songs.Count)];
-				Util.PlaySong(song,song.ArtistId,song.AlbumId,true);
-			}
+			else
+				PlayRandom();
+
 		}
 		
 		QueueNext(null);
 
+	}
+	public static void PlayRandom()
+	{
+		var count = Database.Main.GetObjects<Song>().Count;
+		if(count >0)
+		{
+			Settings.Random = true;
+			var song = Database.Main.GetObjects<Song>()[Util.random.Next(0, count)];
+			Util.PlaySong(song,song.ArtistId,song.AlbumId,true);
+		}
 	}
 	
 	
@@ -367,7 +371,7 @@ public static partial class Util
 			NextSong = null;
 			
 			if(Settings.ShowOfflineOnly)
-				PlayList = PlayListSorted.Where(x=> Util.SongsDict[x].IsLocal).ToList ();
+				PlayList = PlayListSorted.Where(x=> Database.Main.GetObject<Song>(x).IsLocal).ToList ();
 			else
 				PlayList = PlayListSorted.Select (x => x).ToList ();
 			if(Settings.Random)
@@ -440,7 +444,7 @@ public static partial class Util
 			NextSong = Songs [currentIndex + 1];
 				 */
 				if (Settings.Random || Settings.ShowOfflineOnly) {
-					NextSong = Util.SongsDict [PlayListPlayed.Last ()];
+					NextSong = Database.Main.GetObject<Song>(PlayListPlayed.Last ());
 					PlayListPlayed.Remove (NextSong.Id);
 					
 					ThreadPool.QueueUserWorkItem (delegate {
@@ -453,7 +457,7 @@ public static partial class Util
 						previousIdRunning = false;
 						return;
 					}
-					NextSong = Util.SongsDict [PlayListSorted [index - 1]];
+					NextSong = Database.Main.GetObject<Song>(PlayListSorted [index - 1]);
 				}
 				
 				CurrentSong = NextSong;
@@ -589,7 +593,9 @@ public static partial class Util
 				
 				string song = null;
 				//Console.WriteLine ("Getting playlist");
-				PlayListSorted = Util.Songs.Where (x => x.AlbumId == albumId).OrderBy (x => x.Track).OrderBy (x => x.Disc).Select (x => x.Id).ToList ();
+				lock(Database.Main.DatabaseLocker)
+					PlayListSorted = Database.Main.Query<Song>("select id from song where AlbumId = ? order by Disc,Track",albumId).Select(x=> x.Id).ToList();
+				//PlayListSorted = Util.Songs.Where (x => x.AlbumId == albumId).OrderBy (x => x.Track).OrderBy (x => x.Disc).Select (x => x.Id).ToList ();
 				
 				if (Settings.ShowOfflineOnly)
 					PlayList = PlayListSorted.Where (x => Util.OfflineSongsList.ContainsKey (x) && Util.OfflineSongsList [x]).ToList ();
@@ -604,7 +610,7 @@ public static partial class Util
 				if (Settings.Random || Settings.ShowOfflineOnly) 
 					PlayList.Remove (song);
 				
-				Util.CurrentSong = Util.SongsDict [song];
+				Util.CurrentSong = Database.Main.GetObject<Song>(song);
 				
 				ThreadPool.QueueUserWorkItem (delegate {
 					SaveCache (true);
@@ -731,17 +737,16 @@ public static partial class Util
 							NextSongs.Clear ();
 							NextSong = null;
 							if (!playAllSongs) {
-								//Console.WriteLine ("Getting playlist");
-								lock (Util.Songs) {
-									var list = Util.Songs.Where (x => ((albumId == -1 && x.ArtistId == artistId) || x.AlbumId == albumId)).ToList ();
-									if (albumId == -1) {
-										PlayListSorted = list.OrderBy (x => x.Title).Select (x => x.Id).ToList ();
-										FlurryAnalytics.FlurryAnalytics.LogEvent ("Play Artist");
-									} else {
-										PlayListSorted = list.OrderBy (x => x.Track).OrderBy (x => x.Disc).Select (x => x.Id).ToList ();
-										FlurryAnalytics.FlurryAnalytics.LogEvent ("Play Album");
-									}
+								if (albumId == -1) {
+									lock(Database.Main.DatabaseLocker)
+									PlayListSorted = Database.Main.Query<Song>("select id from song where ArtistId = ? order by TitleNorm ",song.ArtistId).Select(x=> x.Id).ToList();
+									FlurryAnalytics.FlurryAnalytics.LogEvent ("Play Artist");
+								} else {
+								lock(Database.Main.DatabaseLocker)
+									PlayListSorted = Database.Main.Query<Song>("select id from song where AlbumId = ? order by Disc,Track",albumId).Select(x=> x.Id).ToList();
+									FlurryAnalytics.FlurryAnalytics.LogEvent ("Play Album");
 								}
+								
 								if (Settings.ShowOfflineOnly) {
 									PlayList = PlayListSorted.Where (x => Util.OfflineSongsList.ContainsKey (x) && Util.OfflineSongsList [x]).ToList ();
 									int index = PlayList.IndexOf (song.Id);
@@ -755,10 +760,10 @@ public static partial class Util
 								if (Settings.Random) {
 									if (song == null) {
 										var songInt = random.Next (0, PlayList.Count - 1);
-										song = Util.SongsDict [PlayList [songInt]];
+										song = Database.Main.GetObject<Song>(PlayList [songInt]);
 									}
 								} else if (song == null)
-									song = Util.SongsDict [PlayListSorted.First ()];
+									song =  Database.Main.GetObject<Song>(PlayListSorted.First ());
 								if (Settings.Random) {
 									if (song != null)
 										PlayList.Remove (song.Id);
@@ -768,7 +773,8 @@ public static partial class Util
 									FlurryAnalytics.FlurryAnalytics.LogEvent ("Play All Songs");
 								});
 								Console.WriteLine ("shuffleing");
-								PlayListSorted = Util.Songs.Select (x => x.Id).ToList ();
+							lock(Database.Main.DatabaseLocker)
+								PlayListSorted = Database.Main.Query<Song>("select id from song  Order by TitleNorm ").Select(x => x.Id).ToList();
 								
 								if (Settings.ShowOfflineOnly)
 									PlayList = PlayListSorted.Where (x => Util.OfflineSongsList.ContainsKey (x) && Util.OfflineSongsList [x]).ToList ();
@@ -812,9 +818,9 @@ public static partial class Util
 				//Util.CurrentSong = song;
 				FlurryAnalytics.FlurryAnalytics.LogEvent ("Play Genre");
 				PlayAllSongs = false;
-				lock (Util.Songs) {
-					PlayListSorted = Util.Songs.Where (x => x.GenreId == genreId).OrderBy (x => x.Title).Select (x => x.Id).ToList ();
-				}
+
+				PlayListSorted = Database.Main.Query<Song>("select id from song where GenreId = ? order TitleNorm",genreId).Select(x=> x.Id).ToList();
+
 				if (Settings.ShowOfflineOnly)
 					PlayList = PlayListSorted.Where (x => Util.OfflineSongsList.ContainsKey (x) && Util.OfflineSongsList [x]).ToList ();
 				else if (Settings.Random)
@@ -822,9 +828,9 @@ public static partial class Util
 				if (song == null) {	
 					if (Settings.Random) {
 						var songInt = random.Next (0, PlayList.Count - 1);
-						song = Util.SongsDict [PlayList [songInt]];
+						song = Database.Main.GetObject<Song>(PlayList [songInt]);
 					} else
-						song = Util.SongsDict [PlayListSorted.FirstOrDefault ()];
+						song = Database.Main.GetObject<Song>(PlayListSorted.FirstOrDefault ());
 				}
 				CurrentSong = song;
 				//Console.WriteLine ("clear playlist");
@@ -887,9 +893,9 @@ public static partial class Util
 					if (song == null) {	
 						if (Settings.Random) {
 							var songInt = random.Next (0, PlayList.Count - 1);
-							song = Util.SongsDict [PlayList [songInt]];
+							song = Database.Main.GetObject<Song>(PlayList [songInt]);
 						} else
-							song = Util.SongsDict [PlayListSorted.FirstOrDefault ()];
+							song = Database.Main.GetObject<Song>(PlayListSorted.FirstOrDefault ());
 					}
 					
 					Util.CurrentSong = song;
@@ -938,52 +944,7 @@ public static partial class Util
 		#if !DEBUG
 		return;	
 		#endif
-		Console.WriteLine ("-------------------------------------");
-		Console.WriteLine ("-------------------------------------");
-		Console.WriteLine ("---------------InQueue---------------");
-		Console.WriteLine ("-------------------------------------");
-		Console.WriteLine ("-------------------------------------");
-		
-		//Console.WriteLine ("Count: " + Downloader.remainingFiles.Count ());
-		
-		Console.WriteLine ("-------------------------------------");
-		Console.WriteLine ("-------------------------------------");
-		Console.WriteLine ("-----------Playlist Played-----------");
-		Console.WriteLine ("-------------------------------------");
-		Console.WriteLine ("-------------------------------------");
-		Console.WriteLine ("Count: " + PlayListPlayed.Count);
-		foreach (var song in PlayListPlayed)
-			Console.WriteLine (Util.SongsDict [song].Title);
-		
-		
-		Console.WriteLine ("-------------------------------------");
-		Console.WriteLine ("-------------------------------------");
-		Console.WriteLine ("-----------Next Songs----------------");
-		Console.WriteLine ("-------------------------------------");
-		Console.WriteLine ("-------------------------------------");
-		Console.WriteLine ("Count: " + NextSongs.Count);
-		foreach (var song in NextSongs)
-			Console.WriteLine (Util.SongsDict [song].Title);
-		
-		
-		
-		
-		Console.WriteLine ("-------------------------------------");
-		Console.WriteLine ("-------------------------------------");
-		Console.WriteLine ("-----------The Next Song-------------");
-		Console.WriteLine ("-------------------------------------");
-		Console.WriteLine ("-------------------------------------");
-		Console.WriteLine ("Next song: " + (NextSong == null ? "null" : NextSong.Title));
-		
-		Console.WriteLine ("-------------------------------------");
-		Console.WriteLine ("-------------------------------------");
-		Console.WriteLine ("-----------Playlist Songs------------");
-		Console.WriteLine ("-------------------------------------");
-		Console.WriteLine ("-------------------------------------");
-		Console.WriteLine ("Count: " + PlayList.Count);
-		foreach (var song in PlayList)
-			Console.WriteLine (Util.SongsDict [song].Title);
-		
+	
 	}
 	
 
@@ -1061,12 +1022,8 @@ public static partial class Util
 						{
 							Util.PlayPause();
 						}
-						else if(Util.Songs.Count>0)
-						{
-							Settings.Random = true;
-							var song = Util.Songs[Util.random.Next(0, Util.Songs.Count)];
-							Util.PlaySong(song,song.ArtistId,song.AlbumId,true);
-						}
+						else 
+							PlayRandom();
 					}	
 				}
 			});
@@ -1078,97 +1035,23 @@ public static partial class Util
 	public static void LoadData ()
 	{
 		Console.WriteLine ("loading data");
-		if (!Database.DatabaseExists (Database.CurrentUser)) {
-			Util.Artists.Clear ();// = Database.WebDatabase.Query<Artist> ("select * from artists order by nameNorm").ToList ();
-			Util.ArtistsDict.Clear ();// = Util.Artists.ToDictionary (x => x.Id, x => x);
-			Util.ArtistsGrouped.Clear ();// = Util.Artists.Where (x => x.NormName != "").GroupBy (x => (!string.IsNullOrEmpty (x.IndexChar) && char.IsLetter (x.IndexChar [0]) ? x.IndexChar : "#")).OrderBy (x => x.Key).ToList ();
-			
-			//songs
-			Util.Songs.Clear ();// = Database.WebDatabase.Query<Song> ("select * from songs order by NameNorm").ToList ();
-			Util.SongsDict.Clear ();// = Util.Songs.ToDictionary (x => x.Id, x => x);
-			Util.SongsGrouped.Clear ();
-			Settings.SongsCount = Songs.Count;
-			
-			//Albums
-			Util.Albums.Clear ();// = Database.WebDatabase.Query<Album> ("select * from albums order by NameNorm").ToList ();
-			Util.AlbumsDict.Clear ();// = Util.Albums.ToDictionary (x => x.Id, x => x);
-			Util.AlbumsGrouped.Clear ();// = Util.Albums.Where (x => x.NameNorm != "").GroupBy (x => (!string.IsNullOrEmpty (x.IndexChar) && char.IsLetter (x.IndexChar [0]) ? x.IndexChar : "#")).OrderBy (x => x.Key).ToList ();
-			
-			//genres
-			Util.Genres.Clear ();// = Database.WebDatabase.Query<Genre> ("select * from genres order by NameNorm").ToList ();
-			Util.GenresDict.Clear ();// = Util.Genres.ToDictionary (x => x.Id, x => x);
-			Util.GenreGroupped.Clear ();// = Util.Genres.Where (x => x.NameNorm != "").GroupBy (x => (!string.IsNullOrEmpty (x.IndexChar) && char.IsLetter (x.IndexChar [0]) ? x.IndexChar : "#")).OrderBy (x => x.Key).ToList ();
-			
-			Util.PlaylistsList.Clear ();// = Database.WebDatabase.Query<Playlist> ("select * from playlists").ToList ();
-			
-		} else {
-			lock (Database.Locker) {
-				try {
-					//Artists
-					Util.Artists = Database.Main.Query<Artist> ("select * from Artist  order by NormName").ToList ();
-					Util.ArtistsDict = Util.Artists.ToDictionary (x => x.Id, x => x);
-					#if !mp3tunes
-					Util.ArtistIdsDict = Util.Artists.ToDictionary (x => x.NormName, x => x.Id);
-					#endif
-					Util.ArtistsGrouped = Util.Artists.Where (x => x.NormName != "").GroupBy (x => x.IndexCharacter).OrderBy (x => x.Key).ToList ();
-					Console.WriteLine ("grouping artists complete");
-					
-					//songs
-					Util.Songs = Database.Main.Query<Song> ("select * from Song  order by TitleNorm").ToList ();
-					Util.SongsDict = Util.Songs.ToDictionary (x => x.Id, x => x);
-					Util.SongsGrouped = Util.Songs.Where (x => x.IndexCharacter != "").GroupBy (x => x.IndexCharacter).OrderBy (x => x.Key).ToList ();
-					Console.WriteLine ("Grouping songs complete");
-					
-					//Albums
-					Util.Albums = Database.Main.Query<Album> ("select al.* from Album al inner join Artist ar on al.ArtistId = ar.Id order by ar.NormName, al.NameNorm").ToList ();
-					Util.AlbumsDict = Util.Albums.ToDictionary (x => x.Id, x => x);
-					#if !mp3tunes
-					Util.AlbumsIdsDict = Util.Albums.ToDictionary (x => new Tuple<int,string> (x.ArtistId, x.NameNorm), x => x.Id);
-					#endif
-					Util.AlbumsGrouped = Util.Albums.OrderBy (x => x.NameNorm).Where (x => x.NameNorm != "").GroupBy (x => x.IndexCharacter).OrderBy (x => x.Key).ToList ();
-					
-					//Genres
-					Util.Genres = Database.Main.Query<Genre> ("select * from Genre order by Name").ToList ();
-					Util.GenresDict = Util.Genres.ToDictionary (x => x.Id, x => x);
-					#if !mp3tunes
-					Util.GenresIdsDict = Util.Genres.ToDictionary (x => x.Name, x => x.Id);
-					#endif
-					Util.GenreGroupped = Util.Genres.Where (x => x.Name != "").GroupBy (x => x.IndexCharacter).OrderBy (x => x.Key).ToList ();
-					
-					Util.PlaylistsList = Database.Main.Table<Playlist> ().Where (x => x.AutoPlaylist == false).OrderBy (x => x.Name).ToList ();
-					Util.AutoPlaylists = Database.Main.Table<Playlist> ().Where (x => x.AutoPlaylist == true).OrderBy (x => x.Name).ToList ();
-					
-					
-					Util.OfflineSongsList = Database.Main.Query<SongOfflineClass> ("select * from SongOfflineClass").ToDictionary (x => x.Id, x => x.Offline);
-					Util.OfflineArtistList = Database.Main.Table<ArtistOfflineClass> ().ToDictionary (x => x.Id, x => x.OfflineCount);
-					Util.OfflineAlbumsList = Database.Main.Table<AlbumOfflineClass> ().ToDictionary (x => x.Id, x => x.OfflineCount);
-					Util.OfflineGenreList = Database.Main.Table<GenreOfflineClass> ().ToDictionary (x => x.Id, x => x.OfflineCount);
-					
-					
-				} catch (Exception ex) {
-					Console.WriteLine(ex);
-					Database.ResetDatabase ();
+		if (Database.DatabaseExists (Database.CurrentUser)) {			
+			Database.Main.Precache<Song>();
+			LoadCache ();
+			var currentSongId = Settings.CurrentSongId;
+			if (!string.IsNullOrEmpty (currentSongId)) {
+				CurrentSong = Database.Main.GetObject<Song>( currentSongId);
+				if(!hasLoaded)
+				{
+					Util.EnsureInvokedOnMainThread (delegate{
+						MainVC.SetState (false);
+						MainVC.ShowNowPlaying ();
+					});
+					hasLoaded = true;
 				}
-				
-				LoadCache ();
-				var currentSongId = Settings.CurrentSongId;
-				if (!string.IsNullOrEmpty (currentSongId) && SongsDict.ContainsKey (currentSongId)) {
-					CurrentSong = SongsDict [currentSongId];
-					if(!hasLoaded)
-					{
-						Util.EnsureInvokedOnMainThread (delegate{
-							MainVC.SetState (false);
-							MainVC.ShowNowPlaying ();
-						});
-						hasLoaded = true;
-					}
-				}
-				
 			}
-		}	
-		Settings.SongsCount = Util.Songs.Count;
-		if (Settings.SongsCount == 0)
-			Settings.LastUpdateRequest = "";
+		}
+
 		Util.UpdateOfflineSongs (true, false, false);
 		Util.MainVC.RefreshSongs ();
 		Util.MainVC.RefreshAlbum ();
@@ -1182,51 +1065,50 @@ public static partial class Util
 	
 	public static void UpdateOfflineSongs (bool includeAll, bool notify, bool resetCurrentPlaying = false)
 	{
-		
-		lock (Util.Songs) {
-			lock (Util.OfflineSongs) {
-				Util.OfflineSongs = Songs.Where (x => x.IsLocal).ToList ();
-				Util.OfflineSongsGrouped = OfflineSongs.OrderBy (x => x.TitleNorm).GroupBy (x => x.IndexCharacter).OrderBy (x => x.Key).ToList ();	
-			}
-		}
-		if (notify)
-			MainVC.RefreshSongs ();
-		if (!includeAll)
-			return;
-		UpdateOfflineArtist (notify);
-		UpdateOfflineAlbum (notify);
-		#if !mp3tunes
-		UpdateOfflineGenre (notify);
-		#endif
-		UpdateOfflinePlaylists (notify);
 
-		if (resetCurrentPlaying) {
-			PlayListPlayed.Clear ();
-			NextSongs.Clear ();
-			PlayList.Clear ();
-			if (Settings.ShowOfflineOnly) {
-				foreach (var song in PlayListSorted) {
-					if (OfflineSongsList.ContainsKey (song) && OfflineSongsList [song])
-						PlayList.Add (song);
-				}
-				if (!Settings.Random && Util.CurrentSong != null) {
-					var curIndex = PlayList.IndexOf (Util.CurrentSong.Id);
-					if(curIndex != -1)
-					{
-						PlayListPlayed.AddRange (PlayList.GetRange (0, curIndex));
-						PlayList.RemoveRange (0, curIndex + 1);
-					}
-				}
-				//PlayList = PlayListSorted.Where (x => OfflineSongsList.ContainsKey (x) && OfflineSongsList [x]).ToList ();
-			} else if (Settings.Random)
-				PlayList = PlayListSorted.ToList ();
-			if (CurrentSong != null && PlayList.Contains (CurrentSong.Id))
-				PlayList.Remove (CurrentSong.Id);
-			
-			SaveCache (true);
-			Console.WriteLine ("finished reseting");
-			MainVC.SetPlayCount ();
-		}
+//		lock (Util.OfflineSongs) {
+//			Util.OfflineSongs = Songs.Where (x => x.IsLocal).ToList ();
+//			Util.OfflineSongsGrouped = OfflineSongs.OrderBy (x => x.TitleNorm).GroupBy (x => x.IndexCharacter).OrderBy (x => x.Key).ToList ();	
+//		}
+//
+//		if (notify)
+//			MainVC.RefreshSongs ();
+//		if (!includeAll)
+//			return;
+//		UpdateOfflineArtist (notify);
+//		UpdateOfflineAlbum (notify);
+//		#if !mp3tunes
+//		UpdateOfflineGenre (notify);
+//		#endif
+//		UpdateOfflinePlaylists (notify);
+//
+//		if (resetCurrentPlaying) {
+//			PlayListPlayed.Clear ();
+//			NextSongs.Clear ();
+//			PlayList.Clear ();
+//			if (Settings.ShowOfflineOnly) {
+//				foreach (var song in PlayListSorted) {
+//					if (OfflineSongsList.ContainsKey (song) && OfflineSongsList [song])
+//						PlayList.Add (song);
+//				}
+//				if (!Settings.Random && Util.CurrentSong != null) {
+//					var curIndex = PlayList.IndexOf (Util.CurrentSong.Id);
+//					if(curIndex != -1)
+//					{
+//						PlayListPlayed.AddRange (PlayList.GetRange (0, curIndex));
+//						PlayList.RemoveRange (0, curIndex + 1);
+//					}
+//				}
+//				//PlayList = PlayListSorted.Where (x => OfflineSongsList.ContainsKey (x) && OfflineSongsList [x]).ToList ();
+//			} else if (Settings.Random)
+//				PlayList = PlayListSorted.ToList ();
+//			if (CurrentSong != null && PlayList.Contains (CurrentSong.Id))
+//				PlayList.Remove (CurrentSong.Id);
+//			
+//			SaveCache (true);
+//			Console.WriteLine ("finished reseting");
+//			MainVC.SetPlayCount ();
+//		}
 		
 	}
 	
@@ -1298,7 +1180,7 @@ public static partial class Util
 		
 		
 		try{
-			lock (Database.Locker) {
+			lock (Database.Main.DatabaseLocker) {
 				NextSongs = Database.Main.Query<stringClass> ("select id from NextSongCache").Select (x => x.id).ToList ();
 				PlayListSorted = Database.Main.Query<stringClass> ("select id from PlaylistSortedCache").Select (x => x.id).ToList ();
 				if (Settings.Random) {
@@ -1306,8 +1188,8 @@ public static partial class Util
 					PlayList = PlayListSorted.Select (x => x).Where (x => !PlayListPlayed.Contains (x)).ToList ();
 					if(Settings.ShowOfflineOnly)
 					{
-						PlayListPlayed = PlayListPlayed.Where(x=> Util.SongsDict.ContainsKey(x) && Util.SongsDict[x].IsLocal).ToList ();
-						PlayList = PlayList.Where(x=> Util.SongsDict.ContainsKey(x) &&  Util.SongsDict[x].IsLocal).ToList ();
+						//PlayListPlayed = PlayListPlayed.Where(x=> Util.SongsDict.ContainsKey(x) && Util.SongsDict[x].IsLocal).ToList ();
+						//PlayList = PlayList.Where(x=> Util.SongsDict.ContainsKey(x) &&  Util.SongsDict[x].IsLocal).ToList ();
 					}
 				}
 				Console.WriteLine (Settings.CurrentSongId);
@@ -1322,7 +1204,7 @@ public static partial class Util
 	private static void SaveCache (bool saveSorted)
 	{
 		
-		lock (Database.Locker) {
+		lock (Database.Main.DatabaseLocker) {
 			Database.Main.Execute ("drop table PreviousPlayedCache");
 			Database.Main.Execute ("drop table NextSongCache");
 			if(saveSorted){

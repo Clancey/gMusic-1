@@ -324,6 +324,12 @@
     <Compile Include="..\gMusic\ViewModels\SongViewModel.cs">
       <Link>gMusic\ViewModels\SongViewModel.cs</Link>
     </Compile>
+    <Compile Include="..\..\InstantDatabase\InstantDatabase\Model\Group.cs">
+      <Link>gMusic\Data\Group.cs</Link>
+    </Compile>
+    <Compile Include="..\..\InstantDatabase\InstantDatabase\InstantDatabase.cs">
+      <Link>gMusic\Data\InstantDatabase.cs</Link>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

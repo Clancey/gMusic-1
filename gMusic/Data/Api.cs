@@ -22,11 +22,11 @@ namespace GoogleMusic
 			user = userName;
 			cookiesFilePath = Util.BaseDir + "/Documents/" + userName;
 			LoadCookies();
-			foreach(var song in Util.Songs.Where(x=> !x.IsLocal && x.ShouldBeLocal).ToList())
-			{
-				//TODO: downloader
-				//Downloader.AddFile(song);
-			}
+//			foreach(var song in Util.Songs.Where(x=> !x.IsLocal && x.ShouldBeLocal).ToList())
+//			{
+//				//TODO: downloader
+//				//Downloader.AddFile(song);
+//			}
 		}
 		internal CookieContainer cookies = new CookieContainer ();
 		protected string user;

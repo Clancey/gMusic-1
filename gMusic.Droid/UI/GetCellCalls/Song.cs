@@ -3,6 +3,7 @@ using Android.Views;
 using Android.App;
 using Android.Widget;
 using Redth.MonoForAndroid;
+using Android.Graphics;
 
 namespace GoogleMusic
 {
@@ -13,7 +14,11 @@ namespace GoogleMusic
 			View view = convertView; // re-use an existing view, if one is available
 			if (view == null) // otherwise create a new one
 				view = inflater.Inflate (Android.Resource.Layout.SimpleListItem1, null);
-			view.FindViewById<TextView> (Android.Resource.Id.Text1).Text = string.Format("{0} {1}",this.Title,this.Artist);
+			var textView = view.FindViewById<TextView> (Android.Resource.Id.Text1);
+			textView.Text = string.Format("{0} {1}",this.Title,this.Artist);
+			textView.SetTextColor (Color.White);
+			textView.SetBackgroundColor(Color.Transparent);
+			
 			return view;
 		}
 		

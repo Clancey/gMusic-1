@@ -31,6 +31,7 @@ namespace GoogleMusic
 			if (!string.IsNullOrEmpty (Settings.UserName))
 				Database.SetDatabase (Settings.UserName);
 			Task.Factory.StartNew(delegate{
+				Database.SetDatabase ("james.clancey@gmail.com");
 				Util.LoadData();
 				if (Util.Api == null)
 					Util.Api = new GoogleMusicApi ("james.clancey@gmail.com");

@@ -23,10 +23,7 @@ namespace GoogleMusic
 			Screen = Screens.Songs;
 			this.Title = "Songs".Translate();
 			this.ShuffleClicked += delegate {
-				Settings.Random = true;
-				Random rand = new Random();
-				var song = Util.Songs[rand.Next(0, Util.Songs.Count)];
-				Util.PlaySong(song,song.ArtistId,song.AlbumId,true);
+				Util.PlayRandom();
 			};
 		}
 		protected override void setupTable ()
@@ -90,8 +87,8 @@ namespace GoogleMusic
 			}
 			else
 			{
-				lock(Util.Songs)
-					DataSource.SearchResults = Util.Songs.Where( a=> a.Title.IndexOf(text,StringComparison.OrdinalIgnoreCase) != -1 || a.Artist.IndexOf(text,StringComparison.OrdinalIgnoreCase) != -1).ToList();	
+				//TODO: Fix Search
+				//DataSource.SearchResults = Util.Songs.Where( a=> a.Title.IndexOf(text,StringComparison.OrdinalIgnoreCase) != -1 || a.Artist.IndexOf(text,StringComparison.OrdinalIgnoreCase) != -1).ToList();	
 			
 				DataSource.IsSearching = true;
 			}

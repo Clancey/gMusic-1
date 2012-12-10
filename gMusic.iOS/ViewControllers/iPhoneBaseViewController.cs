@@ -47,7 +47,7 @@ namespace GoogleMusic
 					new StringElement("songs")
 				}
 			};
-			this.View = NavigationController.View;
+			this.View.AddSubview(NavigationController.View);
 			this.AddChildViewController (NavigationController);
 		}
 

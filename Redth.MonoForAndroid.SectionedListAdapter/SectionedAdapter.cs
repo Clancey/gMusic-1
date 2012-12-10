@@ -9,10 +9,11 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Android.Graphics;
 
 namespace Redth.MonoForAndroid
 {
-	public abstract class SectionedAdapter<T> : BaseAdapter<object>
+	public abstract class SectionedAdapter<T> : BaseAdapter<object>, ISectionIndexer
 	{
 		const int TYPE_SECTION_HEADER = 0;
 
@@ -78,6 +79,38 @@ namespace Redth.MonoForAndroid
 		{
 			return false;
 		}
+
+		#region ISectionIndexer implementation
+
+
+		public int GetPositionForSection (int section)
+		{
+			int count = 0;
+			for(int i = 0; i < section; i++)
+			{
+				count += RowsInSection(i);
+			}
+			return count;
+		}
+
+
+		public int GetSectionForPosition (int position)
+		{
+			return 1;
+		}
+
+
+		public Java.Lang.Object[] GetSections ()
+		{
+			List<Java.Lang.Object> sections = new List<Java.Lang.Object> ();
+			foreach(var section in SectionIndexTitles())
+				sections.Add (section);
+			return sections.ToArray ();
+		}
+
+
+		#endregion
+
 //
 //		public override int GetItemViewType(int position)
 //		{
@@ -132,8 +165,11 @@ namespace Redth.MonoForAndroid
 				
 				separator = (inflater.Inflate(sectionedListSeparator, null) as TextView);
 			}
+			if(item != null)
+				separator.Text = item.ToString ();
 			
-			separator.Text = item.ToString ();
+			separator.SetBackgroundColor(Color.Gray);
+			separator.SetTextColor(Color.Black);
 			return separator;
 		}
 

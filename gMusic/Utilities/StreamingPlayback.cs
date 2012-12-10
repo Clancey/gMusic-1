@@ -196,7 +196,7 @@ namespace GoogleMusic
 		[MonoTouch.MonoPInvokeCallback (typeof(SYNCPROC))]
 		private static void EndSync(int handle, int channel, int data, IntPtr user)	
 		{
-			finishedPlaying (Util.SongsDict[songsInt[user.ToInt32()]]);
+			finishedPlaying (Database.Main.GetObject<Song>(songsInt[user.ToInt32()]));
 		}
 		static object streamLocker = new object();
 		public static int setStream(Song song)
@@ -256,7 +256,7 @@ namespace GoogleMusic
 				var soFar = Bass.BASS_StreamGetFilePosition (stream, BASSStreamFilePosition.BASS_FILEPOS_DOWNLOAD);
 				var total = Bass.BASS_StreamGetFilePosition (stream, BASSStreamFilePosition.BASS_FILEPOS_END);
 				var percent = (float)soFar / (float)total;
-				var song = Util.SongsDict [songsInt [id]];
+				var song = Database.Main.GetObject<Song>(songsInt [id]);
 				song.PulseDownload (percent);
 				if (length == 0)
 					Util.QueueNext ((nextSong) => {

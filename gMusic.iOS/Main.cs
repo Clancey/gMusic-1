@@ -392,11 +392,9 @@ namespace GoogleMusic
 				{
 					Util.PlayPause();
 				}
-				else if(Util.Songs.Count>0)
+				else 
 				{
-					Settings.Random = true;
-					var song = Util.Songs[Util.random.Next(0, Util.Songs.Count)];
-					Util.PlaySong(song,song.ArtistId,song.AlbumId,true);
+					Util.PlayRandom();
 				}
 			}	
 			
