@@ -306,7 +306,7 @@ namespace GoogleMusic
 				return true;
 			} catch (Exception e) {
 				Console.WriteLine ("Problem with {0} {1}", uri, e);
-				return false;
+				return true;
 			}
 		}
 

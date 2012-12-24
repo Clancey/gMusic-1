@@ -10,22 +10,24 @@ namespace GoogleMusic
 		: UIImage
 #endif
 	{
-		public static Image Load(string path)
-		{
+		public Image(string path)
 #if iOS
-			return (Image)UIImage.FromFile (path);
-#endif 
-			return new Image ();
+			: base(path)
+#endif
+		{
+
 		}
+	
 	}
 	public static class Images
 	{
+
 		static Image defaultAlbumImage;
 		public static Image DefaultAlbumImage
 		{
 			get{
 				if (defaultAlbumImage == null)
-					defaultAlbumImage = Image.Load("Images/default_album_large.png");
+					defaultAlbumImage = new Image("Images/default_album_large.png");
 				return defaultAlbumImage;
 			}
 		}

@@ -27,9 +27,13 @@ namespace GoogleMusic
 			CreateTable<Song>();
 			MakeClassInstant<Song> ();
 			CreateTable<Artist>();
+			MakeClassInstant<Artist> ();
 			CreateTable<Album>();
+			MakeClassInstant<Album> ();
 			CreateTable<Genre>();
+			MakeClassInstant<Genre> ();
 			CreateTable<Playlist>();
+			MakeClassInstant<Playlist> (PlaylistViewModel.GroupInfo);
 			CreateTable<PlaylistSongs>();
 			CreateTable<SongOfflineClass>();
 			CreateTable<AlbumOfflineClass>();
@@ -49,12 +53,11 @@ namespace GoogleMusic
 #else
 		public static readonly string BaseDir = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
 #endif
-		public static object Locker = new object();
 		static public Database Main { get; private set; }
 		static string dbPath;
 		public static void SetDatabase (string user)
 		{
-			lock (Locker) {
+			lock (DatabaseLocker) {
 				if(!Directory.Exists(Util.MusicDir))
 					Directory.CreateDirectory(Util.MusicDir);
 				if (string.IsNullOrEmpty (user))
@@ -94,7 +97,7 @@ namespace GoogleMusic
 		{
 			if(Main == null)
 				return;
-			lock(Locker)
+			lock(DatabaseLocker)
 			{
 				while(File.Exists(dbPath))
 				{
@@ -188,7 +191,7 @@ namespace GoogleMusic
 					Util.OfflineSongsList[song.Id] = isOffline;
 				else
 					Util.OfflineSongsList.Add(song.Id,isOffline);
-				lock(Locker)
+				lock(DatabaseLocker)
 				{
 
 					if(!isOffline)
@@ -212,7 +215,7 @@ namespace GoogleMusic
 		public void UpdatePlaylistOfflineCount()
 		{
 			try{
-			lock(Locker)
+			lock(DatabaseLocker)
 				this.Execute("update playlist set OffineCount = ifnull((select count(ps.SongId) from playlistsongs ps inner join SongOfflineClass soc on ps.songid = soc.id where ps.ServerPlaylistId = ServerId group by ps.ServerPlaylistId),0)");
 			}
 			catch(Exception ex)
@@ -230,7 +233,7 @@ namespace GoogleMusic
 		
 		public void ResetOffline()
 		{
-			lock(Locker)
+			lock(DatabaseLocker)
 			{
 				this.Execute("delete from SongOfflineClass"); 
 				this.Execute("delete from AlbumOfflineClass"); 

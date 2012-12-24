@@ -40,10 +40,32 @@ namespace GoogleMusic
 				var pendingServiceIntent = PendingIntent.GetService (this, 0, serviceIntent, PendingIntentFlags.CancelCurrent);
 				pendingServiceIntent.Send();
 			}
+			//LogIn ();
 		}
 		public virtual void HandleRefresh()
 		{
 
+		}
+		public void LogIn()
+		{
+			
+			Intent intent = new Intent(this, typeof(WebLoginActivity));
+			StartActivityForResult (intent, 0);
+		}
+		protected override void OnActivityResult (int requestCode, Result resultCode, Intent data)
+		{
+			switch (requestCode) {
+			case 0:
+				if (resultCode != Result.Ok || data == null) {
+					return;
+				}
+				// Get the token.
+				String token = data.GetStringExtra("token");
+				if (token != null) {
+					/* Use the token to access data */
+				}
+				return;
+			}
 		}
 
 		class BaseReceiver : BroadcastReceiver

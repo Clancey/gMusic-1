@@ -17,9 +17,11 @@ namespace GoogleMusic
 {
 	public class iPhoneBaseViewController : MainViewController
 	{
-		AVAudioPlayer SilentPlayer;
 		SongViewController songVc;
-
+		ArtistViewController artistVc;
+		PlaylistViewController playlistVc;
+		AlbumViewController albumVc;
+		GenreViewController genreVc;
 		string currentPlayId {
 			get;
 			set;
@@ -39,12 +41,24 @@ namespace GoogleMusic
 				Settings.CurrentTab = 1;
 			NavigationController = new FlyOutNavigationController ();
 			songVc = new SongViewController ();
+			artistVc = new ArtistViewController ();
+			playlistVc = new PlaylistViewController ();
+			albumVc = new AlbumViewController ();
+			genreVc = new GenreViewController ();
 			NavigationController.ViewControllers = new UIViewController[]{
 				new UINavigationController (songVc),
+				new UINavigationController(artistVc),
+				new UINavigationController(playlistVc),
+				new UINavigationController(albumVc),
+				new UINavigationController(genreVc),
 			};
 			NavigationController.NavigationRoot = new RootElement (""){
 				new Section(){
-					new StringElement("songs")
+					new StringElement("Songs"),
+					new StringElement("Artists"),
+					new StringElement("Playlists"),
+					new StringElement("Albums"),
+					new StringElement("Genres"),
 				}
 			};
 			this.View.AddSubview(NavigationController.View);

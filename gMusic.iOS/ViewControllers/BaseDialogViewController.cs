@@ -13,7 +13,7 @@ namespace GoogleMusic
 {
 	public class BaseDialogViewController : DialogViewController
 	{
-		protected SonglistViewController CurrentSongListViewController;
+		//protected SonglistViewController CurrentSongListViewController;
 		protected EditSongViewController CurrentSongEditor;
 		PopUpView popUpView;
 		public bool DarkThemed;

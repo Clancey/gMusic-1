@@ -68,7 +68,6 @@ namespace GoogleMusic
 		void broadcast(string action)
 		{
 			var intent = new Intent (action);
-			
 			SendOrderedBroadcast (intent, null);
 		}
 		#region IMainViewController implementation

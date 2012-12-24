@@ -18,9 +18,9 @@ using System.Collections.Generic;
 namespace GoogleMusic
 {
 	[Serializable]
-	public class cookie
+	public class gcookie
 	{
-		public cookie ()
+		public gcookie ()
 		{
 			Properties = new Dictionary<string, string>();
 		}

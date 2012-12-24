@@ -1,5 +1,6 @@
 using System;
 using SQLite;
+using Xamarin.Data;
 
 namespace GoogleMusic
 {
@@ -13,9 +14,11 @@ namespace GoogleMusic
 		public int Id { get; set; }
 
 		[Indexed]
+		[OrderBy]
 		public string Name { get; set; }
 
 		[Indexed]
+		[GroupBy]
 		public string IndexCharacter { get; set; }
 
 		public bool ShouldBeLocal { get; set; }

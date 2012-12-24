@@ -1,5 +1,6 @@
 using System;
 using SQLite;
+using Xamarin.Data;
 
 namespace GoogleMusic
 {
@@ -43,6 +44,7 @@ namespace GoogleMusic
 		}
 
 		[Indexed]
+		[GroupBy]
 		public string IndexCharacter { get; set; }
 
 		[Ignore]
@@ -56,7 +58,8 @@ namespace GoogleMusic
 		}
 
 		public string Name { get; set; }
-
+		[OrderBy]
+		[Indexed]
 		public string NameNorm { get; set; }
 #if iOS	
 		public MonoTouch.UIKit.UIImage AlbumArt (int size)
@@ -64,9 +67,7 @@ namespace GoogleMusic
 			var url = albumArt (size);
 			if (string.IsNullOrEmpty (url))
 				return Images.DefaultAlbumImage;
-			return null;
-			//TODO: Fix Imageloader
-			//return ImageLoader.DefaultRequestImage (albumArt (size), this) ?? Images.DefaultAlbumImage;
+			return ImageLoader.DefaultRequestImage (albumArt (size), this) ?? Images.DefaultAlbumImage;
 		}
 #endif
 		public event EventHandler ALbumArtUpdated;

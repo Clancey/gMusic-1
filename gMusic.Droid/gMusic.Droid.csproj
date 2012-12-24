@@ -16,6 +16,7 @@
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <AssemblyName>gMusic.Droid</AssemblyName>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
+    <TargetFrameworkVersion>v2.3</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>
@@ -49,6 +50,10 @@
     <Reference Include="System.Json" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="lastfm-sharp">
+      <HintPath>..\lastfm-sharp\bin\Release\lastfm-sharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Android.Support.v4" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Resources\Resource.designer.cs" />
@@ -91,9 +96,6 @@
     </Compile>
     <Compile Include="..\gMusic\Models\Song.cs">
       <Link>gMusic\Models\Song.cs</Link>
-    </Compile>
-    <Compile Include="..\gMusic\Models\cookie.cs">
-      <Link>gMusic\Models\cookie.cs</Link>
     </Compile>
     <Compile Include="..\gMusic\Models\stringClass.cs">
       <Link>gMusic\Models\stringClass.cs</Link>
@@ -225,6 +227,32 @@
     <Compile Include="..\..\InstantDatabase\InstantDatabase\Model\Group.cs">
       <Link>gMusic\Data\Group.cs</Link>
     </Compile>
+    <Compile Include="..\gMusic\ViewModels\ArtistViewModel.cs">
+      <Link>gMusic\ViewModels\ArtistViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\gMusic\ViewModels\BaseViewModel.cs">
+      <Link>gMusic\ViewModels\BaseViewModel.cs</Link>
+    </Compile>
+    <Compile Include="UI\Activites\WebLoginActivity.cs" />
+    <Compile Include="..\gMusic\Models\gcookie.cs">
+      <Link>gMusic\Models\cookie.cs</Link>
+    </Compile>
+    <Compile Include="UI\GetCellCalls\Artist.cs" />
+    <Compile Include="..\gMusic\ViewModels\PlaylistViewModel.cs">
+      <Link>gMusic\ViewModels\PlaylistViewModel.cs</Link>
+    </Compile>
+    <Compile Include="UI\GetCellCalls\Playlist.cs" />
+    <Compile Include="..\gMusic\ViewModels\GenreViewModel.cs">
+      <Link>gMusic\ViewModels\GenreViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\gMusic\ViewModels\AlbumViewModel.cs">
+      <Link>gMusic\ViewModels\AlbumViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\gMusic\ViewModels\SongListModelView.cs">
+      <Link>gMusic\ViewModels\SongListModelView.cs</Link>
+    </Compile>
+    <Compile Include="UI\GetCellCalls\Album.cs" />
+    <Compile Include="UI\GetCellCalls\Genre.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -502,15 +530,19 @@
     <Folder Include="Libs\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Redth.MonoForAndroid.SectionedListAdapter\Redth.MonoForAndroid.SectionedListAdapter.csproj">
-      <Project>{C9B364AD-FAAB-4437-9463-7358657F80FB}</Project>
-      <Name>Redth.MonoForAndroid.SectionedListAdapter</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <AndroidNativeLibrary Include="Libs\armeabi\libbass.so" />
     <AndroidNativeLibrary Include="Libs\armeabi\libbass_fx.so" />
     <AndroidNativeLibrary Include="Libs\armeabi-v7a\libbass.so" />
     <AndroidNativeLibrary Include="Libs\armeabi-v7a\libbass_fx.so" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Xamarin.Tables\Xamarin.Tables\Xamarin.Tables.Android.csproj">
+      <Project>{040CA4CF-74E9-419B-A534-EE761D24C8FA}</Project>
+      <Name>Xamarin.Tables.Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\SlideOutMenu\SlidingMenu\SlidingMenu.csproj">
+      <Project>{C11D182D-CAFB-4AB7-9163-E66716456A62}</Project>
+      <Name>SlidingMenu</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

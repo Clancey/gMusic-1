@@ -21,12 +21,117 @@ namespace GoogleMusic
 		
 		public static void UpdateIdValues()
 		{
+			Xamarin.Tables.Resource.Drawable.dialog_disclosure = GoogleMusic.Resource.Drawable.dialog_disclosure;
+			Xamarin.Tables.Resource.Drawable.dialog_expander_ic_minimized = GoogleMusic.Resource.Drawable.dialog_expander_ic_minimized;
+			Xamarin.Tables.Resource.Id.dialog_BoolField = GoogleMusic.Resource.Id.dialog_BoolField;
+			Xamarin.Tables.Resource.Id.dialog_Button = GoogleMusic.Resource.Id.dialog_Button;
+			Xamarin.Tables.Resource.Id.dialog_DisclosureField = GoogleMusic.Resource.Id.dialog_DisclosureField;
+			Xamarin.Tables.Resource.Id.dialog_ImageLeft = GoogleMusic.Resource.Id.dialog_ImageLeft;
+			Xamarin.Tables.Resource.Id.dialog_ImageRight = GoogleMusic.Resource.Id.dialog_ImageRight;
+			Xamarin.Tables.Resource.Id.dialog_LabelField = GoogleMusic.Resource.Id.dialog_LabelField;
+			Xamarin.Tables.Resource.Id.dialog_LabelSubtextField = GoogleMusic.Resource.Id.dialog_LabelSubtextField;
+			Xamarin.Tables.Resource.Id.dialog_Panel = GoogleMusic.Resource.Id.dialog_Panel;
+			Xamarin.Tables.Resource.Id.dialog_RadioButtonList = GoogleMusic.Resource.Id.dialog_RadioButtonList;
+			Xamarin.Tables.Resource.Id.dialog_SliderField = GoogleMusic.Resource.Id.dialog_SliderField;
+			Xamarin.Tables.Resource.Id.dialog_Spinner = GoogleMusic.Resource.Id.dialog_Spinner;
+			Xamarin.Tables.Resource.Id.dialog_ValueField = GoogleMusic.Resource.Id.dialog_ValueField;
+			Xamarin.Tables.Resource.Id.iFormFieldValue = GoogleMusic.Resource.Id.iFormFieldValue;
+			Xamarin.Tables.Resource.Layout.dialog_achievements = GoogleMusic.Resource.Layout.dialog_achievements;
+			Xamarin.Tables.Resource.Layout.dialog_boolfieldleft = GoogleMusic.Resource.Layout.dialog_boolfieldleft;
+			Xamarin.Tables.Resource.Layout.dialog_boolfieldright = GoogleMusic.Resource.Layout.dialog_boolfieldright;
+			Xamarin.Tables.Resource.Layout.dialog_boolfieldsubleft = GoogleMusic.Resource.Layout.dialog_boolfieldsubleft;
+			Xamarin.Tables.Resource.Layout.dialog_boolfieldsubright = GoogleMusic.Resource.Layout.dialog_boolfieldsubright;
+			Xamarin.Tables.Resource.Layout.dialog_button = GoogleMusic.Resource.Layout.dialog_button;
+			Xamarin.Tables.Resource.Layout.dialog_datefield = GoogleMusic.Resource.Layout.dialog_datefield;
+			Xamarin.Tables.Resource.Layout.dialog_fieldsetlabel = GoogleMusic.Resource.Layout.dialog_fieldsetlabel;
+			Xamarin.Tables.Resource.Layout.dialog_floatimage = GoogleMusic.Resource.Layout.dialog_floatimage;
+			Xamarin.Tables.Resource.Layout.dialog_labelfieldbelow = GoogleMusic.Resource.Layout.dialog_labelfieldbelow;
+			Xamarin.Tables.Resource.Layout.dialog_labelfieldright = GoogleMusic.Resource.Layout.dialog_labelfieldright;
+			Xamarin.Tables.Resource.Layout.dialog_onofffieldright = GoogleMusic.Resource.Layout.dialog_onofffieldright;
+			Xamarin.Tables.Resource.Layout.dialog_panel = GoogleMusic.Resource.Layout.dialog_panel;
+			Xamarin.Tables.Resource.Layout.dialog_root = GoogleMusic.Resource.Layout.dialog_root;
+			Xamarin.Tables.Resource.Layout.dialog_selectlist = GoogleMusic.Resource.Layout.dialog_selectlist;
+			Xamarin.Tables.Resource.Layout.dialog_selectlistfield = GoogleMusic.Resource.Layout.dialog_selectlistfield;
+			Xamarin.Tables.Resource.Layout.dialog_textarea = GoogleMusic.Resource.Layout.dialog_textarea;
+			Xamarin.Tables.Resource.Layout.dialog_textfieldbelow = GoogleMusic.Resource.Layout.dialog_textfieldbelow;
+			Xamarin.Tables.Resource.Layout.dialog_textfieldright = GoogleMusic.Resource.Layout.dialog_textfieldright;
+			Xamarin.Tables.Resource.String.library_name = GoogleMusic.Resource.String.library_name;
 		}
 		
 		public partial class Attribute
 		{
 			
+			// aapt resource value: 0x7f01000a
+			public const int behindFadeDegree = 2130771978;
+			
+			// aapt resource value: 0x7f010009
+			public const int behindFadeEnabled = 2130771977;
+			
+			// aapt resource value: 0x7f010003
+			public const int behindOffset = 2130771971;
+			
+			// aapt resource value: 0x7f010005
+			public const int behindScrollScale = 2130771973;
+			
+			// aapt resource value: 0x7f010004
+			public const int behindWidth = 2130771972;
+			
+			// aapt resource value: 0x7f010000
+			public const int mode = 2130771968;
+			
+			// aapt resource value: 0x7f01000c
+			public const int selectorDrawable = 2130771980;
+			
+			// aapt resource value: 0x7f01000b
+			public const int selectorEnabled = 2130771979;
+			
+			// aapt resource value: 0x7f010007
+			public const int shadowDrawable = 2130771975;
+			
+			// aapt resource value: 0x7f010008
+			public const int shadowWidth = 2130771976;
+			
+			// aapt resource value: 0x7f010006
+			public const int touchModeAbove = 2130771974;
+			
+			// aapt resource value: 0x7f010001
+			public const int viewAbove = 2130771969;
+			
+			// aapt resource value: 0x7f010002
+			public const int viewBehind = 2130771970;
+			
 			private Attribute()
+			{
+			}
+		}
+		
+		public partial class Color
+		{
+			
+			// aapt resource value: 0x7f050000
+			public const int holo_blue_bright = 2131034112;
+			
+			private Color()
+			{
+			}
+		}
+		
+		public partial class Dimension
+		{
+			
+			// aapt resource value: 0x7f060002
+			public const int menu_header_line = 2131099650;
+			
+			// aapt resource value: 0x7f060001
+			public const int menu_header_padding_top = 2131099649;
+			
+			// aapt resource value: 0x7f060003
+			public const int menu_icon_side = 2131099651;
+			
+			// aapt resource value: 0x7f060000
+			public const int menu_item_padding = 2131099648;
+			
+			private Dimension()
 			{
 			}
 		}
@@ -35,7 +140,19 @@ namespace GoogleMusic
 		{
 			
 			// aapt resource value: 0x7f020000
-			public const int Icon = 2130837504;
+			public const int defaultshadow = 2130837504;
+			
+			// aapt resource value: 0x7f020001
+			public const int defaultshadowright = 2130837505;
+			
+			// aapt resource value: 0x7f020002
+			public const int dialog_disclosure = 2130837506;
+			
+			// aapt resource value: 0x7f020003
+			public const int dialog_expander_ic_minimized = 2130837507;
+			
+			// aapt resource value: 0x7f020004
+			public const int Icon = 2130837508;
 			
 			private Drawable()
 			{
@@ -45,8 +162,77 @@ namespace GoogleMusic
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f050000
-			public const int myButton = 2131034112;
+			// aapt resource value: 0x7f040007
+			public const int dialog_BoolField = 2130968583;
+			
+			// aapt resource value: 0x7f040008
+			public const int dialog_Button = 2130968584;
+			
+			// aapt resource value: 0x7f04000e
+			public const int dialog_DisclosureField = 2130968590;
+			
+			// aapt resource value: 0x7f04000a
+			public const int dialog_ImageLeft = 2130968586;
+			
+			// aapt resource value: 0x7f04000c
+			public const int dialog_ImageRight = 2130968588;
+			
+			// aapt resource value: 0x7f040005
+			public const int dialog_LabelField = 2130968581;
+			
+			// aapt resource value: 0x7f040006
+			public const int dialog_LabelSubtextField = 2130968582;
+			
+			// aapt resource value: 0x7f04000d
+			public const int dialog_Panel = 2130968589;
+			
+			// aapt resource value: 0x7f04000f
+			public const int dialog_RadioButtonList = 2130968591;
+			
+			// aapt resource value: 0x7f04000b
+			public const int dialog_SliderField = 2130968587;
+			
+			// aapt resource value: 0x7f040010
+			public const int dialog_Spinner = 2130968592;
+			
+			// aapt resource value: 0x7f040009
+			public const int dialog_ValueField = 2130968585;
+			
+			// aapt resource value: 0x7f040003
+			public const int fullscreen = 2130968579;
+			
+			// aapt resource value: 0x7f040011
+			public const int iFormFieldValue = 2130968593;
+			
+			// aapt resource value: 0x7f040000
+			public const int left = 2130968576;
+			
+			// aapt resource value: 0x7f040002
+			public const int margin = 2130968578;
+			
+			// aapt resource value: 0x7f040012
+			public const int myButton = 2130968594;
+			
+			// aapt resource value: 0x7f040001
+			public const int right = 2130968577;
+			
+			// aapt resource value: 0x7f040004
+			public const int selected_view = 2130968580;
+			
+			// aapt resource value: 0x7f040013
+			public const int separator = 2130968595;
+			
+			// aapt resource value: 0x7f040015
+			public const int slidingmenulayout = 2130968597;
+			
+			// aapt resource value: 0x7f040014
+			public const int slidingmenumain = 2130968596;
+			
+			// aapt resource value: 0x7f040016
+			public const int slidingmenurowicon = 2130968598;
+			
+			// aapt resource value: 0x7f040017
+			public const int slidingmenurowtitle = 2130968599;
 			
 			private Id()
 			{
@@ -57,7 +243,82 @@ namespace GoogleMusic
 		{
 			
 			// aapt resource value: 0x7f030000
-			public const int Main = 2130903040;
+			public const int dialog_achievements = 2130903040;
+			
+			// aapt resource value: 0x7f030001
+			public const int dialog_boolfieldleft = 2130903041;
+			
+			// aapt resource value: 0x7f030002
+			public const int dialog_boolfieldright = 2130903042;
+			
+			// aapt resource value: 0x7f030003
+			public const int dialog_boolfieldsubleft = 2130903043;
+			
+			// aapt resource value: 0x7f030004
+			public const int dialog_boolfieldsubright = 2130903044;
+			
+			// aapt resource value: 0x7f030005
+			public const int dialog_button = 2130903045;
+			
+			// aapt resource value: 0x7f030006
+			public const int dialog_datefield = 2130903046;
+			
+			// aapt resource value: 0x7f030007
+			public const int dialog_fieldsetlabel = 2130903047;
+			
+			// aapt resource value: 0x7f030008
+			public const int dialog_floatimage = 2130903048;
+			
+			// aapt resource value: 0x7f030009
+			public const int dialog_labelfieldbelow = 2130903049;
+			
+			// aapt resource value: 0x7f03000a
+			public const int dialog_labelfieldright = 2130903050;
+			
+			// aapt resource value: 0x7f03000b
+			public const int dialog_onofffieldright = 2130903051;
+			
+			// aapt resource value: 0x7f03000c
+			public const int dialog_panel = 2130903052;
+			
+			// aapt resource value: 0x7f03000d
+			public const int dialog_root = 2130903053;
+			
+			// aapt resource value: 0x7f03000e
+			public const int dialog_selectlist = 2130903054;
+			
+			// aapt resource value: 0x7f03000f
+			public const int dialog_selectlistfield = 2130903055;
+			
+			// aapt resource value: 0x7f030010
+			public const int dialog_textarea = 2130903056;
+			
+			// aapt resource value: 0x7f030011
+			public const int dialog_textfieldbelow = 2130903057;
+			
+			// aapt resource value: 0x7f030012
+			public const int dialog_textfieldright = 2130903058;
+			
+			// aapt resource value: 0x7f030013
+			public const int list = 2130903059;
+			
+			// aapt resource value: 0x7f030014
+			public const int Main = 2130903060;
+			
+			// aapt resource value: 0x7f030015
+			public const int sectionedlistseparator = 2130903061;
+			
+			// aapt resource value: 0x7f030016
+			public const int shadow = 2130903062;
+			
+			// aapt resource value: 0x7f030017
+			public const int slidingmenumain = 2130903063;
+			
+			// aapt resource value: 0x7f030018
+			public const int slidingmenumainlist = 2130903064;
+			
+			// aapt resource value: 0x7f030019
+			public const int slidingmenurow = 2130903065;
 			
 			private Layout()
 			{
@@ -67,13 +328,79 @@ namespace GoogleMusic
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f040001
-			public const int app_name = 2130968577;
+			// aapt resource value: 0x7f070002
+			public const int app_name = 2131165186;
 			
-			// aapt resource value: 0x7f040000
-			public const int hello = 2130968576;
+			// aapt resource value: 0x7f070001
+			public const int hello = 2131165185;
+			
+			// aapt resource value: 0x7f070000
+			public const int library_name = 2131165184;
 			
 			private String()
+			{
+			}
+		}
+		
+		public partial class Styleable
+		{
+			
+			public static int[] SlidingMenu = new int[]
+			{
+					2130771968,
+					2130771969,
+					2130771970,
+					2130771971,
+					2130771972,
+					2130771973,
+					2130771974,
+					2130771975,
+					2130771976,
+					2130771977,
+					2130771978,
+					2130771979,
+					2130771980};
+			
+			// aapt resource value: 10
+			public const int SlidingMenu_behindFadeDegree = 10;
+			
+			// aapt resource value: 9
+			public const int SlidingMenu_behindFadeEnabled = 9;
+			
+			// aapt resource value: 3
+			public const int SlidingMenu_behindOffset = 3;
+			
+			// aapt resource value: 5
+			public const int SlidingMenu_behindScrollScale = 5;
+			
+			// aapt resource value: 4
+			public const int SlidingMenu_behindWidth = 4;
+			
+			// aapt resource value: 0
+			public const int SlidingMenu_mode = 0;
+			
+			// aapt resource value: 12
+			public const int SlidingMenu_selectorDrawable = 12;
+			
+			// aapt resource value: 11
+			public const int SlidingMenu_selectorEnabled = 11;
+			
+			// aapt resource value: 7
+			public const int SlidingMenu_shadowDrawable = 7;
+			
+			// aapt resource value: 8
+			public const int SlidingMenu_shadowWidth = 8;
+			
+			// aapt resource value: 6
+			public const int SlidingMenu_touchModeAbove = 6;
+			
+			// aapt resource value: 1
+			public const int SlidingMenu_viewAbove = 1;
+			
+			// aapt resource value: 2
+			public const int SlidingMenu_viewBehind = 2;
+			
+			private Styleable()
 			{
 			}
 		}

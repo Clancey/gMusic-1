@@ -123,7 +123,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
-    <Compile Include="ViewControllers\MainViewController.cs" />
     <Compile Include="UI\Shared\MusicSectionView.cs" />
     <Compile Include="ClanceyLib\UIComboBox.cs" />
     <Compile Include="..\..\ClanceyLib\ClanceysLib\Utils\Extensions.cs">
@@ -135,17 +134,11 @@
     <Compile Include="..\gMusic\GoogleMusicApi.cs">
       <Link>gMusic\GoogleMusicApi.cs</Link>
     </Compile>
-    <Compile Include="..\gMusic\Bass.Net\BASSActive.cs">
-      <Link>gMusic\Bass.Net\BASSActive.cs</Link>
-    </Compile>
     <Compile Include="..\gMusic\Data\Api.cs">
       <Link>gMusic\Data\Api.cs</Link>
     </Compile>
     <Compile Include="..\gMusic\Data\Database.cs">
       <Link>gMusic\Data\Database.cs</Link>
-    </Compile>
-    <Compile Include="..\gMusic\Data\SQLite.cs">
-      <Link>gMusic\Data\SQLite.cs</Link>
     </Compile>
     <Compile Include="..\gMusic\Models\Album.cs">
       <Link>gMusic\Models\Album.cs</Link>
@@ -167,9 +160,6 @@
     </Compile>
     <Compile Include="..\gMusic\Models\Song.cs">
       <Link>gMusic\Models\Song.cs</Link>
-    </Compile>
-    <Compile Include="..\gMusic\Models\cookie.cs">
-      <Link>gMusic\Models\cookie.cs</Link>
     </Compile>
     <Compile Include="..\gMusic\Models\stringClass.cs">
       <Link>gMusic\Models\stringClass.cs</Link>
@@ -201,69 +191,6 @@
     <Compile Include="..\gMusic\Utilities\Util.cs">
       <Link>gMusic\Utilities\Util.cs</Link>
     </Compile>
-    <Compile Include="..\Bass.Net\BASS3DMode.cs">
-      <Link>gMusic\Bass.Net\BASS3DMode.cs</Link>
-    </Compile>
-    <Compile Include="..\Bass.Net\BASSAttribute.cs">
-      <Link>gMusic\Bass.Net\BASSAttribute.cs</Link>
-    </Compile>
-    <Compile Include="..\Bass.Net\BASSChannelType.cs">
-      <Link>gMusic\Bass.Net\BASSChannelType.cs</Link>
-    </Compile>
-    <Compile Include="..\Bass.Net\BASSConfig.cs">
-      <Link>gMusic\Bass.Net\BASSConfig.cs</Link>
-    </Compile>
-    <Compile Include="..\Bass.Net\BASSFlag.cs">
-      <Link>gMusic\Bass.Net\BASSFlag.cs</Link>
-    </Compile>
-    <Compile Include="..\Bass.Net\BASSMode.cs">
-      <Link>gMusic\Bass.Net\BASSMode.cs</Link>
-    </Compile>
-    <Compile Include="..\Bass.Net\BASSStreamFilePosition.cs">
-      <Link>gMusic\Bass.Net\BASSStreamFilePosition.cs</Link>
-    </Compile>
-    <Compile Include="..\Bass.Net\BASSStreamSystem.cs">
-      <Link>gMusic\Bass.Net\BASSStreamSystem.cs</Link>
-    </Compile>
-    <Compile Include="..\Bass.Net\BASSSync.cs">
-      <Link>gMusic\Bass.Net\BASSSync.cs</Link>
-    </Compile>
-    <Compile Include="..\Bass.Net\BASSVam.cs">
-      <Link>gMusic\Bass.Net\BASSVam.cs</Link>
-    </Compile>
-    <Compile Include="..\Bass.Net\BASS_CHANNELINFO.cs">
-      <Link>gMusic\Bass.Net\BASS_CHANNELINFO.cs</Link>
-    </Compile>
-    <Compile Include="..\Bass.Net\BASS_FILEPROCS.cs">
-      <Link>gMusic\Bass.Net\BASS_FILEPROCS.cs</Link>
-    </Compile>
-    <Compile Include="..\Bass.Net\BASS_SAMPLE.cs">
-      <Link>gMusic\Bass.Net\BASS_SAMPLE.cs</Link>
-    </Compile>
-    <Compile Include="..\Bass.Net\Bass.cs">
-      <Link>gMusic\Bass.Net\Bass.cs</Link>
-    </Compile>
-    <Compile Include="..\Bass.Net\BassUtil.cs">
-      <Link>gMusic\Bass.Net\BassUtil.cs</Link>
-    </Compile>
-    <Compile Include="..\Bass.Net\FILECLOSEPROC.cs">
-      <Link>gMusic\Bass.Net\FILECLOSEPROC.cs</Link>
-    </Compile>
-    <Compile Include="..\Bass.Net\FILELENPROC.cs">
-      <Link>gMusic\Bass.Net\FILELENPROC.cs</Link>
-    </Compile>
-    <Compile Include="..\Bass.Net\FILEREADPROC.cs">
-      <Link>gMusic\Bass.Net\FILEREADPROC.cs</Link>
-    </Compile>
-    <Compile Include="..\Bass.Net\FILESEEKPROC.cs">
-      <Link>gMusic\Bass.Net\FILESEEKPROC.cs</Link>
-    </Compile>
-    <Compile Include="..\Bass.Net\SYNCPROC.cs">
-      <Link>gMusic\Bass.Net\SYNCPROC.cs</Link>
-    </Compile>
-    <Compile Include="..\Bass.Net\c.cs">
-      <Link>gMusic\Bass.Net\c.cs</Link>
-    </Compile>
     <Compile Include="..\gMusic\ViewControllers\IBaseViewController.cs">
       <Link>gMusic\ViewControllers\IBaseViewController.cs</Link>
     </Compile>
@@ -279,8 +206,6 @@
     <Compile Include="..\..\ClanceyLib\ClanceysLib\UIControls\MBProgressHUD.cs">
       <Link>ClanceyLib\MBProgressHUD.cs</Link>
     </Compile>
-    <Compile Include="ViewControllers\BaseViewController.cs" />
-    <Compile Include="ViewControllers\BaseDialogViewController.cs" />
     <Compile Include="UI\Shared\PopUpView.cs" />
     <Compile Include="UI\Shared\ISearchable.cs" />
     <Compile Include="UI\GetCellCalls\Album.cs" />
@@ -288,8 +213,6 @@
     <Compile Include="UI\GetCellCalls\Genre.cs" />
     <Compile Include="UI\GetCellCalls\Playlist.cs" />
     <Compile Include="UI\GetCellCalls\Song.cs" />
-    <Compile Include="ViewControllers\EditSongViewController.cs" />
-    <Compile Include="ViewControllers\SonglistViewController.cs" />
     <Compile Include="UI\Shared\SectionScrollView.cs" />
     <Compile Include="UI\Shared\AlbumHeaderView.cs" />
     <Compile Include="ClanceyLib\StackPanel.cs" />
@@ -302,41 +225,50 @@
     <Compile Include="Images\ImageLoader.cs" />
     <Compile Include="UI\Shared\TransparentToolbar.cs" />
     <Compile Include="UI\Shared\TextFieldAlertView.cs" />
-    <Compile Include="ViewControllers\iPhoneBaseViewController.cs" />
-    <Compile Include="ViewControllers\SongViewController.cs" />
-    <Compile Include="ViewControllers\LoadingScreen.cs" />
     <Compile Include="UI\Shared\RCSwitch.cs" />
     <Compile Include="UI\Shared\ProgressBar.cs" />
     <Compile Include="UI\Shared\AlbumSongView.cs" />
     <Compile Include="UI\Shared\OBSlider.cs" />
-    <Compile Include="..\Bass.Net\BASS_BFX_PEAKEQ.cs">
-      <Link>gMusic\Bass.Net\BASS_BFX_PEAKEQ.cs</Link>
-    </Compile>
-    <Compile Include="..\Bass.Net\BASSFXChan.cs">
-      <Link>gMusic\Bass.Net\BASSFXChan.cs</Link>
-    </Compile>
     <Compile Include="ViewControllers\AccountController.cs" />
-    <Compile Include="..\gMusic\ViewControllers\SongListController.cs">
-      <Link>gMusic\ViewControllers\SongListController.cs</Link>
-    </Compile>
-    <Compile Include="UI\GetCellCalls\ICell.cs" />
-    <Compile Include="ViewControllers\TableViewSource.cs" />
     <Compile Include="..\gMusic\ViewModels\SongViewModel.cs">
       <Link>gMusic\ViewModels\SongViewModel.cs</Link>
     </Compile>
-    <Compile Include="..\..\InstantDatabase\InstantDatabase\Model\Group.cs">
-      <Link>gMusic\Data\Group.cs</Link>
+    <Compile Include="..\gMusic\ViewModels\ArtistViewModel.cs">
+      <Link>gMusic\ViewModels\ArtistViewModel.cs</Link>
     </Compile>
-    <Compile Include="..\..\InstantDatabase\InstantDatabase\InstantDatabase.cs">
-      <Link>gMusic\Data\InstantDatabase.cs</Link>
+    <Compile Include="..\gMusic\ViewModels\BaseViewModel.cs">
+      <Link>gMusic\ViewModels\BaseViewModel.cs</Link>
     </Compile>
+    <Compile Include="..\gMusic\Models\gcookie.cs">
+      <Link>gMusic\Models\cookie.cs</Link>
+    </Compile>
+    <Compile Include="ViewControllers\BaseViewController.cs" />
+    <Compile Include="ViewControllers\iPhoneBaseViewController.cs" />
+    <Compile Include="ViewControllers\SongViewController.cs" />
+    <Compile Include="ViewControllers\MainViewController.cs" />
+    <Compile Include="ViewControllers\LoadingScreen.cs" />
+    <Compile Include="ViewControllers\BaseDialogViewController.cs" />
+    <Compile Include="ViewControllers\EditSongViewController.cs" />
+    <Compile Include="ViewControllers\ArtistViewController.cs" />
+    <Compile Include="..\gMusic\ViewModels\PlaylistViewModel.cs">
+      <Link>gMusic\ViewModels\PlaylistViewModel.cs</Link>
+    </Compile>
+    <Compile Include="ViewControllers\PlaylistViewController.cs" />
+    <Compile Include="ViewControllers\SongListViewController.cs" />
+    <Compile Include="..\gMusic\ViewModels\SongListModelView.cs">
+      <Link>gMusic\ViewModels\SongListModelView.cs</Link>
+    </Compile>
+    <Compile Include="..\gMusic\ViewModels\AlbumViewModel.cs">
+      <Link>gMusic\ViewModels\AlbumViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\gMusic\ViewModels\GenreViewModel.cs">
+      <Link>gMusic\ViewModels\GenreViewModel.cs</Link>
+    </Compile>
+    <Compile Include="ViewControllers\AlbumViewController.cs" />
+    <Compile Include="ViewControllers\GenreViewController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\..\MonoTouch.Dialog\MonoTouch.Dialog\MonoTouch.Dialog.csproj">
-      <Project>{3FFBFFF8-5560-4EDE-82E5-3FFDFBBA8A50}</Project>
-      <Name>MonoTouch.Dialog</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\FlyOutNavigation\FlyOutNavigation\FlyOutNavigation.csproj">
       <Project>{E98F7600-6C2E-4586-A78C-D42BA89445B9}</Project>
       <Name>FlyOutNavigation</Name>
@@ -344,6 +276,22 @@
     <ProjectReference Include="..\lastfm-sharp\lastfm-sharp.csproj">
       <Project>{D14A113A-F306-4831-9C25-E4B18F6E0C34}</Project>
       <Name>lastfm-sharp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Xamarin.Tables\Xamarin.Tables\Xamarin.Tables.iOS.csproj">
+      <Project>{FFDAC76C-FB0C-4B30-B802-59112659A2D9}</Project>
+      <Name>Xamarin.Tables.iOS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\MonoTouch.Dialog\MonoTouch.Dialog\MonoTouch.Dialog.csproj">
+      <Project>{3FFBFFF8-5560-4EDE-82E5-3FFDFBBA8A50}</Project>
+      <Name>MonoTouch.Dialog</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\bass.net\Bass.net.csproj">
+      <Project>{9FE5A58A-63A1-4FD0-81AE-289AAA9286E5}</Project>
+      <Name>Bass.net</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\InstantDatabase\InstantDatabase\InstantDatabase.csproj">
+      <Project>{E8B052D6-9C21-4B3F-9520-29D7B38513C5}</Project>
+      <Name>InstantDatabase</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,22 +1,23 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Xamarin.Tables;
+using System.Linq;
+using Xamarin.Data;
 
 namespace GoogleMusic
 {
-	public class SongViewModel : BaseViewModel<Song>
+	public class SongListModelView : BaseViewModel<Song>
 	{
+		GroupInfo GroupInfo;
 		#if iOS
-		
-		public SongViewModel (IBaseViewController parent) : base(parent)
+		public SongListModelView (IBaseViewController parent, string filter, string orderby) : base(parent)
 		{
-			
+			GroupInfo = new GroupInfo (){Filter = filter,OrderBy = orderby};
 		}
 		
 		#elif Droid
-		public SongViewModel (Android.Content.Context context,Android.Widget.ListView listView,IBaseViewController parent ) : base (context,listView, parent)
+		public SongListModelView (Android.Content.Context context,Android.Widget.ListView listView,IBaseViewController parent, string filter, string orderby ) : base (context,listView, parent)
 		{
+			GroupInfo = new GroupInfo (){Filter = filter,OrderBy = orderby};
 		}
 		#endif
 		#region implemented abstract members of SectionedAdapter
@@ -27,37 +28,26 @@ namespace GoogleMusic
 				return SearchResults.Count;
 			else if(Settings.ShowOfflineOnly)
 				return Util.OfflineSongsGrouped[section].Count();
-			return Database.Main.RowsInSection<Song> (section);
+			return Database.Main.RowsInSection<Song> (GroupInfo,section);
 		}
-
+		
 		public override int NumberOfSections ()
 		{
-			if(IsSearching)
-				return 1;
-			if(Settings.ShowOfflineOnly)
-				return Util.OfflineSongsGrouped.Count();
-			return Database.Main.NumberOfSections<Song> ();
+			return 1;
 		}
-
+		
 		public override int GetItemViewType (int section, int row)
 		{
 			throw new NotImplementedException ();
 		}
-
+		
 		public override ICell GetICell (int section, int position)
 		{
 			return ItemFor (section, position);
 		}
-		string[] array;
 		public override string[] SectionIndexTitles ()
 		{
-			if (IsSearching)
-				array = new string[]{};
-			else if (Settings.ShowOfflineOnly)
-				array = Util.OfflineSongsGrouped.Select (x => x.Key).ToArray ();
-			else
-				array = Database.Main.QuickJump<Song> ();
-			return array;
+			return null;
 		}
 		
 		public override string HeaderForSection (int section)
@@ -68,12 +58,12 @@ namespace GoogleMusic
 				return Util.OfflineSongsGrouped[section].Key;			
 			return Database.Main.SectionHeader<Song> (section);
 		}
-
+		
 		public override void RowSelected (Song song)
 		{
 			Util.PlaySong(song,song.ArtistId,song.AlbumId,true);
 		}
-
+		
 		public override Song ItemFor (int section, int row)
 		{
 			Song thesong;
@@ -96,13 +86,13 @@ namespace GoogleMusic
 			}
 			else
 			{
-				thesong = Database.Main.ObjectForRow<Song>(section,row);
+				thesong = Database.Main.ObjectForRow<Song>(GroupInfo,section,row);
 			}
 			return thesong;
 		}
-
+		
 		#endregion
-
+		
 	}
 }
 

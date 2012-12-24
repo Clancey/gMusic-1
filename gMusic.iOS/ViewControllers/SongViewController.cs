@@ -37,15 +37,7 @@ namespace GoogleMusic
 			}
 			this.TableView.RowHeight = DarkThemed ? 80 : 56;
 		}
-		public void ReloadData()
-		{
-			TableView.ReloadData();
-		}
-		public void Selected(Song song)
-		{
-			//FinishSearch();
-			Util.PlaySong(song,song.ArtistId,song.AlbumId,true);
-		}
+
 		
 		public override void ViewWillAppear (bool animated)
 		{

@@ -593,7 +593,7 @@ public static partial class Util
 				
 				string song = null;
 				//Console.WriteLine ("Getting playlist");
-				lock(Database.Main.DatabaseLocker)
+				lock(Database.DatabaseLocker)
 					PlayListSorted = Database.Main.Query<Song>("select id from song where AlbumId = ? order by Disc,Track",albumId).Select(x=> x.Id).ToList();
 				//PlayListSorted = Util.Songs.Where (x => x.AlbumId == albumId).OrderBy (x => x.Track).OrderBy (x => x.Disc).Select (x => x.Id).ToList ();
 				
@@ -738,11 +738,11 @@ public static partial class Util
 							NextSong = null;
 							if (!playAllSongs) {
 								if (albumId == -1) {
-									lock(Database.Main.DatabaseLocker)
-									PlayListSorted = Database.Main.Query<Song>("select id from song where ArtistId = ? order by TitleNorm ",song.ArtistId).Select(x=> x.Id).ToList();
+									lock(Database.DatabaseLocker)
+									PlayListSorted = Database.Main.Query<Song>("select id from song where ArtistId = ? order by TitleNorm ",artistId).Select(x=> x.Id).ToList();
 									FlurryAnalytics.FlurryAnalytics.LogEvent ("Play Artist");
 								} else {
-								lock(Database.Main.DatabaseLocker)
+								lock(Database.DatabaseLocker)
 									PlayListSorted = Database.Main.Query<Song>("select id from song where AlbumId = ? order by Disc,Track",albumId).Select(x=> x.Id).ToList();
 									FlurryAnalytics.FlurryAnalytics.LogEvent ("Play Album");
 								}
@@ -773,7 +773,7 @@ public static partial class Util
 									FlurryAnalytics.FlurryAnalytics.LogEvent ("Play All Songs");
 								});
 								Console.WriteLine ("shuffleing");
-							lock(Database.Main.DatabaseLocker)
+							lock(Database.DatabaseLocker)
 								PlayListSorted = Database.Main.Query<Song>("select id from song  Order by TitleNorm ").Select(x => x.Id).ToList();
 								
 								if (Settings.ShowOfflineOnly)
@@ -880,7 +880,7 @@ public static partial class Util
 				PlayAllSongs = false;
 				lock (playlistLocker) {
 					Console.WriteLine ("Playlist" + playlist.ServerId);
-					lock (Database.Locker) {
+					lock (Database.DatabaseLocker) {
 						PlayListSorted = Database.Main.Query<Song> ("select SongId as Id from PlaylistSongs where ServerPlaylistId = '" + playlist.ServerId + "'").Select (x => x.Id).ToList ();
 					}
 					// = Database.Main.Table<Song> ().Where (x => x.GenreId == genreId).OrderBy(x=> x.Title).ToList ();
@@ -967,7 +967,7 @@ public static partial class Util
 	{
 		
 		var start = DateTime.Now;
-		lock (Database.Locker) {			
+		lock (Database.DatabaseLocker) {			
 			Util.PlaylistsList = Database.Main.Table<Playlist> ().Where (x => x.AutoPlaylist == false).OrderBy (x => x.Name).ToList ();
 			Util.AutoPlaylists = Database.Main.Table<Playlist> ().Where (x => x.AutoPlaylist == true).OrderBy (x => x.Name).ToList ();
 			
@@ -1166,7 +1166,7 @@ public static partial class Util
 	#if mp3tunes
 	public static void UpdateMovies(bool notify)
 	{
-		lock(Database.Locker)	
+		lock(Database.DatabaseLocker)	
 			Util.Movies = Database.Main.Table<Movie> ().OrderBy (x => x.Title).ToList ();
 		Util.MoviesGrouped = Movies.GroupBy (x => x.IndexCharacter).ToList ();
 		if (notify)
@@ -1180,7 +1180,7 @@ public static partial class Util
 		
 		
 		try{
-			lock (Database.Main.DatabaseLocker) {
+			lock (Database.DatabaseLocker) {
 				NextSongs = Database.Main.Query<stringClass> ("select id from NextSongCache").Select (x => x.id).ToList ();
 				PlayListSorted = Database.Main.Query<stringClass> ("select id from PlaylistSortedCache").Select (x => x.id).ToList ();
 				if (Settings.Random) {
@@ -1204,7 +1204,7 @@ public static partial class Util
 	private static void SaveCache (bool saveSorted)
 	{
 		
-		lock (Database.Main.DatabaseLocker) {
+		lock (Database.DatabaseLocker) {
 			Database.Main.Execute ("drop table PreviousPlayedCache");
 			Database.Main.Execute ("drop table NextSongCache");
 			if(saveSorted){
@@ -1230,7 +1230,7 @@ public static partial class Util
 	{
 		
 		Console.WriteLine ("start update cache");
-		lock (Database.Locker) {
+		lock (Database.DatabaseLocker) {
 			Database.Main.Execute ("drop table NextSongCache");
 			Database.Main.Execute ("drop table PreviousPlayedCache");
 			Database.Main.CreateTable<NextSongCache> ();

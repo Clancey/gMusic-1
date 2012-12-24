@@ -1,5 +1,6 @@
 using System;
 using SQLite;
+using Xamarin.Data;
 
 namespace GoogleMusic
 {
@@ -10,8 +11,10 @@ namespace GoogleMusic
 		[Indexed]
 		public string Name{ get;set; }
 		[Indexed]
+		[OrderBy]
 		public string NormName { get;set; }
 		[Indexed]
+		[GroupBy]
 		public string IndexCharacter { get;set; }
 		public bool ShouldBeOffline{get;set;}
 		public int OffineCount{get

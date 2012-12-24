@@ -34,10 +34,10 @@ namespace GoogleMusic
 		}
 	}
 
-	public abstract class BaseViewController : UITableViewController, ISearchable
+	public abstract class BaseViewController : UITableViewController, ISearchable, IBaseViewController
 	{
 		public Screens Screen { get; protected set; }
-		protected SonglistViewController CurrentSongListViewController;
+		//protected SonglistViewController CurrentSongListViewController;
 		protected EditSongViewController CurrentSongEditor;
 		protected PopUpView popUpView;
 		protected bool reloading;
@@ -52,6 +52,10 @@ namespace GoogleMusic
 		public bool DarkThemed;
 		public Action ShuffleClicked {get;set;}
 		UIImageView shuffleimage;
+		public void ReloadData()
+		{
+			TableView.ReloadData ();
+		}
 		
 		public BaseViewController (UITableViewStyle style, bool hasShuffle) : this(style,hasShuffle,true)
 		{
@@ -494,26 +498,28 @@ namespace GoogleMusic
 		{
 			//Util.StartThirdParty();
 
-			if (UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone && !HasRefreshed && !Util.IsIos6) {
-				
-				refreshView.SetStatus (RefreshViewStatus.ReleaseToReload);
-				reloading = true;
-				if (refreshView != null)
-					refreshView.SetActivity (true);
-	
-				if (refreshView != null && !DarkThemed) {
-					//UIView.BeginAnimations ("reloadingData");
-					//UIView.SetAnimationDuration (0.2);
-					TableView.ContentInset = new UIEdgeInsets (60, 0, 0, 0);
-					//UIView.CommitAnimations ();
-				}	
-			}
+//			if (UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone && !HasRefreshed && !Util.IsIos6) {
+//				
+//				refreshView.SetStatus (RefreshViewStatus.ReleaseToReload);
+//				reloading = true;
+//				if (refreshView != null)
+//					refreshView.SetActivity (true);
+//	
+//				if (refreshView != null && !DarkThemed) {
+//					//UIView.BeginAnimations ("reloadingData");
+//					//UIView.SetAnimationDuration (0.2);
+//					TableView.ContentInset = new UIEdgeInsets (60, 0, 0, 0);
+//					//UIView.CommitAnimations ();
+//				}	
+//			}
 			
-			if (string.IsNullOrEmpty (Settings.UserName) || string.IsNullOrEmpty(Settings.Key))
-			{
-				Util.MainVC.ShowLogin(this);
+			if (string.IsNullOrEmpty (Settings.UserName) || string.IsNullOrEmpty (Settings.Key)) {
+				Util.MainVC.ShowLogin (this);
 				DataLoaded = true;
 				return;
+			} else if (!DataLoaded) {
+				Util.TryLogin();
+				DataLoaded = true;
 			}
 //			if (!DataLoaded || (Util.Songs.Count == 0 && Settings.SongsCount > 0)) {
 //				if (!DataLoaded) {

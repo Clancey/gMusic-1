@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using GoogleMusic;
 
 
 #if iOS
@@ -341,11 +342,10 @@ public static class Settings
 	}
 	
 	public static int SongsCount {
-		get{ return prefs.IntForKey ("songCount");}
-		set {
-			prefs.SetInt (value, "songCount");
-			prefs.Synchronize ();
-		}			
+		get{ 
+			lock(Database.DatabaseLocker)
+				return Database.Main.ExecuteScalar<int>("select count(*) from Song");
+		}	
 	}
 	
 	public static int CurrentSyncSong { get; set; }
