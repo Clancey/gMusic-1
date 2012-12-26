@@ -343,8 +343,8 @@ public static class Settings
 	
 	public static int SongsCount {
 		get{ 
-			lock(Database.DatabaseLocker)
-				return Database.Main.ExecuteScalar<int>("select count(*) from Song");
+			var count = Database.Main.ExecuteScalar<int>("select count(*) from Song");
+			return count;
 		}	
 	}
 	

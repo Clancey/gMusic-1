@@ -363,7 +363,7 @@ namespace GoogleMusic
 					GetSongs (getSongsComplete);
 					return;
 				}
-				getPlaylists();
+				//getPlaylists();
 				if (getSongsComplete != null)
 					getSongsComplete ();
 				if (showStatus) {
@@ -442,12 +442,15 @@ namespace GoogleMusic
 						ParseSong ((JsonObject)key);	
 					}
 				Console.WriteLine ("inserting to database");
-				lock (Database.DatabaseLocker) {
-					Database.Main.InsertAll (ArtistsToInsert, "OR REPLACE");
+				if(ArtistsToInsert.Count > 0)
+					Database.Main.InsertAll(ArtistsToInsert, "OR REPLACE");
+				if(AlbumsToInsert.Count > 0)
 					Database.Main.InsertAll (AlbumsToInsert, "OR REPLACE");
+				if(SongsToInsert.Count > 0)
 					Database.Main.InsertAll (SongsToInsert, "OR REPLACE");
+				if(GenresToInsert.Count > 0)
 					Database.Main.InsertAll (GenresToInsert, "OR REPLACE");
-				}
+
 				Console.WriteLine ("inserting to database complete");
 				ArtistsToInsert.Clear ();
 				AlbumsToInsert.Clear ();
@@ -500,10 +503,10 @@ namespace GoogleMusic
 					songId = d [GoogleServiceConfig.Default.TrackId];	
 				if (d.ContainsKey (GoogleServiceConfig.Default.TrackDeleted)) {
 					if ((bool)d [GoogleServiceConfig.Default.TrackDeleted]) {
-						lock (Database.DatabaseLocker) {
+
 							var deleted = Database.Main.Execute ("delete from Song where Id = '" + songId + "'");
 							Console.WriteLine (deleted);
-						}
+
 						return;
 					}
 				}
@@ -643,11 +646,11 @@ namespace GoogleMusic
 					//Util.Util.EnsureInvokedOnMainThread (delegate {
 					FlurryAnalytics.FlurryAnalytics.LogEvent ("Get Playlists", true);
 					//});
-					//lock (Database.Main)
-					lock (Database.DatabaseLocker) {
-						Database.Main.Execute ("Update Playlist set Deleted = 'true'");
+                           					//lock (Database.Main)
+
+					Database.Main.Execute ("Update Playlist set Deleted = 'true'");
 						//Database.Main.Execute ("Update PlaylistSongs set Deleted = 'true'");
-					}
+					
 					//GetMorePlaylist ("");
 					GetRecentTracks ();
 					GetFreePlaylist ();
@@ -658,10 +661,10 @@ namespace GoogleMusic
 						Console.WriteLine ("continuation : " + playlistCont);
 						playlistCont = GetMorePlaylist (playlistCont);
 					}
-					lock (Database.DatabaseLocker) {
+
 						//Database.Main.Execute ("Delete from PlaylistSongs where Deleted = 'true'");
-						Database.Main.Execute ("Delete from Playlist where Deleted = 'true'");
-					}
+					Database.Main.Execute ("Delete from Playlist where Deleted = 'true'");
+					
 					Database.Main.UpdatePlaylistOfflineCount ();
 					Util.UpdatePlaylist (true);
 				} catch (Exception ex) {
@@ -876,7 +879,6 @@ namespace GoogleMusic
 					} else 
 						succes = false;
 					if (succes)
-						lock (Database.DatabaseLocker) 
 							Database.Main.Execute ("delete from PlaylistSongs where EntryId = ?", song.EntryId);
 					
 				} catch (Exception ex) {
@@ -928,7 +930,6 @@ namespace GoogleMusic
 							song.ArtistId = Util.Api.NextArtistId;
 							Util.ArtistIdsDict.Add (albumArtist, song.ArtistId);
 							Util.Api.NextArtistId ++;
-							lock (Database.DatabaseLocker)
 								Database.Main.Insert (artist, "OR REPLACE");
 						}
 						
@@ -942,8 +943,7 @@ namespace GoogleMusic
 							var album = new Album{Id = NextAlbumId,ArtistId = song.ArtistId,Name = song.Album,NameNorm = albumName,Url = albumArtUrl,IndexCharacter = Util.GetIndexChar (albumName)};
 							song.AlbumId = album.Id;
 							//AlbumsToInsert.Add (album);
-							lock (Database.DatabaseLocker)
-								Database.Main.Insert (album, "OR REPLACE");
+							Database.Main.Insert (album, "OR REPLACE");
 							Util.AlbumsIdsDict.Add (albumTuple, album.Id);
 							NextAlbumId ++;
 						}
@@ -956,8 +956,7 @@ namespace GoogleMusic
 							Util.GenresIdsDict.Add (song.Genre, NextGenreId);
 							NextGenreId ++;
 							//GenresToInsert.Add (genre);
-							lock (Database.DatabaseLocker)
-								Database.Main.Insert (genre, "OR REPLACE");
+							Database.Main.Insert (genre, "OR REPLACE");
 						}
 						
 						
@@ -1058,8 +1057,7 @@ namespace GoogleMusic
 						succes = false;
 					
 					if (succes) {
-						lock (Database.DatabaseLocker)
-							Database.Main.Delete (playlist);
+						Database.Main.Delete (playlist);
 						Util.UpdatePlaylist (false);
 					}
 					
@@ -1086,7 +1084,6 @@ namespace GoogleMusic
 			
 			var genreId = genre.Id;
 			Song[] songs = null;
-			lock (Database.DatabaseLocker) 
 				songs = Database.Main.Query<Song> ("select id from song where GenreId = ?", genreId).ToArray ();	
 			AddToPlaylist (playlist, songs, OnSuccess);
 		}
@@ -1099,7 +1096,6 @@ namespace GoogleMusic
 			}
 			var artistId = artist.Id;
 			Song[] songs = null;
-			lock (Database.DatabaseLocker)
 				songs = Database.Main.Query<Song> ("select id from song where ArtistId = ?", artistId).ToArray ();
 			AddToPlaylist (playlist, songs, OnSuccess);
 		}
@@ -1113,12 +1109,11 @@ namespace GoogleMusic
 			var artistId = album.ArtistId;
 			var albumId = album.Id;
 			Song[] songs;
-			lock (Database.DatabaseLocker) {
-				if (albumId == -1)
-					songs = Database.Main.Query<Song> ("select id from song where artistId = ? order by track, disc", artistId).ToArray ();
-				else
-					songs = Database.Main.Query<Song> ("select id from song where AlbumId = ? order by track, disc", albumId).ToArray ();
-			}
+			if (albumId == -1)
+				songs = Database.Main.Query<Song> ("select id from song where artistId = ? order by track, disc", artistId).ToArray ();
+			else
+				songs = Database.Main.Query<Song> ("select id from song where AlbumId = ? order by track, disc", albumId).ToArray ();
+
 			AddToPlaylist (playlist, songs, OnSuccess);
 		}
 		
@@ -1182,8 +1177,7 @@ namespace GoogleMusic
 									plistEntryId = s [GoogleServiceConfig.Default.PlaylistEntry];
 								var playlistId = playlist.ServerId;
 								var theSong = new PlaylistSongs{ServerPlaylistId = playlistId,SongId = songId,EntryId = plistEntryId};
-								lock (Database.DatabaseLocker) 
-									Database.Main.Insert (theSong);
+								Database.Main.Insert (theSong);
 							}
 						}
 					}
@@ -1413,8 +1407,7 @@ namespace GoogleMusic
 					playlistName = p [GoogleServiceConfig.Default.CreatePlaylistTitle];
 				
 				Playlist plist = new Playlist{ServerId = playlistId,Name  = playlistName};
-				lock (Database.DatabaseLocker)
-					Database.Main.Insert (plist, "OR REPLACE");
+				Database.Main.Insert (plist, "OR REPLACE");
 				
 				return plist;
 			}
@@ -1498,8 +1491,7 @@ namespace GoogleMusic
 							
 			PlaylistSongs theSong = new PlaylistSongs (){ServerPlaylistId = playlistId,SongId = songId,EntryId = plistEntryId};
 			
-			lock (Database.DatabaseLocker)
-				Database.Main.Insert (theSong);
+			Database.Main.Insert (theSong);
 			
 		}
 		
@@ -1528,20 +1520,16 @@ namespace GoogleMusic
 				if (!string.IsNullOrEmpty (title))
 					playlistName = title;
 
-				Playlist plist;
-				lock (Database.DatabaseLocker) {
-					plist = Database.Main.Table<Playlist> ().Where (x => x.ServerId == playlistId).FirstOrDefault ();
-				}
+				Playlist plist = Database.Main.GetObject<Playlist>(playlistId);
+
 				if (plist == null) {
 					plist = new Playlist (){ServerId = playlistId, Name = playlistName,CanEdit = canEdit,AutoPlaylist = autoPlaylist};
-					lock (Database.DatabaseLocker)
-						Database.Main.Insert (plist, "OR IGNORE");
+					Database.Main.Insert (plist, "OR IGNORE");
 				}
 				else
 				{
 					plist.Deleted = false;
-					lock (Database.DatabaseLocker)
-						Database.Main.Update(plist);
+					Database.Main.Update(plist);
 				}
 			
 				if (p.ContainsKey (GoogleServiceConfig.Default.PlaylistSecondaryRoot)) {
@@ -1577,11 +1565,9 @@ namespace GoogleMusic
 							
 					}
 					if (songsToAdd.Count > 0) {
-						lock (Database.DatabaseLocker) {
 							Database.Main.Execute ("delete from PlaylistSongs where ServerPlaylistId = ?", playlistId);
 							Database.Main.InsertAll (songsToAdd);
 							Database.Main.UpdateAll(songstoUpdate);
-						}
 					}
 						
 				}

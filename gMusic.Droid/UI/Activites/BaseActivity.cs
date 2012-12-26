@@ -4,103 +4,44 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using Android.App;
+using Android.Support.V4.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Com.Slidingmenu.Lib;
+using Com.Slidingmenu.Lib.App;
 
 namespace GoogleMusic
 {
-	[Activity (Label = "BaseActivity")]			
-	public class BaseActivity : ListActivity
+	[Android.App.Activity (Label = "BaseActivity")]			
+	public class BaseActivity : SlidingFragmentActivity
 	{
-		Intent serviceIntent;
-		BaseReceiver receiver;
-		BaseServiceConnection connection;
-		internal string ActionFilter;
-		protected override void OnCreate (Bundle bundle)
+		public override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
-			if (!MainService.IsRunning) {
-				serviceIntent = new Intent ("com.iis.musicService");
-				connection = new BaseServiceConnection(this);
-			}
-			receiver = new BaseReceiver ();
-		}
-		protected override void OnStart ()
-		{
-			base.OnStart ();
-			var intentFilter = new IntentFilter (ActionFilter){Priority = (int)IntentFilterPriority.HighPriority};
-			RegisterReceiver (receiver, intentFilter);
 
-			if (!MainService.IsRunning) {
-				BindService (serviceIntent, connection, Bind.AutoCreate);
-				var pendingServiceIntent = PendingIntent.GetService (this, 0, serviceIntent, PendingIntentFlags.CancelCurrent);
-				pendingServiceIntent.Send();
-			}
-			//LogIn ();
-		}
-		public virtual void HandleRefresh()
-		{
+			
+			RequestWindowFeature(WindowFeatures.NoTitle);
+			// set the Behind View
+			SetBehindContentView(Resource.Layout.menu_frame);
+			//FragmentManager.BeginTransaction ().Replace (Resource.Id.menu_frame, new SampleListFragment()).Commit ();
+
+
+
+			var sm = SlidingMenu;
+			sm.SetShadowWidthRes(Resource.Dimension.shadow_width);
+			sm.SetShadowDrawable(Resource.Drawable.shadow);
+			sm.SetBehindOffsetRes(Resource.Dimension.slidingmenu_offset);
+			sm.SetFadeDegree(0.35f);
+			sm.TouchModeAbove = 1;
+
+			//menu.AttachToActivity (this, 1);
+			//menu.SetMenu (Resource.Layout.menu);
 
 		}
-		public void LogIn()
-		{
-			
-			Intent intent = new Intent(this, typeof(WebLoginActivity));
-			StartActivityForResult (intent, 0);
-		}
-		protected override void OnActivityResult (int requestCode, Result resultCode, Intent data)
-		{
-			switch (requestCode) {
-			case 0:
-				if (resultCode != Result.Ok || data == null) {
-					return;
-				}
-				// Get the token.
-				String token = data.GetStringExtra("token");
-				if (token != null) {
-					/* Use the token to access data */
-				}
-				return;
-			}
-		}
 
-		class BaseReceiver : BroadcastReceiver
-		{
-			public override void OnReceive (Context context, Android.Content.Intent intent)
-			{
-				((BaseActivity)context).HandleRefresh ();
-				
-				InvokeAbortBroadcast ();
-			}
-		}
-		class BaseServiceConnection : Java.Lang.Object, IServiceConnection
-		{
-			BaseActivity activity;
-			
-			public BaseServiceConnection (BaseActivity activity)
-			{
-				this.activity = activity;
-			}
-			
-			public void OnServiceConnected (ComponentName name, IBinder service)
-			{
-//				var stockServiceBinder = service as StockServiceBinder;
-//				if (stockServiceBinder != null) {
-//					var binder = (StockServiceBinder)service;
-//					activity.binder = binder;
-//					activity.isBound = true;
-//				}
-			}
-			
-			public void OnServiceDisconnected (ComponentName name)
-			{
-				//activity.isBound = false;
-			}
-		}
 	}
 }
 

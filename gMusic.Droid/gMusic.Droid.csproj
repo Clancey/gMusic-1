@@ -16,7 +16,7 @@
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <AssemblyName>gMusic.Droid</AssemblyName>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
-    <TargetFrameworkVersion>v2.3</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>
@@ -53,7 +53,7 @@
     <Reference Include="lastfm-sharp">
       <HintPath>..\lastfm-sharp\bin\Release\lastfm-sharp.dll</HintPath>
     </Reference>
-    <Reference Include="Mono.Android.Support.v4" />
+    <Reference Include="Mono.Android.Support.v13" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Resources\Resource.designer.cs" />
@@ -66,9 +66,6 @@
     </Compile>
     <Compile Include="..\gMusic\Data\Database.cs">
       <Link>gMusic\Data\Database.cs</Link>
-    </Compile>
-    <Compile Include="..\gMusic\Data\SQLite.cs">
-      <Link>gMusic\Data\SQLite.cs</Link>
     </Compile>
     <Compile Include="..\gMusic\Images\IImageUpdated.cs">
       <Link>gMusic\Images\IImageUpdated.cs</Link>
@@ -210,23 +207,12 @@
     </Compile>
     <Compile Include="FlurryAnalytics.cs" />
     <Compile Include="AppRater.cs" />
-    <Compile Include="..\gMusic\ViewControllers\SongListController.cs">
-      <Link>gMusic\ViewControllers\SongListController.cs</Link>
-    </Compile>
     <Compile Include="UI\GetCellCalls\Song.cs" />
     <Compile Include="..\gMusic\ViewModels\SongViewModel.cs">
       <Link>gMusic\ViewModels\SongViewModel.cs</Link>
     </Compile>
-    <Compile Include="UI\Activites\SongActivity.cs" />
     <Compile Include="UI\Activites\MainActivity.cs" />
     <Compile Include="UI\Activites\BaseActivity.cs" />
-    <Compile Include="UI\Activites\MainService.cs" />
-    <Compile Include="..\..\InstantDatabase\InstantDatabase\InstantDatabase.cs">
-      <Link>gMusic\Data\InstantDatabase.cs</Link>
-    </Compile>
-    <Compile Include="..\..\InstantDatabase\InstantDatabase\Model\Group.cs">
-      <Link>gMusic\Data\Group.cs</Link>
-    </Compile>
     <Compile Include="..\gMusic\ViewModels\ArtistViewModel.cs">
       <Link>gMusic\ViewModels\ArtistViewModel.cs</Link>
     </Compile>
@@ -253,6 +239,11 @@
     </Compile>
     <Compile Include="UI\GetCellCalls\Album.cs" />
     <Compile Include="UI\GetCellCalls\Genre.cs" />
+    <Compile Include="UI\Activites\ColorFragment.cs" />
+    <Compile Include="UI\Activites\FragmentChangeActivity.cs" />
+    <Compile Include="UI\Activites\MenuFragment.cs" />
+    <Compile Include="UI\Activites\PlaylistFragment.cs" />
+    <Compile Include="UI\Activites\SongFragment.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -518,6 +509,20 @@
     <AndroidResource Include="Resources\layout\Main.axml" />
     <AndroidResource Include="Resources\values\Strings.xml" />
     <AndroidResource Include="Resources\drawable\Icon.png" />
+    <AndroidResource Include="Resources\values\colors.xml" />
+    <AndroidResource Include="Resources\values\dimens.xml" />
+    <AndroidResource Include="Resources\values-land\dimens.xml" />
+    <AndroidResource Include="Resources\values-large-land\dimens.xml" />
+    <AndroidResource Include="Resources\drawable\shadow.xml" />
+    <AndroidResource Include="Resources\drawable\shadowright.xml" />
+    <AndroidResource Include="Resources\drawable\new_indicator.xml" />
+    <AndroidResource Include="Resources\drawable\indicator.png" />
+    <AndroidResource Include="Resources\layout\menu.xml" />
+    <AndroidResource Include="Resources\layout\content_frame.xml" />
+    <AndroidResource Include="Resources\layout\menu_frame.xml" />
+    <AndroidResource Include="Resources\layout\list.xml" />
+    <AndroidResource Include="Resources\layout\row.xml" />
+    <AndroidResource Include="Resources\drawable\ic_launcher.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup>
@@ -528,6 +533,10 @@
     <Folder Include="gMusic\ViewModels\" />
     <Folder Include="UI\Activites\" />
     <Folder Include="Libs\" />
+    <Folder Include="Resources\values-land\" />
+    <Folder Include="Resources\values-large-land\" />
+    <Folder Include="Resources\drawable\" />
+    <Folder Include="Resources\anim\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidNativeLibrary Include="Libs\armeabi\libbass.so" />
@@ -543,6 +552,10 @@
     <ProjectReference Include="..\..\SlideOutMenu\SlidingMenu\SlidingMenu.csproj">
       <Project>{C11D182D-CAFB-4AB7-9163-E66716456A62}</Project>
       <Name>SlidingMenu</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\InstantDatabase\InstantDatabase\InstantDatabase.Droid.csproj">
+      <Project>{DAB83EFA-1D12-4F40-A6E9-1F1B5470FAA1}</Project>
+      <Name>InstantDatabase.Droid</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

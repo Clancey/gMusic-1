@@ -27,6 +27,11 @@ namespace GoogleMusic
 			public bool IsSearching {get;set;}
 			public List<T> SearchResults = new List<T>();
 
+		
+		public void PrecachData()
+		{
+			Database.Main.Precache<T> ();
+		}
 		#region implemented abstract members of TableViewModel
 
 		public override int RowsInSection (int section)

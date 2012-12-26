@@ -19,6 +19,7 @@ namespace GoogleMusic
 		{
 		}
 		#endif
+
 		#region implemented abstract members of SectionedAdapter
 		
 		public override int RowsInSection (int section)
@@ -77,27 +78,27 @@ namespace GoogleMusic
 		public override Song ItemFor (int section, int row)
 		{
 			Song thesong;
-			if(IsSearching)
-			{
-				if(SearchResults.Count >row)
-					thesong = SearchResults[row];
-				else
-					thesong = new Song();
-			}				
-			else if(Settings.ShowOfflineOnly)
-			{
-				if(Util.OfflineSongsGrouped.Count > section && Util.OfflineSongsGrouped[section].Count() > row)
-					thesong	= Util.OfflineSongsGrouped[section].ElementAt(row);
-				else{
-					thesong = new Song();
-					tableView.ReloadData();
-				}
-				
-			}
-			else
-			{
+//			if(IsSearching)
+//			{
+//				if(SearchResults.Count >row)
+//					thesong = SearchResults[row];
+//				else
+//					thesong = new Song();
+//			}				
+//			else if(Settings.ShowOfflineOnly)
+//			{
+//				if(Util.OfflineSongsGrouped.Count > section && Util.OfflineSongsGrouped[section].Count() > row)
+//					thesong	= Util.OfflineSongsGrouped[section].ElementAt(row);
+//				else{
+//					thesong = new Song();
+//					tableView.ReloadData();
+//				}
+//				
+//			}
+//			else
+//			{
 				thesong = Database.Main.ObjectForRow<Song>(section,row);
-			}
+//			}
 			return thesong;
 		}
 

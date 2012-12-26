@@ -7,6 +7,7 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using Android.Preferences;
+using Com.Slidingmenu.Lib;
 
 namespace GoogleMusic
 {
@@ -18,6 +19,18 @@ namespace GoogleMusic
 		protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
+
+			SlidingMenu menu = new SlidingMenu(this);
+			menu.Mode = 0;
+			menu.TouchModeAbove = 1;
+			menu.SetShadowWidthRes (Resource.Dimension.shadow_width);
+			menu.SetShadowDrawable (Resource.Drawable.shadow);
+			menu.SetBehindOffsetRes (Resource.Dimension.slidingmenu_offset);
+			menu.SetFadeDegree (.35f);
+			menu.AttachToActivity (this, 1);
+			menu.SetMenu (Resource.Layout.menu);
+
+
 			// Set our view from the "main" layout resource
 			SetContentView (Resource.Layout.Main);
 

@@ -56,7 +56,7 @@ public static partial class Util
 					return;
 				_currentSong = value;
 			}
-			Settings.CurrentSongId = _currentSong.Id;
+			Settings.CurrentSongId = _currentSong == null? "" : _currentSong.Id;
 			UpdateMpNowPlaying();
 		}
 	}
@@ -593,8 +593,7 @@ public static partial class Util
 				
 				string song = null;
 				//Console.WriteLine ("Getting playlist");
-				lock(Database.DatabaseLocker)
-					PlayListSorted = Database.Main.Query<Song>("select id from song where AlbumId = ? order by Disc,Track",albumId).Select(x=> x.Id).ToList();
+				PlayListSorted = Database.Main.Query<Song>("select id from song where AlbumId = ? order by Disc,Track",albumId).Select(x=> x.Id).ToList();
 				//PlayListSorted = Util.Songs.Where (x => x.AlbumId == albumId).OrderBy (x => x.Track).OrderBy (x => x.Disc).Select (x => x.Id).ToList ();
 				
 				if (Settings.ShowOfflineOnly)
@@ -738,11 +737,9 @@ public static partial class Util
 							NextSong = null;
 							if (!playAllSongs) {
 								if (albumId == -1) {
-									lock(Database.DatabaseLocker)
 									PlayListSorted = Database.Main.Query<Song>("select id from song where ArtistId = ? order by TitleNorm ",artistId).Select(x=> x.Id).ToList();
 									FlurryAnalytics.FlurryAnalytics.LogEvent ("Play Artist");
 								} else {
-								lock(Database.DatabaseLocker)
 									PlayListSorted = Database.Main.Query<Song>("select id from song where AlbumId = ? order by Disc,Track",albumId).Select(x=> x.Id).ToList();
 									FlurryAnalytics.FlurryAnalytics.LogEvent ("Play Album");
 								}
@@ -773,7 +770,6 @@ public static partial class Util
 									FlurryAnalytics.FlurryAnalytics.LogEvent ("Play All Songs");
 								});
 								Console.WriteLine ("shuffleing");
-							lock(Database.DatabaseLocker)
 								PlayListSorted = Database.Main.Query<Song>("select id from song  Order by TitleNorm ").Select(x => x.Id).ToList();
 								
 								if (Settings.ShowOfflineOnly)
@@ -880,9 +876,8 @@ public static partial class Util
 				PlayAllSongs = false;
 				lock (playlistLocker) {
 					Console.WriteLine ("Playlist" + playlist.ServerId);
-					lock (Database.DatabaseLocker) {
-						PlayListSorted = Database.Main.Query<Song> ("select SongId as Id from PlaylistSongs where ServerPlaylistId = '" + playlist.ServerId + "'").Select (x => x.Id).ToList ();
-					}
+					PlayListSorted = Database.Main.Query<Song> ("select SongId as Id from PlaylistSongs where ServerPlaylistId = '" + playlist.ServerId + "'").Select (x => x.Id).ToList ();
+
 					// = Database.Main.Table<Song> ().Where (x => x.GenreId == genreId).OrderBy(x=> x.Title).ToList ();
 					
 					if (Settings.ShowOfflineOnly)
@@ -966,16 +961,14 @@ public static partial class Util
 	public static void UpdatePlaylist (bool notify)
 	{
 		
-		var start = DateTime.Now;
-		lock (Database.DatabaseLocker) {			
-			Util.PlaylistsList = Database.Main.Table<Playlist> ().Where (x => x.AutoPlaylist == false).OrderBy (x => x.Name).ToList ();
-			Util.AutoPlaylists = Database.Main.Table<Playlist> ().Where (x => x.AutoPlaylist == true).OrderBy (x => x.Name).ToList ();
-			
-		}
-		UpdateOfflinePlaylists (false);
-		if (notify)
-			MainVC.RefreshPlaylist ();
-		Console.WriteLine ("Playlists took: " + (DateTime.Now - start).TotalSeconds);
+//		var start = DateTime.Now;		
+//			Util.PlaylistsList = Database.Main.Table<Playlist> ().Where (x => x.AutoPlaylist == false).OrderBy (x => x.Name).ToList ();
+//			Util.AutoPlaylists = Database.Main.Table<Playlist> ().Where (x => x.AutoPlaylist == true).OrderBy (x => x.Name).ToList ();
+//
+//		UpdateOfflinePlaylists (false);
+//		if (notify)
+//			MainVC.RefreshPlaylist ();
+//		Console.WriteLine ("Playlists took: " + (DateTime.Now - start).TotalSeconds);
 		
 	}
 
@@ -1152,15 +1145,15 @@ public static partial class Util
 	
 	public static void UpdateOfflinePlaylists (bool notify)
 	{
-		if (Database.Main == null)
-			return;
-		lock (Util.PlaylistsList) {
-			lock (Util.OfflinePlaylistsList) {
-				Util.OfflinePlaylistsList = Database.Main.Table<Playlist> ().Where (x => x.OffineCount > 0 && x.AutoPlaylist != true).ToList ();
-			}
-		}
-		if (notify)
-			MainVC.RefreshPlaylist ();
+//		if (Database.Main == null)
+//			return;
+//		lock (Util.PlaylistsList) {
+//			lock (Util.OfflinePlaylistsList) {
+//				Util.OfflinePlaylistsList = Database.Main.Table<Playlist> ().Where (x => x.OffineCount > 0 && x.AutoPlaylist != true).ToList ();
+//			}
+//		}
+//		if (notify)
+//			MainVC.RefreshPlaylist ();
 	}
 	
 	#if mp3tunes
@@ -1180,20 +1173,19 @@ public static partial class Util
 		
 		
 		try{
-			lock (Database.DatabaseLocker) {
-				NextSongs = Database.Main.Query<stringClass> ("select id from NextSongCache").Select (x => x.id).ToList ();
-				PlayListSorted = Database.Main.Query<stringClass> ("select id from PlaylistSortedCache").Select (x => x.id).ToList ();
-				if (Settings.Random) {
-					PlayListPlayed = Database.Main.Query<stringClass> ("select id from PreviousPlayedCache").Select (x => x.id).ToList ();
-					PlayList = PlayListSorted.Select (x => x).Where (x => !PlayListPlayed.Contains (x)).ToList ();
-					if(Settings.ShowOfflineOnly)
-					{
-						//PlayListPlayed = PlayListPlayed.Where(x=> Util.SongsDict.ContainsKey(x) && Util.SongsDict[x].IsLocal).ToList ();
-						//PlayList = PlayList.Where(x=> Util.SongsDict.ContainsKey(x) &&  Util.SongsDict[x].IsLocal).ToList ();
-					}
+			NextSongs = Database.Main.Query<stringClass> ("select id from NextSongCache").Select (x => x.id).ToList ();
+			PlayListSorted = Database.Main.Query<stringClass> ("select id from PlaylistSortedCache").Select (x => x.id).ToList ();
+			if (Settings.Random) {
+				PlayListPlayed = Database.Main.Query<stringClass> ("select id from PreviousPlayedCache").Select (x => x.id).ToList ();
+				PlayList = PlayListSorted.Select (x => x).Where (x => !PlayListPlayed.Contains (x)).ToList ();
+				if(Settings.ShowOfflineOnly)
+				{
+					//PlayListPlayed = PlayListPlayed.Where(x=> Util.SongsDict.ContainsKey(x) && Util.SongsDict[x].IsLocal).ToList ();
+					//PlayList = PlayList.Where(x=> Util.SongsDict.ContainsKey(x) &&  Util.SongsDict[x].IsLocal).ToList ();
 				}
-				Console.WriteLine (Settings.CurrentSongId);
 			}
+			Console.WriteLine (Settings.CurrentSongId);
+
 		}
 		catch(Exception ex)
 		{
@@ -1203,48 +1195,45 @@ public static partial class Util
 	
 	private static void SaveCache (bool saveSorted)
 	{
-		
-		lock (Database.DatabaseLocker) {
-			Database.Main.Execute ("drop table PreviousPlayedCache");
-			Database.Main.Execute ("drop table NextSongCache");
-			if(saveSorted){
-				Database.Main.Execute ("drop table PlaylistSortedCache");
-				Database.Main.CreateTable<PlaylistSortedCache> ();
-			}
-			Database.Main.CreateTable<PreviousPlayedCache> ();
-			Database.Main.CreateTable<NextSongCache> ();
-			
-			lock (playlistLocker) {
-				if ((Settings.Random || Settings.ShowOfflineOnly) && PlayListPlayed.Count > 0) {
-					Database.Main.InsertAll (PlayListPlayed.Select (x => new stringClass (){id =x}), typeof(PreviousPlayedCache));
-				}
-				if (NextSongs.Count > 0)
-					Database.Main.InsertAll (NextSongs.Select (x => new stringClass (){id =x}), typeof(NextSongCache));
-				if (PlayListSorted.Count > 0 && saveSorted)
-					Database.Main.InsertAll (PlayListSorted.Select (x => new stringClass (){id =x}), typeof(PlaylistSortedCache));
-			}
+		Database.Main.Execute ("drop table PreviousPlayedCache");
+		Database.Main.Execute ("drop table NextSongCache");
+		if(saveSorted){
+			Database.Main.Execute ("drop table PlaylistSortedCache");
+			Database.Main.CreateTable<PlaylistSortedCache> ();
 		}
+		Database.Main.CreateTable<PreviousPlayedCache> ();
+		Database.Main.CreateTable<NextSongCache> ();
+		
+//		lock (playlistLocker) {
+//			if ((Settings.Random || Settings.ShowOfflineOnly) && PlayListPlayed.Count > 0) {
+//				Database.Main.InsertAllAsync (PlayListPlayed.Select (x => new stringClass (){id =x}), typeof(PreviousPlayedCache));
+//			}
+//			if (NextSongs.Count > 0)
+//				Database.Main.InsertAllAsync (NextSongs.Select (x => new stringClass (){id =x}), typeof(NextSongCache));
+//			if (PlayListSorted.Count > 0 && saveSorted)
+//				Database.Main.InsertAllAsync (PlayListSorted.Select (x => new stringClass (){id =x}), typeof(PlaylistSortedCache));
+//		}
+		
 	}
 	
 	private static void UpdateCache (string previous)
 	{
 		
 		Console.WriteLine ("start update cache");
-		lock (Database.DatabaseLocker) {
-			Database.Main.Execute ("drop table NextSongCache");
-			Database.Main.Execute ("drop table PreviousPlayedCache");
-			Database.Main.CreateTable<NextSongCache> ();
-			Database.Main.CreateTable<PreviousPlayedCache> ();
-			lock (playlistLocker) {
-				if (NextSongs.Count > 0)
-					Database.Main.InsertAll (NextSongs.Select (x => new stringClass (){id =x}), typeof(NextSongCache));
-				
-				
-				if ((Settings.Random || Settings.ShowOfflineOnly) && PlayListPlayed.Count > 0) {
-					Database.Main.InsertAll (PlayListPlayed.Select (x => new stringClass (){id =x}), typeof(PreviousPlayedCache));
-				}
+		Database.Main.Execute ("drop table NextSongCache");
+		Database.Main.Execute ("drop table PreviousPlayedCache");
+		Database.Main.CreateTable<NextSongCache> ();
+		Database.Main.CreateTable<PreviousPlayedCache> ();
+		lock (playlistLocker) {
+			if (NextSongs.Count > 0)
+				Database.Main.InsertAll (NextSongs.Select (x => new stringClass (){id =x}), typeof(NextSongCache));
+			
+			
+			if ((Settings.Random || Settings.ShowOfflineOnly) && PlayListPlayed.Count > 0) {
+				Database.Main.InsertAll (PlayListPlayed.Select (x => new stringClass (){id =x}), typeof(PreviousPlayedCache));
 			}
 		}
+		
 		Console.WriteLine ("finished update cache");
 	}
 	

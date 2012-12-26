@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Tables.Android", ".
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SlidingMenu", "..\SlideOutMenu\SlidingMenu\SlidingMenu.csproj", "{C11D182D-CAFB-4AB7-9163-E66716456A62}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InstantDatabase.Droid", "..\InstantDatabase\InstantDatabase\InstantDatabase.Droid.csproj", "{DAB83EFA-1D12-4F40-A6E9-1F1B5470FAA1}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gMusic.Droid", "gMusic.Droid\gMusic.Droid.csproj", "{C92A0CD3-DB49-46F0-8989-26F325E330D4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gMusic.iOS", "gMusic.iOS\gMusic.iOS.csproj", "{5C3B00D5-2912-4F8E-BB8E-13B41DB4B33B}"
@@ -134,6 +136,20 @@ Global
 		{D14A113A-F306-4831-9C25-E4B18F6E0C34}.Release|iPhone.Build.0 = Release|Any CPU
 		{D14A113A-F306-4831-9C25-E4B18F6E0C34}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{D14A113A-F306-4831-9C25-E4B18F6E0C34}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{DAB83EFA-1D12-4F40-A6E9-1F1B5470FAA1}.Ad-Hoc|iPhone.ActiveCfg = Release|Any CPU
+		{DAB83EFA-1D12-4F40-A6E9-1F1B5470FAA1}.Ad-Hoc|iPhone.Build.0 = Release|Any CPU
+		{DAB83EFA-1D12-4F40-A6E9-1F1B5470FAA1}.AppStore|iPhone.ActiveCfg = Release|Any CPU
+		{DAB83EFA-1D12-4F40-A6E9-1F1B5470FAA1}.AppStore|iPhone.Build.0 = Release|Any CPU
+		{DAB83EFA-1D12-4F40-A6E9-1F1B5470FAA1}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{DAB83EFA-1D12-4F40-A6E9-1F1B5470FAA1}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{DAB83EFA-1D12-4F40-A6E9-1F1B5470FAA1}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{DAB83EFA-1D12-4F40-A6E9-1F1B5470FAA1}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{DAB83EFA-1D12-4F40-A6E9-1F1B5470FAA1}.MonoTouch|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAB83EFA-1D12-4F40-A6E9-1F1B5470FAA1}.MonoTouch|Any CPU.Build.0 = Debug|Any CPU
+		{DAB83EFA-1D12-4F40-A6E9-1F1B5470FAA1}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{DAB83EFA-1D12-4F40-A6E9-1F1B5470FAA1}.Release|iPhone.Build.0 = Release|Any CPU
+		{DAB83EFA-1D12-4F40-A6E9-1F1B5470FAA1}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{DAB83EFA-1D12-4F40-A6E9-1F1B5470FAA1}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{E8B052D6-9C21-4B3F-9520-29D7B38513C5}.Ad-Hoc|iPhone.ActiveCfg = Release|Any CPU
 		{E8B052D6-9C21-4B3F-9520-29D7B38513C5}.Ad-Hoc|iPhone.Build.0 = Release|Any CPU
 		{E8B052D6-9C21-4B3F-9520-29D7B38513C5}.AppStore|iPhone.ActiveCfg = Release|Any CPU
@@ -186,8 +202,9 @@ Global
 		{E8B052D6-9C21-4B3F-9520-29D7B38513C5} = {0A7600F8-D7B4-4B8D-8891-1DEC4C2B577F}
 		{040CA4CF-74E9-419B-A534-EE761D24C8FA} = {95F08D73-3E88-4642-BD06-231B4CBDFB76}
 		{C11D182D-CAFB-4AB7-9163-E66716456A62} = {95F08D73-3E88-4642-BD06-231B4CBDFB76}
+		{DAB83EFA-1D12-4F40-A6E9-1F1B5470FAA1} = {95F08D73-3E88-4642-BD06-231B4CBDFB76}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = gMusic.iOS\gMusic.iOS.csproj
+		StartupItem = gMusic.Droid\gMusic.Droid.csproj
 	EndGlobalSection
 EndGlobal

@@ -38,11 +38,8 @@ namespace GoogleMusic
 				lock (Util.OfflineSongs)
 					Songs = Util.OfflineSongs.Where (x => x.AlbumId == albumId).ToList ();
 			else {
-				List<string> ids;
-				lock(Database.DatabaseLocker)
-				{
-					ids = Database.Main.Query<Song>("select id from song where AlbumId = ? order by Disc,Track",albumId).Select(x=> x.Id).ToList();
-				}
+				List<string> ids  = Database.Main.Query<Song>("select id from song where AlbumId = ? order by Disc,Track",albumId).Select(x=> x.Id).ToList();
+
 				Songs = ids.Select(x=> Database.Main.GetObject<Song>(x)).ToList();
 
 			}
@@ -267,8 +264,7 @@ namespace GoogleMusic
 						//TODO: fix downloader
 						//Downloader.AddFile(song);
 						//TODO: update offline
-						
-						lock(Database.DatabaseLocker)
+
 						Database.Main.Update(song);
 						
 					}

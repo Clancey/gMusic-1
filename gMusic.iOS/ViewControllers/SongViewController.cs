@@ -30,6 +30,7 @@ namespace GoogleMusic
 		{
 			base.setupTable ();			
 			DataSource = new SongViewModel(this);
+			DataSource.PrecachData ();
 			this.TableView.Source = DataSource;
 			if(IsTvOut){
 				TableView.SeparatorStyle = UITableViewCellSeparatorStyle.SingleLine;
