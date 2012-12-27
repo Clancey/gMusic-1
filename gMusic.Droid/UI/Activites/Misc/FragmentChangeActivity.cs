@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace GoogleMusic
 {
-	[Activity (Label = "FragmentChangeActivity", MainLauncher = true)]			
+	[Activity (Label = "gMusic", MainLauncher = true)]			
 	public class FragmentChangeActivity : BaseActivity, IMainViewController
 	{
 	

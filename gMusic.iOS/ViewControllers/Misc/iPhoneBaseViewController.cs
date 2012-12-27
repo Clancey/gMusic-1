@@ -64,6 +64,12 @@ namespace GoogleMusic
 			this.View.AddSubview(NavigationController.View);
 			this.AddChildViewController (NavigationController);
 		}
+		public override void ViewWillLayoutSubviews ()
+		{
+			base.ViewWillLayoutSubviews ();
+			if(NavigationController.View.Frame.Location != PointF.Empty)
+				NavigationController.View.Frame = NavigationController.View.Frame.SetLocation (0, 0);
+		}
 
 		public override void UpdateSong (Song currentSong)
 		{

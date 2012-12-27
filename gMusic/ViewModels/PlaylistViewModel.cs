@@ -8,20 +8,25 @@ namespace GoogleMusic
 {
 	public class PlaylistViewModel : BaseViewModel<Playlist>
 	{
-		public static GroupInfo GroupInfo = new  GroupInfo(){Filter = "AutoPlaylist = 0",OrderBy = "Name"};
+		public static GroupInfo PlaylistGroupInfo = new  GroupInfo(){Filter = "AutoPlaylist = 0",OrderBy = "Name"};
+		public static GroupInfo AutoPlaylistGroupInfo = new  GroupInfo(){Filter = "AutoPlaylist = 1",OrderBy = "Name"};
+		public bool IsAutoPlaylist;
 		#if iOS
-		public PlaylistViewModel (IBaseViewController parent) : base(parent)
+		public PlaylistViewModel (IBaseViewController parent,bool isAutoPlaylist = false) : base(parent)
 		{
-			
+			IsAutoPlaylist = isAutoPlaylist;
 		}
 		
 		#elif Droid
-		public PlaylistViewModel (Android.Content.Context context,Android.Widget.ListView listView,IBaseViewController parent ) : base (context,listView, parent)
+		public PlaylistViewModel (Android.Content.Context context,Android.Widget.ListView listView,IBaseViewController parent,bool isAutoPlaylist = false ) : base (context,listView, parent)
 		{
+			IsAutoPlaylist = isAutoPlaylist;
 		}
 		#endif
 		#region implemented abstract members of SectionedAdapter
-		
+		public GroupInfo GroupInfo{
+			get{ return IsAutoPlaylist ? AutoPlaylistGroupInfo : PlaylistGroupInfo;}
+		}
 		public override int RowsInSection (int section)
 		{
 //			if(IsSearching)

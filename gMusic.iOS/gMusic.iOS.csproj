@@ -117,6 +117,7 @@
     <Folder Include="Images\" />
     <Folder Include="UI\GetCellCalls\" />
     <Folder Include="gMusic\ViewModels\" />
+    <Folder Include="ViewControllers\Misc\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -242,12 +243,7 @@
     <Compile Include="..\gMusic\Models\gcookie.cs">
       <Link>gMusic\Models\cookie.cs</Link>
     </Compile>
-    <Compile Include="ViewControllers\BaseViewController.cs" />
-    <Compile Include="ViewControllers\iPhoneBaseViewController.cs" />
     <Compile Include="ViewControllers\SongViewController.cs" />
-    <Compile Include="ViewControllers\MainViewController.cs" />
-    <Compile Include="ViewControllers\LoadingScreen.cs" />
-    <Compile Include="ViewControllers\BaseDialogViewController.cs" />
     <Compile Include="ViewControllers\EditSongViewController.cs" />
     <Compile Include="ViewControllers\ArtistViewController.cs" />
     <Compile Include="..\gMusic\ViewModels\PlaylistViewModel.cs">
@@ -266,6 +262,10 @@
     </Compile>
     <Compile Include="ViewControllers\AlbumViewController.cs" />
     <Compile Include="ViewControllers\GenreViewController.cs" />
+    <Compile Include="ViewControllers\Misc\BaseDialogViewController.cs" />
+    <Compile Include="ViewControllers\Misc\BaseViewController.cs" />
+    <Compile Include="ViewControllers\Misc\iPhoneBaseViewController.cs" />
+    <Compile Include="ViewControllers\Misc\MainViewController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -547,5 +547,16 @@
     <Content Include="..\gMusic\Images\upArrow%402x.png">
       <Link>Images\upArrow%402x.png</Link>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Default-568h%402x.png" />
+    <BundleResource Include="Resources\Default-Landscape%402x.png" />
+    <BundleResource Include="Resources\Default-Landscape~ipad.png" />
+    <BundleResource Include="Resources\Default-Landscape~ipad%402x.png" />
+    <BundleResource Include="Resources\Default-Portrait%402x.png" />
+    <BundleResource Include="Resources\Default-Portrait~ipad.png" />
+    <BundleResource Include="Resources\Default-Portrait~ipad%402x.png" />
+    <BundleResource Include="Resources\Default.png" />
+    <BundleResource Include="Resources\Default%402x.png" />
   </ItemGroup>
 </Project>

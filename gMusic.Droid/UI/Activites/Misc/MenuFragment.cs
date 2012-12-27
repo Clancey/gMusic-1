@@ -21,12 +21,28 @@ namespace GoogleMusic
 		{
 			MenuItems = new MenuItem[]{
 				new MenuItem{
+					Title = "Songs",
+					Content = new SongFragment(),
+				},
+				new MenuItem{
+					Title = "Artists",
+					Content = new ArtistFragment(),
+				},
+				new MenuItem{
+					Title = "Albums",
+					Content = new AlbumFragment(),
+				},
+				new MenuItem{
+					Title = "Genres",
+					Content = new GenreFragment(),
+				},
+				new MenuItem{
 					Title = "Playlists",
 					Content = new PlaylistFragment(),
 				},
 				new MenuItem{
-					Title = "Songs",
-					Content = new SongFragment(),
+					Title = "Auto Playlists",
+					Content = new PlaylistFragment(false),
 				},
 			};
 		}

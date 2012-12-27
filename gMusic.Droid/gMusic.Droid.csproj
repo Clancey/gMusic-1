@@ -212,14 +212,12 @@
       <Link>gMusic\ViewModels\SongViewModel.cs</Link>
     </Compile>
     <Compile Include="UI\Activites\MainActivity.cs" />
-    <Compile Include="UI\Activites\BaseActivity.cs" />
     <Compile Include="..\gMusic\ViewModels\ArtistViewModel.cs">
       <Link>gMusic\ViewModels\ArtistViewModel.cs</Link>
     </Compile>
     <Compile Include="..\gMusic\ViewModels\BaseViewModel.cs">
       <Link>gMusic\ViewModels\BaseViewModel.cs</Link>
     </Compile>
-    <Compile Include="UI\Activites\WebLoginActivity.cs" />
     <Compile Include="..\gMusic\Models\gcookie.cs">
       <Link>gMusic\Models\cookie.cs</Link>
     </Compile>
@@ -239,11 +237,15 @@
     </Compile>
     <Compile Include="UI\GetCellCalls\Album.cs" />
     <Compile Include="UI\GetCellCalls\Genre.cs" />
-    <Compile Include="UI\Activites\ColorFragment.cs" />
-    <Compile Include="UI\Activites\FragmentChangeActivity.cs" />
-    <Compile Include="UI\Activites\MenuFragment.cs" />
     <Compile Include="UI\Activites\PlaylistFragment.cs" />
     <Compile Include="UI\Activites\SongFragment.cs" />
+    <Compile Include="UI\Activites\Misc\BaseActivity.cs" />
+    <Compile Include="UI\Activites\Misc\FragmentChangeActivity.cs" />
+    <Compile Include="UI\Activites\Misc\WebLoginActivity.cs" />
+    <Compile Include="UI\Activites\Misc\MenuFragment.cs" />
+    <Compile Include="UI\Activites\ArtistFragment.cs" />
+    <Compile Include="UI\Activites\AlbumFragment.cs" />
+    <Compile Include="UI\Activites\GenreFragment.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -537,6 +539,7 @@
     <Folder Include="Resources\values-large-land\" />
     <Folder Include="Resources\drawable\" />
     <Folder Include="Resources\anim\" />
+    <Folder Include="UI\Activites\Misc\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidNativeLibrary Include="Libs\armeabi\libbass.so" />

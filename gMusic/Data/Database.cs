@@ -34,7 +34,7 @@ namespace GoogleMusic
 			CreateTable<Genre> ();
 			MakeClassInstant<Genre> ();
 			CreateTable<Playlist> ();
-			MakeClassInstant<Playlist> (PlaylistViewModel.GroupInfo);
+			MakeClassInstant<Playlist> (PlaylistViewModel.PlaylistGroupInfo);
 			CreateTable<PlaylistSongs> ();
 			CreateTable<SongOfflineClass> ();
 			CreateTable<AlbumOfflineClass> ();

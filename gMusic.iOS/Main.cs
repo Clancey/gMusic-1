@@ -400,42 +400,7 @@ namespace GoogleMusic
 			
 			return true;
 		}
-		public bool LoadingScreenVisisble;
-		static LoadingScreen loadingScreen;
-		public void ShowLoadingScreen()
-		{
-//			LoadingScreenVisisble = true;
-//			loadingScreen = new LoadingScreen ();
-//			if(Util.IsIphone)
-//				Util.AppDelegate.window.AddSubview(loadingScreen);
-//			else
-//				Util.AppDelegate.MainVC.View.AddSubview (loadingScreen);
-//			if(MainVC.tvViewController != null)
-//			{
-//				MainVC.tvViewController.ShowLoadingScreen();
-//			}
-		}
-		
-		public void HideLoadingScreen()
-		{
-//			if (loadingScreen != null)
-//			{
-//				loadingScreen.RemoveFromSuperview ();
-//				loadingScreen = null;
-//			}
-//			if(MainVC.tvViewController != null)
-//			{
-//				MainVC.tvViewController.HideLoadingScreen();
-//			}
-//			LoadingScreenVisisble = false;
-		}
-		public void UpdateLoadingScreen()
-		{
-			if (loadingScreen != null)
-			{
-				loadingScreen.SetImages();
-			}
-		}
+
 	}
 }
 
