@@ -16,6 +16,10 @@ namespace GoogleMusic
 	[Activity (Label = "Songs")]			
 	public class SongFragment : BaseFragment , IBaseViewController
 	{
+		public SongFragment ()
+		{
+			this.Title = "Songs";
+		}
 		SongViewModel model;
 		public override void OnActivityCreated (Bundle savedInstanceState)
 		{			

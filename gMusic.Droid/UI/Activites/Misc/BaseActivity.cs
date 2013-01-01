@@ -18,6 +18,11 @@ namespace GoogleMusic
 	[Android.App.Activity (Label = "BaseActivity")]			
 	public class BaseActivity : SlidingFragmentActivity
 	{
+		public override void OnLowMemory ()
+		{
+			base.OnLowMemory ();
+			Database.Main.ClearMemory ();
+		}
 		public override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);

@@ -16,6 +16,10 @@ namespace GoogleMusic
 	[Activity (Label = "Artists")]			
 	public class ArtistFragment :  BaseFragment , IBaseViewController
 	{
+		public ArtistFragment()
+		{
+			Title = "Artists";
+		}
 		ArtistViewModel model;
 		public override void OnActivityCreated (Bundle savedInstanceState)
 		{			

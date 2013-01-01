@@ -14,12 +14,15 @@ namespace GoogleMusic
 	[Activity (Label = "Albums")]			
 	public class AlbumViewController : BaseFragment , IBaseViewController, IViewController
 	{
+		public AlbumViewController()
+		{
+			Title = "Albums";
+		}
 		public Artist Artist{get;set;}
 		AlbumViewModel model;
 		public override void OnActivityCreated (Bundle savedInstanceState)
 		{			
 			base.OnActivityCreated (savedInstanceState);
-			Title = "Albums";
 			//ListView.FastScrollEnabled = true;
 			if(Artist == null)
 				model = new AlbumViewModel (Activity,this.ListView, this);

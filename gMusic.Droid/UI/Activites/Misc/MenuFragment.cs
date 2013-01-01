@@ -63,9 +63,6 @@ namespace GoogleMusic
 		{
 			CurrentIndex = position;
 			Fragment newContent = menuAdapater [position].Content;
-
-			if (newContent is IViewController)
-				newContent = ((IViewController)newContent).NavigationController.CurrentFragment;
 			if (newContent != null)
 				switchFragment(newContent);
 

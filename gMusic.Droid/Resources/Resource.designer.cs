@@ -242,14 +242,20 @@ namespace GoogleMusic
 		public partial class Id
 		{
 			
+			// aapt resource value: 0x7f05001c
+			public const int LeftBtn = 2131034140;
+			
 			// aapt resource value: 0x7f05001b
-			public const int LeftBtn = 2131034139;
+			public const int LeftButtonLayout = 2131034139;
 			
 			// aapt resource value: 0x7f05001a
 			public const int LinearLayout01 = 2131034138;
 			
-			// aapt resource value: 0x7f05001d
-			public const int RightBtn = 2131034141;
+			// aapt resource value: 0x7f05001f
+			public const int RightBtn = 2131034143;
+			
+			// aapt resource value: 0x7f05001e
+			public const int RightButtonLayout = 2131034142;
 			
 			// aapt resource value: 0x7f050005
 			public const int albumArt = 2131034117;
@@ -323,35 +329,35 @@ namespace GoogleMusic
 			// aapt resource value: 0x7f050018
 			public const int myButton = 2131034136;
 			
-			// aapt resource value: 0x7f05001e
-			public const int navContent = 2131034142;
+			// aapt resource value: 0x7f050020
+			public const int navContent = 2131034144;
 			
 			// aapt resource value: 0x7f050001
 			public const int right = 2131034113;
 			
-			// aapt resource value: 0x7f05001f
-			public const int row_icon = 2131034143;
+			// aapt resource value: 0x7f050021
+			public const int row_icon = 2131034145;
 			
-			// aapt resource value: 0x7f050020
-			public const int row_title = 2131034144;
+			// aapt resource value: 0x7f050022
+			public const int row_title = 2131034146;
 			
 			// aapt resource value: 0x7f050004
 			public const int selected_view = 2131034116;
 			
-			// aapt resource value: 0x7f050022
-			public const int slidingmenulayout = 2131034146;
-			
-			// aapt resource value: 0x7f050021
-			public const int slidingmenumain = 2131034145;
+			// aapt resource value: 0x7f050024
+			public const int slidingmenulayout = 2131034148;
 			
 			// aapt resource value: 0x7f050023
-			public const int slidingmenurowicon = 2131034147;
+			public const int slidingmenumain = 2131034147;
 			
-			// aapt resource value: 0x7f050024
-			public const int slidingmenurowtitle = 2131034148;
+			// aapt resource value: 0x7f050025
+			public const int slidingmenurowicon = 2131034149;
 			
-			// aapt resource value: 0x7f05001c
-			public const int title = 2131034140;
+			// aapt resource value: 0x7f050026
+			public const int slidingmenurowtitle = 2131034150;
+			
+			// aapt resource value: 0x7f05001d
+			public const int title = 2131034141;
 			
 			private Id()
 			{

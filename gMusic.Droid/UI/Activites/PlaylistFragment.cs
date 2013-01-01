@@ -25,6 +25,8 @@ namespace GoogleMusic
 		public PlaylistFragment(bool isAutoPlaylist)
 		{
 			IsAutoPlaylist = isAutoPlaylist;
+			
+			Title = IsAutoPlaylist ? "Auto-Playlists" : "Playlists";
 		}
 		public override void OnActivityCreated (Bundle savedInstanceState)
 		{

@@ -16,6 +16,10 @@ namespace GoogleMusic
 	public class GenreFragment : BaseFragment, IBaseViewController
 	{
 		GenreViewModel model;
+		public GenreFragment()
+		{
+			Title = "Genres";
+		}
 		public override void OnActivityCreated (Bundle savedInstanceState)
 		{			
 			base.OnActivityCreated (savedInstanceState);

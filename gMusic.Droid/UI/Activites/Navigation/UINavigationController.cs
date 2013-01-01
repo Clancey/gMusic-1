@@ -14,6 +14,8 @@ namespace GoogleMusic
 		public Button RightButton;
 		public Button LeftButton;
 		protected TextView TitleTv;
+		LinearLayout LeftButtonLayout;
+		LinearLayout RightButtonLayout;
 		public UINavigationController() : base()
 		{
 
@@ -28,24 +30,70 @@ namespace GoogleMusic
 			//ListView = v.FindViewById<ListView> (Resource.Id.listView);
 			RightButton = v.FindViewById<Button> (Resource.Id.RightBtn);
 			LeftButton = v.FindViewById<Button> (Resource.Id.LeftBtn);
-//			if (HasBackButton) {
-//				LeftButton.SetBackgroundResource(Resource.Drawable.back);
-//				LeftButton.Click += delegate {
-//					if(NavigationController != null)
-//						NavigationController.PopViewController(true);
-//				};
-//			} else {
-//				LeftButton.SetBackgroundResource(Resource.Drawable.menuButton);
-//				LeftButton.Text = "";
-//				LeftButton.Click += delegate {
-//					if(NavigationController.Parent is Com.Slidingmenu.Lib.App.SlidingFragmentActivity)
-//						((Com.Slidingmenu.Lib.App.SlidingFragmentActivity)NavigationController.Parent).SlidingMenu.Toggle();
-//				};
-//			}
+			LeftButton.Click += LeftClicked;
 			TitleTv = v.FindViewById<TextView> (Resource.Id.title);
-			FragmentManager.BeginTransaction ().Add (Resource.Id.navContent, CurrentFragment).Commit();
+			var curFrag = CurrentFragment;
+			if (curFrag != null) {
+				try{
+					if(!curFrag.IsAdded)
+						FragmentManager.BeginTransaction ().Add (Resource.Id.navContent, CurrentFragment).Commit ();
+					else
+						FragmentManager.BeginTransaction ().Replace (Resource.Id.navContent, CurrentFragment).Commit ();
+						
+				if(curFrag is IViewController)
+					TitleTv.Text = ((IViewController)curFrag).Title;
+				}
+				catch(Exception ex)
+				{
+					Console.WriteLine(ex);
+				}
+			}
+			SetLeftButton ();
 			return v;
 		}
+		public override void OnDetach ()
+		{
+			var curFrag = CurrentFragment;
+			if (curFrag != null) {
+				if (curFrag.IsAdded)
+				{
+				
+					try{
+					FragmentManager.BeginTransaction ().Remove (CurrentFragment).Commit ();
+					}
+					catch(Exception ex)
+					{
+						Console.WriteLine(ex);
+					}
+				}
+			}
+			base.OnDetach ();
+		}
+		public void SetLeftButton()
+		{
+			if(ControllerStack.Count > 1)
+			{
+				LeftButton.SetBackgroundResource(Resource.Drawable.back);
+				LeftButton.Text = "Back";
+
+			} else {
+				LeftButton.SetBackgroundResource(Resource.Drawable.menuButton);
+				LeftButton.Text = "";
+			}
+		}
+
+		void LeftClicked (object sender, EventArgs e)
+		{
+			if (ControllerStack.Count > 1) {
+				PopViewController (true);
+			}else {
+
+					if(Parent is Com.Slidingmenu.Lib.App.SlidingFragmentActivity)
+						((Com.Slidingmenu.Lib.App.SlidingFragmentActivity)Parent).SlidingMenu.Toggle();
+
+			}
+		}
+
 		public override void OnResume ()
 		{
 			base.OnResume ();
@@ -67,7 +115,7 @@ namespace GoogleMusic
 		public Fragment CurrentFragment
 		{
 			get{ 
-				return ControllerStack.Last ();
+				return ControllerStack.LastOrDefault ();
 			}
 		}
 		public void PushViewController(Fragment fragment,bool animated)
@@ -87,7 +135,17 @@ namespace GoogleMusic
 					ft.SetCustomAnimations (Resource.Animation.slide_in_right, Resource.Animation.slide_out_left);
 				
 			}
+			try{
 			ft.Replace (Resource.Id.navContent, fragment).Commit ();
+			}
+			catch(Exception ex)
+			{
+				Console.WriteLine(ex);
+			}
+			SetLeftButton ();
+			if (fragment is IViewController) {
+				TitleTv.Text = ((IViewController)fragment).Title;
+			}
 		}
 		public bool PopViewController(bool animated)
 		{
