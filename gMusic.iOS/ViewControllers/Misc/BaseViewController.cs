@@ -34,9 +34,11 @@ namespace GoogleMusic
 		}
 	}
 
-	public abstract class BaseViewController : UITableViewController, ISearchable, IBaseViewController
+	public abstract class BaseViewController : UITableViewController, ISearchable, IBaseViewController, IViewController
 	{
+
 		public Screens Screen { get; protected set; }
+		public bool HasBackButton { get; set; }
 		//protected SonglistViewController CurrentSongListViewController;
 		protected EditSongViewController CurrentSongEditor;
 		protected PopUpView popUpView;
@@ -56,7 +58,7 @@ namespace GoogleMusic
 		{
 			TableView.ReloadData ();
 		}
-		
+		public bool ShowMenu;
 		public BaseViewController (UITableViewStyle style, bool hasShuffle) : this(style,hasShuffle,true)
 		{
 			
@@ -454,6 +456,7 @@ namespace GoogleMusic
 				else
 					this.NavigationItem.RightBarButtonItem = null;
 				if(!DarkThemed  && (Util.IsIphone || (Util.MainVC.InterfaceOrientation == UIInterfaceOrientation.Portrait || Util.MainVC.InterfaceOrientation == UIInterfaceOrientation.PortraitUpsideDown))){
+					if(!HasBackButton)
 					this.NavigationItem.LeftBarButtonItem = new UIBarButtonItem (UIImage.FromFile("Images/menu.png"), UIBarButtonItemStyle.Bordered, delegate {
 						//if(DarkThemed)
 						//	Util.AppDelegate.MainVC.tvViewController.ToggleMenu();

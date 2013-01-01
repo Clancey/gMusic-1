@@ -11,6 +11,7 @@ namespace GoogleMusic
 		public static GroupInfo PlaylistGroupInfo = new  GroupInfo(){Filter = "AutoPlaylist = 0",OrderBy = "Name"};
 		public static GroupInfo AutoPlaylistGroupInfo = new  GroupInfo(){Filter = "AutoPlaylist = 1",OrderBy = "Name"};
 		public bool IsAutoPlaylist;
+		public Action<Playlist> PlaylistSelected { get; set; }
 		#if iOS
 		public PlaylistViewModel (IBaseViewController parent,bool isAutoPlaylist = false) : base(parent)
 		{
@@ -54,17 +55,10 @@ namespace GoogleMusic
 		{
 			return ItemFor (section, position);
 		}
-		string[] array;
+
 		public override string[] SectionIndexTitles ()
 		{
 			return Database.Main.QuickJump<Playlist> (GroupInfo);
-//			if (IsSearching)
-//				array = new string[]{};
-//			else if (Settings.ShowOfflineOnly)
-//				array = Util.OfflineSongsGrouped.Select (x => x.Key).ToArray ();
-//			else
-//				array = Database.Main.QuickJump<Song> ();
-//			return array;
 		}
 		
 		public override string HeaderForSection (int section)
@@ -79,7 +73,8 @@ namespace GoogleMusic
 
 		public override void RowSelected (Playlist playlist)
 		{
-			Util.PlayPlaylist (null, playlist);
+			if (PlaylistSelected != null)
+				PlaylistSelected (playlist);
 			//Util.PlaySong(song,song.ArtistId,song.AlbumId,true);
 		}
 

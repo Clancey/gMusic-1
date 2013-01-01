@@ -5,14 +5,15 @@ using MonoTouch.UIKit;
 
 namespace GoogleMusic
 {
-	public interface IBaseViewController
+	public interface IViewController
 	{
-		void ReloadData ();
 		UINavigationController NavigationController { get;
-			#if Droid
+#if Droid
 			set;
-			#endif
+#endif
 		}
+		bool HasBackButton{ get; set; }
+		string Title {get;set;}
 	}
 }
 

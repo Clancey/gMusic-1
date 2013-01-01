@@ -17,32 +17,33 @@ namespace GoogleMusic
 
 	public class MenuFragment : ListFragment
 	{
+		public int CurrentIndex { get; set; }
 		public MenuFragment ()
 		{
 			MenuItems = new MenuItem[]{
 				new MenuItem{
 					Title = "Songs",
-					Content = new SongFragment(),
+					Content = new UINavigationController(new SongFragment()),
 				},
 				new MenuItem{
 					Title = "Artists",
-					Content = new ArtistFragment(),
+					Content = new UINavigationController(new ArtistFragment()),
 				},
 				new MenuItem{
 					Title = "Albums",
-					Content = new AlbumFragment(),
+					Content = new UINavigationController(new AlbumViewController()),
 				},
 				new MenuItem{
 					Title = "Genres",
-					Content = new GenreFragment(),
+					Content = new UINavigationController(new GenreFragment()),
 				},
 				new MenuItem{
 					Title = "Playlists",
-					Content = new PlaylistFragment(),
+					Content = new UINavigationController(new PlaylistFragment()),
 				},
 				new MenuItem{
 					Title = "Auto Playlists",
-					Content = new PlaylistFragment(false),
+					Content = new UINavigationController(new PlaylistFragment(true)),
 				},
 			};
 		}
@@ -60,8 +61,11 @@ namespace GoogleMusic
 		}
 		public override void OnListItemClick (ListView l, View v, int position, long id)
 		{
+			CurrentIndex = position;
 			Fragment newContent = menuAdapater [position].Content;
-			
+
+			if (newContent is IViewController)
+				newContent = ((IViewController)newContent).NavigationController.CurrentFragment;
 			if (newContent != null)
 				switchFragment(newContent);
 
@@ -72,7 +76,7 @@ namespace GoogleMusic
 			
 			if (Activity is FragmentChangeActivity) {
 				FragmentChangeActivity fca = (FragmentChangeActivity) Activity;
-				fca.switchContent(fragment);
+				fca.SwitchContent(fragment);
 			}
 		}
 

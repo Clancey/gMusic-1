@@ -20,10 +20,11 @@ namespace GoogleMusic
 		#endif
 		
 		#region implemented abstract members of SectionedAdapter
-		
+		public Action<Genre> GenreSelected {get;set;}
 		public override void RowSelected (Genre item)
 		{
-			Util.PlaySong (null, item.Id, -1, false);
+			if (GenreSelected != null)
+				GenreSelected (item);
 		}
 		public override ICell GetICell (int section, int position)
 		{

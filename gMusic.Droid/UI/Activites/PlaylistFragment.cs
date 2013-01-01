@@ -14,19 +14,27 @@ using Android.Widget;
 
 namespace GoogleMusic
 {
-	public class PlaylistFragment : ListFragment, IBaseViewController
+	public class PlaylistFragment : BaseFragment , IBaseViewController
 	{
 		bool IsAutoPlaylist;
-		public PlaylistFragment(bool isAutoPlaylist = false)
+		PlaylistViewModel model;
+		public PlaylistFragment() : this(false)
+		{
+
+		}
+		public PlaylistFragment(bool isAutoPlaylist)
 		{
 			IsAutoPlaylist = isAutoPlaylist;
 		}
-		PlaylistViewModel model;
 		public override void OnActivityCreated (Bundle savedInstanceState)
 		{
 			base.OnActivityCreated (savedInstanceState);
 			ListView.FastScrollEnabled = true;
-			this.ListAdapter = model = new PlaylistViewModel (Activity,this.ListView, this,IsAutoPlaylist);
+			model = new PlaylistViewModel (Activity,this.ListView, this,IsAutoPlaylist);
+			model.PlaylistSelected = (selectedPlaylist) => {
+
+			};
+			this.ListView.Adapter = model;
 			
 		}
 		
@@ -34,10 +42,6 @@ namespace GoogleMusic
 		{
 			model.NotifyDataSetChanged ();
 		}
-		#region IBaseViewController implementation
-
-
-		#endregion
 	}
 }
 

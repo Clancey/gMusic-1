@@ -28,11 +28,10 @@ using System.Net;
 using System.Text;
 using System.Threading;
 
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
-using MonoTouch.CoreGraphics;
-using MonoTouch.Dialog.Utilities;
 using System.Security.Cryptography;
+using MonoTouch.Dialog.Utilities;
+using MonoTouch.UIKit;
+using MonoTouch.Foundation;
 using MonoTouch.ObjCRuntime;
 
 namespace GoogleMusic
@@ -43,10 +42,7 @@ namespace GoogleMusic
 	///    Upon notification, the code should call RequestImage again, this time
 	///    the image will be loaded from the on-disk cache or the in-memory cache.
 	/// </summary>
-	public interface IImageUpdated
-	{
-		void UpdatedImage (string uri);
-	}
+
 	
 	/// <summary>
 	///   Network image loader, with local file system cache and in-memory cache
@@ -75,7 +71,7 @@ namespace GoogleMusic
 		static string PicDir; 
 		
 		// Cache of recently used images
-		LRUCache<string,UIImage> cache;
+		LRUCache<string,Image> cache;
 		
 		// A list of requests that have been issues, with a list of objects to notify.
 		static Dictionary<string, List<IImageUpdated>> pendingRequests;
@@ -85,7 +81,7 @@ namespace GoogleMusic
 		
 		// A queue used to avoid flooding the network stack with HTTP requests
 		static Stack<string> requestQueue;
-		static NSString nsDispatcher = new NSString ("x");
+		static string nsDispatcher = new NSString ("x");
 		static MD5CryptoServiceProvider checksum = new MD5CryptoServiceProvider ();
 		
 		/// <summary>
@@ -122,10 +118,14 @@ namespace GoogleMusic
 			cache = new LRUCache<string, UIImage> (cacheSize, memoryLimit, sizer);
 		}
 		
-		static int sizer (UIImage img)
+		static int sizer (Image img)
 		{
+#if iOS
 			var cg = img.CGImage;
 			return cg.BytesPerRow * cg.Height;
+#elif Droid
+			Image.
+#endif
 		}
 		
 		/// <summary>
@@ -192,7 +192,7 @@ namespace GoogleMusic
 		public static UIImage DefaultRequestImage (string uri, IImageUpdated notify)
 		{
 			if (DefaultLoader == null)
-				DefaultLoader = new ImageLoader (20, 4 * 1024 * 1024);
+				DefaultLoader = new ImageLoader (50, 10 * 1024 * 1024);
 			return DefaultLoader.RequestImage (uri, notify);
 		}
 		
@@ -309,7 +309,7 @@ namespace GoogleMusic
 				return true;
 			} catch (Exception e) {
 				Console.WriteLine ("Problem with {0} {1}", uri, e);
-				return false;
+				return true;
 			}
 		}
 

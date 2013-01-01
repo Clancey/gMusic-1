@@ -14,26 +14,21 @@ using Android.Widget;
 namespace GoogleMusic
 {
 	[Activity (Label = "Songs")]			
-	public class SongFragment : ListFragment, IBaseViewController
+	public class SongFragment : BaseFragment , IBaseViewController
 	{
 		SongViewModel model;
 		public override void OnActivityCreated (Bundle savedInstanceState)
 		{			
 			base.OnActivityCreated (savedInstanceState);
 			//ListView.FastScrollEnabled = true;
-			this.ListAdapter = model = new SongViewModel (Activity,this.ListView, this);
-			model.PrecachData ();
-
+			model = new SongViewModel (Activity, this.ListView, this);
+			this.ListView.Adapter = model;
+			//model.PrecachData ();
 		}
-
 		public void ReloadData ()
 		{
 			model.NotifyDataSetChanged ();
 		}
-//		public override void HandleRefresh ()
-//		{
-//			RunOnUiThread(ReloadData);
-//		}
 	}
 }
 

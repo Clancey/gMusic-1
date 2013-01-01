@@ -22,12 +22,10 @@ namespace GoogleMusic
 		{
 			base.OnCreate (bundle);
 
-			
 			RequestWindowFeature(WindowFeatures.NoTitle);
 			// set the Behind View
 			SetBehindContentView(Resource.Layout.menu_frame);
 			//FragmentManager.BeginTransaction ().Replace (Resource.Id.menu_frame, new SampleListFragment()).Commit ();
-
 
 
 			var sm = SlidingMenu;

@@ -67,9 +67,6 @@
     <Compile Include="..\gMusic\Data\Database.cs">
       <Link>gMusic\Data\Database.cs</Link>
     </Compile>
-    <Compile Include="..\gMusic\Images\IImageUpdated.cs">
-      <Link>gMusic\Images\IImageUpdated.cs</Link>
-    </Compile>
     <Compile Include="..\gMusic\Images\Images.cs">
       <Link>gMusic\Images\Images.cs</Link>
     </Compile>
@@ -211,7 +208,6 @@
     <Compile Include="..\gMusic\ViewModels\SongViewModel.cs">
       <Link>gMusic\ViewModels\SongViewModel.cs</Link>
     </Compile>
-    <Compile Include="UI\Activites\MainActivity.cs" />
     <Compile Include="..\gMusic\ViewModels\ArtistViewModel.cs">
       <Link>gMusic\ViewModels\ArtistViewModel.cs</Link>
     </Compile>
@@ -232,9 +228,6 @@
     <Compile Include="..\gMusic\ViewModels\AlbumViewModel.cs">
       <Link>gMusic\ViewModels\AlbumViewModel.cs</Link>
     </Compile>
-    <Compile Include="..\gMusic\ViewModels\SongListModelView.cs">
-      <Link>gMusic\ViewModels\SongListModelView.cs</Link>
-    </Compile>
     <Compile Include="UI\GetCellCalls\Album.cs" />
     <Compile Include="UI\GetCellCalls\Genre.cs" />
     <Compile Include="UI\Activites\PlaylistFragment.cs" />
@@ -244,271 +237,30 @@
     <Compile Include="UI\Activites\Misc\WebLoginActivity.cs" />
     <Compile Include="UI\Activites\Misc\MenuFragment.cs" />
     <Compile Include="UI\Activites\ArtistFragment.cs" />
-    <Compile Include="UI\Activites\AlbumFragment.cs" />
     <Compile Include="UI\Activites\GenreFragment.cs" />
+    <Compile Include="Resources\layout\songCell.xml" />
+    <Compile Include="UI\Views\AlbumCellView.cs" />
+    <Compile Include="gMusic\Images\ImageLoader.cs" />
+    <Compile Include="UI\Activites\Navigation\UINavigationController.cs" />
+    <Compile Include="UI\Activites\Navigation\iViewController.cs" />
+    <Compile Include="UI\Activites\Navigation\IFragmentSwitcher.cs" />
+    <Compile Include="UI\Activites\BaseFragment.cs" />
+    <Compile Include="UI\Activites\ArtistAlbumFragment.cs" />
+    <Compile Include="UI\Activites\AlbumViewController.cs" />
+    <Compile Include="UI\Activites\SongListViewController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
-    <None Include="..\gMusic\Images\alert-bg.png">
-      <Link>gMusic\Images\alert-bg.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\alert-bg%402x.png">
-      <Link>gMusic\Images\alert-bg%402x.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\alert-black-button.png">
-      <Link>gMusic\Images\alert-black-button.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\alert-black-button%402x.png">
-      <Link>gMusic\Images\alert-black-button%402x.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\alert-green-button.png">
-      <Link>gMusic\Images\alert-green-button.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\alert-green-button%402x.png">
-      <Link>gMusic\Images\alert-green-button%402x.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\alert-red-button.png">
-      <Link>gMusic\Images\alert-red-button.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\alert-red-button%402x.png">
-      <Link>gMusic\Images\alert-red-button%402x.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\alert-window.png">
-      <Link>gMusic\Images\alert-window.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\alert-window%402x.png">
-      <Link>gMusic\Images\alert-window%402x.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\back.png">
-      <Link>gMusic\Images\back.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\back%402x.png">
-      <Link>gMusic\Images\back%402x.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\bg.png">
-      <Link>gMusic\Images\bg.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\bg%402x.png">
-      <Link>gMusic\Images\bg%402x.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\bgipad.png">
-      <Link>gMusic\Images\bgipad.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\bgipad%402x.png">
-      <Link>gMusic\Images\bgipad%402x.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\blackbutton.png">
-      <Link>gMusic\Images\blackbutton.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\blackbutton%402x.png">
-      <Link>gMusic\Images\blackbutton%402x.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\default_album.png">
-      <Link>gMusic\Images\default_album.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\default_album%402x.png">
-      <Link>gMusic\Images\default_album%402x.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\default_album_large.png">
-      <Link>gMusic\Images\default_album_large.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\default_album_large%402x.png">
-      <Link>gMusic\Images\default_album_large%402x.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\divider.png">
-      <Link>gMusic\Images\divider.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\divider%402x.png">
-      <Link>gMusic\Images\divider%402x.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\empty.png">
-      <Link>gMusic\Images\empty.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\forward.png">
-      <Link>gMusic\Images\forward.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\forward%402x.png">
-      <Link>gMusic\Images\forward%402x.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\ipadEmpty.png">
-      <Link>gMusic\Images\ipadEmpty.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\ipadIcon.png">
-      <Link>gMusic\Images\ipadIcon.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\list.png">
-      <Link>gMusic\Images\list.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\list%402x.png">
-      <Link>gMusic\Images\list%402x.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\menu-shadow.png">
-      <Link>gMusic\Images\menu-shadow.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\menu.png">
-      <Link>gMusic\Images\menu.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\menu%402x.png">
-      <Link>gMusic\Images\menu%402x.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\menubar-button.png">
-      <Link>gMusic\Images\menubar-button.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\menubar-button%402x.png">
-      <Link>gMusic\Images\menubar-button%402x.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\menubar-right.png">
-      <Link>gMusic\Images\menubar-right.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\menubar-right%402x.png">
-      <Link>gMusic\Images\menubar-right%402x.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\menubar.png">
-      <Link>gMusic\Images\menubar.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\menubar%402x.png">
-      <Link>gMusic\Images\menubar%402x.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\next.png">
-      <Link>gMusic\Images\next.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\next%402x.png">
-      <Link>gMusic\Images\next%402x.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\nextTv.png">
-      <Link>gMusic\Images\nextTv.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\nowPlaying.png">
-      <Link>gMusic\Images\nowPlaying.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\nowPlaying%402x.png">
-      <Link>gMusic\Images\nowPlaying%402x.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\pause.png">
-      <Link>gMusic\Images\pause.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\pause%402x.png">
-      <Link>gMusic\Images\pause%402x.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\pauseTv.png">
-      <Link>gMusic\Images\pauseTv.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\play.png">
-      <Link>gMusic\Images\play.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\play%402x.png">
-      <Link>gMusic\Images\play%402x.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\playTv.png">
-      <Link>gMusic\Images\playTv.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\previous.png">
-      <Link>gMusic\Images\previous.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\previous%402x.png">
-      <Link>gMusic\Images\previous%402x.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\previousTv.png">
-      <Link>gMusic\Images\previousTv.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\refresh.png">
-      <Link>gMusic\Images\refresh.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\refresh%402x.png">
-      <Link>gMusic\Images\refresh%402x.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\repeatAll.png">
-      <Link>gMusic\Images\repeatAll.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\repeatAll%402x.png">
-      <Link>gMusic\Images\repeatAll%402x.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\repeatOff.png">
-      <Link>gMusic\Images\repeatOff.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\repeatOff%402x.png">
-      <Link>gMusic\Images\repeatOff%402x.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\repeatOne.png">
-      <Link>gMusic\Images\repeatOne.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\repeatOne%402x.png">
-      <Link>gMusic\Images\repeatOne%402x.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\shuffleButton.png">
-      <Link>gMusic\Images\shuffleButton.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\shuffleButton%402x.png">
-      <Link>gMusic\Images\shuffleButton%402x.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\shuffleGray.png">
-      <Link>gMusic\Images\shuffleGray.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\shuffleGray%402x.png">
-      <Link>gMusic\Images\shuffleGray%402x.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\shuffleOff.png">
-      <Link>gMusic\Images\shuffleOff.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\shuffleOff%402x.png">
-      <Link>gMusic\Images\shuffleOff%402x.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\shuffleOn.png">
-      <Link>gMusic\Images\shuffleOn.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\shuffleOn%402x.png">
-      <Link>gMusic\Images\shuffleOn%402x.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\slider-handle.png">
-      <Link>gMusic\Images\slider-handle.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\slider-handle%402x.png">
-      <Link>gMusic\Images\slider-handle%402x.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\texture.png">
-      <Link>gMusic\Images\texture.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\texture%402x.png">
-      <Link>gMusic\Images\texture%402x.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\thumbsDown.png">
-      <Link>gMusic\Images\thumbsDown.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\thumbsDown%402x.png">
-      <Link>gMusic\Images\thumbsDown%402x.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\thumbsUp.png">
-      <Link>gMusic\Images\thumbsUp.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\thumbsUp%402x.png">
-      <Link>gMusic\Images\thumbsUp%402x.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\thumbsUpPressed.png">
-      <Link>gMusic\Images\thumbsUpPressed.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\thumbsUpPressed%402x.png">
-      <Link>gMusic\Images\thumbsUpPressed%402x.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\topBar.png">
-      <Link>gMusic\Images\topBar.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\topBar%402x.png">
-      <Link>gMusic\Images\topBar%402x.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\upArrow.png">
-      <Link>gMusic\Images\upArrow.png</Link>
-    </None>
-    <None Include="..\gMusic\Images\upArrow%402x.png">
-      <Link>gMusic\Images\upArrow%402x.png</Link>
-    </None>
     <None Include="..\Bass.Net\Bass.Net.csproj">
       <Link>gMusic\Bass.Net\Bass.Net.csproj</Link>
     </None>
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\Main.axml" />
+    <AndroidResource Include="Resources\layout\Main.axml">
+      <DependentUpon>Main.axml</DependentUpon>
+    </AndroidResource>
     <AndroidResource Include="Resources\values\Strings.xml" />
     <AndroidResource Include="Resources\drawable\Icon.png" />
     <AndroidResource Include="Resources\values\colors.xml" />
@@ -525,6 +277,32 @@
     <AndroidResource Include="Resources\layout\list.xml" />
     <AndroidResource Include="Resources\layout\row.xml" />
     <AndroidResource Include="Resources\drawable\ic_launcher.png" />
+    <AndroidResource Include="Resources\layout\albumCell.xml" />
+    <AndroidResource Include="Resources\drawable\default_album.png" />
+    <AndroidResource Include="..\gMusic\Images\default_album_large.png">
+      <Link>Resources\drawable\default_album_large.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\NavListView.axml" />
+    <AndroidResource Include="..\gMusic\Images\blackbutton.png">
+      <Link>Resources\drawable\blackbutton.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\gMusic\Images\back.png">
+      <Link>Resources\drawable\back.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\gMusic\Images\menuButton.png">
+      <Link>Resources\drawable\menuButton.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\window_title.xml" />
+    <AndroidResource Include="Resources\anim\slide_in_left.xml" />
+    <AndroidResource Include="Resources\anim\slide_out_right.xml" />
+    <AndroidResource Include="Resources\anim\slide_out_left.xml" />
+    <AndroidResource Include="Resources\anim\slide_in_right.xml" />
+    <AndroidResource Include="..\gMusic\Images\menubar.png">
+      <Link>Resources\drawable\menubar.png</Link>
+    </AndroidResource>
+    <AndroidResource Include="..\gMusic\Images\forward.png">
+      <Link>Resources\drawable\forward.png</Link>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup>
@@ -540,6 +318,8 @@
     <Folder Include="Resources\drawable\" />
     <Folder Include="Resources\anim\" />
     <Folder Include="UI\Activites\Misc\" />
+    <Folder Include="UI\Views\" />
+    <Folder Include="UI\Activites\Navigation\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidNativeLibrary Include="Libs\armeabi\libbass.so" />
@@ -559,6 +339,10 @@
     <ProjectReference Include="..\..\InstantDatabase\InstantDatabase\InstantDatabase.Droid.csproj">
       <Project>{DAB83EFA-1D12-4F40-A6E9-1F1B5470FAA1}</Project>
       <Name>InstantDatabase.Droid</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\MonoDroid.UrlImageStore\MonoDroid.UrlImageStore\MonoDroid.UrlImageStore.csproj">
+      <Project>{1ED6F045-D2FF-4090-8A71-6DE6ADA7492D}</Project>
+      <Name>MonoDroid.UrlImageStore</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

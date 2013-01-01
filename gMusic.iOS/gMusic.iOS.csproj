@@ -198,9 +198,6 @@
     <Compile Include="..\gMusic\ViewControllers\IMainViewController.cs">
       <Link>gMusic\ViewControllers\IMainViewController.cs</Link>
     </Compile>
-    <Compile Include="..\gMusic\Images\IImageUpdated.cs">
-      <Link>Images\IImageUpdated.cs</Link>
-    </Compile>
     <Compile Include="..\gMusic\Images\Images.cs">
       <Link>Images\Images.cs</Link>
     </Compile>
@@ -223,7 +220,6 @@
     <Compile Include="UI\Shared\SongElement.cs" />
     <Compile Include="UI\Shared\LevelMeter.cs" />
     <Compile Include="Utilities\AppRater.cs" />
-    <Compile Include="Images\ImageLoader.cs" />
     <Compile Include="UI\Shared\TransparentToolbar.cs" />
     <Compile Include="UI\Shared\TextFieldAlertView.cs" />
     <Compile Include="UI\Shared\RCSwitch.cs" />
@@ -251,9 +247,6 @@
     </Compile>
     <Compile Include="ViewControllers\PlaylistViewController.cs" />
     <Compile Include="ViewControllers\SongListViewController.cs" />
-    <Compile Include="..\gMusic\ViewModels\SongListModelView.cs">
-      <Link>gMusic\ViewModels\SongListModelView.cs</Link>
-    </Compile>
     <Compile Include="..\gMusic\ViewModels\AlbumViewModel.cs">
       <Link>gMusic\ViewModels\AlbumViewModel.cs</Link>
     </Compile>
@@ -266,6 +259,13 @@
     <Compile Include="ViewControllers\Misc\BaseViewController.cs" />
     <Compile Include="ViewControllers\Misc\iPhoneBaseViewController.cs" />
     <Compile Include="ViewControllers\Misc\MainViewController.cs" />
+    <Compile Include="Images\ImageLoader.cs" />
+    <Compile Include="..\gMusic\ViewModels\ArtistAlbumViewModel.cs">
+      <Link>gMusic\ViewModels\ArtistAlbumViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\gMusic.Droid\UI\Activites\Navigation\iViewController.cs">
+      <Link>gMusic\ViewControllers\iViewController.cs</Link>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

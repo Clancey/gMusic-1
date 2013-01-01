@@ -69,7 +69,7 @@ namespace GoogleMusic
 			
 			this.TextLabel.BackgroundColor = UIColor.Clear;
 			this.TextLabel.Text = album.Name;
-			this.ImageView.Image = currentAlbum.AlbumArt(57);
+			this.ImageView.Image = currentAlbum.AlbumArt(57) ?? Images.DefaultSmallAlbumImage;
 			
 			if(DetailTextLabel != null)
 			{

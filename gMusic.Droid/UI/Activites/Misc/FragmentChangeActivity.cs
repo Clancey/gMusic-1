@@ -15,39 +15,43 @@ using System.Threading.Tasks;
 namespace GoogleMusic
 {
 	[Activity (Label = "gMusic", MainLauncher = true)]			
-	public class FragmentChangeActivity : BaseActivity, IMainViewController
+	public class FragmentChangeActivity : BaseActivity, IMainViewController, IFragmentSwitcher
 	{
 	
 		protected Fragment mContent;
-
+		static bool isInitialized;
+		static MenuFragment Menu;
 		public override void OnCreate (Bundle savedInstanceState)
 		{
 			Util.MainVC = this;
 			base.OnCreate (savedInstanceState);
+			if (!isInitialized) {
+				Images.Init (Resources);
+				Settings.UserName = "james.clancey@gmail.com";
+				if (!string.IsNullOrEmpty (Settings.UserName))
+					Database.SetDatabase (Settings.UserName);
 
-			Settings.UserName = "james.clancey@gmail.com";
-			if (!string.IsNullOrEmpty (Settings.UserName))
-				Database.SetDatabase (Settings.UserName);
-
-			Task.Factory.StartNew (delegate {
-				Database.SetDatabase ("james.clancey@gmail.com");
-				Util.LoadData ();
-				if (Util.Api == null)
-					Util.Api = new GoogleMusicApi ("james.clancey@gmail.com");
-				Util.Api.SignIn ("james.clancey@gmail.com", "Tng4life!", (success) => {
-					Settings.UserName = "james.clancey@gmail.com";
-					Console.WriteLine (success);
+				Task.Factory.StartNew (delegate {
+					Database.SetDatabase ("james.clancey@gmail.com");
+					Util.LoadData ();
+					if (Util.Api == null)
+						Util.Api = new GoogleMusicApi ("james.clancey@gmail.com");
+					Util.Api.SignIn ("james.clancey@gmail.com", "Tng4life!", (success) => {
+						Settings.UserName = "james.clancey@gmail.com";
+						Console.WriteLine (success);
+				
 			
-		
+					});
 				});
-			});
-
-			var menu = new MenuFragment ();
+				isInitialized = true;
+			}
+			if(Menu == null)
+				Menu = new MenuFragment ();
 			// set the Above View
-			if (savedInstanceState != null)
-				mContent = FragmentManager.GetFragment (savedInstanceState, "mContent");
+//			if (savedInstanceState != null)
+//				mContent = FragmentManager.GetFragment (savedInstanceState, "mContent");
 			if (mContent == null)
-				mContent = menu.MenuItems[0].Content;	
+				mContent = Menu.MenuItems[Menu.CurrentIndex].Content;	
 			
 			// set the Above View
 			this.SetContentView (Resource.Layout.content_frame);
@@ -58,7 +62,20 @@ namespace GoogleMusic
 			SetBehindContentView (Resource.Layout.menu_frame);
 
 			
-			FragmentManager.BeginTransaction ().Replace (Resource.Id.menu_frame, menu).Commit ();
+			FragmentManager.BeginTransaction ().Replace (Resource.Id.menu_frame, Menu).Commit ();
+
+
+		}
+		public override bool OnKeyDown (Keycode keyCode, KeyEvent e)
+		{
+			if (keyCode == Keycode.Back) {
+				if(mContent is IViewController)
+				{
+					if((mContent as IViewController).NavigationController.PopViewController(true))
+						return true;
+				}
+			}
+			return base.OnKeyDown (keyCode, e);
 		}
 		protected override void OnSaveInstanceState (Bundle outState)
 		{
@@ -69,12 +86,24 @@ namespace GoogleMusic
 //			}
 		}
 
-		public void switchContent (Fragment fragment)
+		public void SwitchContent (Fragment fragment)
+		{
+			SwitchContent (fragment, false);
+		}
+
+		public void SwitchContent (Fragment fragment, bool animated, bool removed = false)
 		{
 			mContent = fragment;
-			FragmentManager.BeginTransaction ().Replace (Resource.Id.content_frame, fragment).Commit ();
+			var ft = FragmentManager.BeginTransaction ();
+			if (animated) {
+				if(removed)
+					ft.SetCustomAnimations (Resource.Animation.slide_in_left, Resource.Animation.slide_out_right);
+				else
+					ft.SetCustomAnimations (Resource.Animation.slide_in_right, Resource.Animation.slide_out_left);
+
+			}
+			ft.Replace (Resource.Id.content_frame, fragment).Commit ();
 			SlidingMenu.ShowContent ();
-			//Toggle ();
 		}
 
 		#region IMainViewController implementation

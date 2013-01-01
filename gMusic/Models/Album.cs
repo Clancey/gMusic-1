@@ -2,6 +2,11 @@ using System;
 using SQLite;
 using Xamarin.Data;
 
+
+#if Droid
+using MonoDroid.UrlImageStore;
+#endif
+
 namespace GoogleMusic
 {
 	public partial class Album : IImageUpdated
@@ -21,7 +26,7 @@ namespace GoogleMusic
 
 		[Ignore]
 		public Artist TheArtist {
-			get{ return Util.ArtistsDict.ContainsKey (ArtistId) ? Util.ArtistsDict [ArtistId] : new Artist ();}
+			get{ return Database.Main.GetObject<Artist>(ArtistId) ?? new Artist ();}
 		}
 
 		public string Artist{ get { return TheArtist.Name; } }
@@ -62,14 +67,19 @@ namespace GoogleMusic
 		[Indexed]
 		public string NameNorm { get; set; }
 #if iOS	
-		public MonoTouch.UIKit.UIImage AlbumArt (int size)
+		public MonoTouch.UIKit.UIImage AlbumArt (int size)			
+#elif Droid
+			
+		public Android.Graphics.Drawables.Drawable AlbumArt (int size)
+				
+#endif
 		{
 			var url = albumArt (size);
 			if (string.IsNullOrEmpty (url))
 				return Images.DefaultAlbumImage;
-			return ImageLoader.DefaultRequestImage (albumArt (size), this) ?? Images.DefaultAlbumImage;
+			return ImageLoader.DefaultRequestImage (albumArt (size), this);
 		}
-#endif
+
 		public event EventHandler ALbumArtUpdated;
 		void IImageUpdated.UpdatedImage (string uri)
 		{

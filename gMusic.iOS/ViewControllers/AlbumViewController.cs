@@ -6,7 +6,8 @@ namespace GoogleMusic
 	public class AlbumViewController : BaseViewController
 	{
 		
-		private AlbumViewModel DataSource;
+		private AlbumViewModel model;
+		public Artist Artist{get;set;}
 		public AlbumViewController() : this(true)
 		{
 			
@@ -21,8 +22,16 @@ namespace GoogleMusic
 		protected override void setupTable ()
 		{
 			base.setupTable ();			
-			DataSource = new AlbumViewModel(this);
-			this.TableView.Source = DataSource;
+			if (Artist == null)
+				model = new AlbumViewModel (this);
+			else {
+				model = new AlbumViewModel (this, string.Format ("ArtistId = {0}", Artist.Id), "NameNorm");
+				this.Title = Artist.Name;
+			}
+//			model.AlbumSelected = (selectedAlbum) => {
+//				this.NavigationController.PushViewController(new SongListViewController(string.Format("AlbumId = {0}",selectedAlbum.Id),"Disc, Track"),true);
+//			};
+			this.TableView.Source = model;
 			this.TableView.RowHeight = DarkThemed ?  80 : 40;
 		}
 		
