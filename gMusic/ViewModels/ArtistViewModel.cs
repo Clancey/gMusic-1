@@ -31,16 +31,22 @@ namespace GoogleMusic
 
 		#region implemented abstract members of SectionedAdapter
 		public Action<Artist> ArtistSelected {get;set;}
-		public override void RowSelected (Artist item)
+		public override void RowSelected (Artist artist)
 		{
-			if (ArtistSelected != null)
-				ArtistSelected (item);
-			else {
-				var groupInfo = new GroupInfo(){Filter = string.Format("ArtistId = {0}",item.Id), OrderBy = "NameNorm"};
-				var albumCount = Database.Main.GetObjectCount<Album>(groupInfo);
-				Console.WriteLine(albumCount);
-				Parent.NavigationController.PushViewController(new AlbumViewController(item){HasBackButton = true},true);
-				}			
+			if (ArtistSelected != null) {
+				ArtistSelected (artist);
+				return;
+			}
+			GroupInfo groupInfo = new GroupInfo{Filter = string.Format ("ArtistId = {0}", artist.Id), GroupBy = "Album", OrderBy =  "Album, Disc, Track", Ignore = true};
+
+			Parent.NavigationController.PushViewController(new AlbumArtistViewController(artist.Name,groupInfo){HasBackButton = true},true);
+							
+		}
+		public static BaseViewController GetNextScreen(Artist artist)
+		{
+			var groupInfo = new GroupInfo(){Filter = string.Format("ArtistId = {0}",artist.Id), OrderBy = "NameNorm"};
+			var albumCount = Database.Main.GetObjectCount<Album>(groupInfo);
+			return null;
 		}
 		public override ICell GetICell (int section, int position)
 		{

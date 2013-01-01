@@ -14,12 +14,13 @@ namespace GoogleMusic
 		{
 			var inflater = LayoutInflater.FromContext (context);
 			View view = convertView; // re-use an existing view, if one is available
-			if (view == null || view.Id != Android.Resource.Layout.SimpleListItem1) // otherwise create a new one
-				view = inflater.Inflate (Android.Resource.Layout.SimpleListItem1, null);
-			var textView = view.FindViewById<TextView> (Android.Resource.Id.Text1);
-			textView.Text = string.Format("{0} {1}",this.Title,this.Artist);
-			textView.SetTextColor (Color.White);
-			textView.SetBackgroundColor(Color.Transparent);
+			if (view == null || view.Id != Resource.Layout.songCell) // otherwise create a new one
+				view = inflater.Inflate (Resource.Layout.songCell, null);
+			var songTv = view.FindViewById<TextView> (Resource.Id.songTitle);
+			songTv.Text = this.Title;
+			
+			var artistTv = view.FindViewById<TextView> (Resource.Id.artistName);
+			artistTv.Text = this.Artist;
 			
 			return view;
 		}

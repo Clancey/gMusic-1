@@ -7,13 +7,13 @@ using Com.Slidingmenu.Lib;
 
 namespace GoogleMusic
 {
-	public class BaseFragment : Fragment, IViewController
+	public class BaseViewController : Fragment, IViewController
 	{
 		public UINavigationController NavigationController { get; set; }
 		public string Title {get;set;}
 		public ListView ListView { get; private set; }
 		public bool HasBackButton { get; set; }
-		public BaseFragment ()
+		public BaseViewController ()
 		{
 			HasBackButton = true;
 		}

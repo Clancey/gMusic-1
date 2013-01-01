@@ -14,7 +14,7 @@ using Android.Widget;
 namespace GoogleMusic
 {
 	[Activity (Label = "SongListFragment")]			
-	public class SongListViewController : BaseFragment , IBaseViewController, IViewController
+	public class SongListViewController : BaseViewController , IBaseViewController, IViewController
 	{
 		public SongListViewController()
 		{

@@ -238,16 +238,19 @@
     <Compile Include="UI\Activites\Misc\MenuFragment.cs" />
     <Compile Include="UI\Activites\ArtistFragment.cs" />
     <Compile Include="UI\Activites\GenreFragment.cs" />
-    <Compile Include="Resources\layout\songCell.xml" />
     <Compile Include="UI\Views\AlbumCellView.cs" />
     <Compile Include="gMusic\Images\ImageLoader.cs" />
     <Compile Include="UI\Activites\Navigation\UINavigationController.cs" />
     <Compile Include="UI\Activites\Navigation\iViewController.cs" />
     <Compile Include="UI\Activites\Navigation\IFragmentSwitcher.cs" />
-    <Compile Include="UI\Activites\BaseFragment.cs" />
     <Compile Include="UI\Activites\ArtistAlbumFragment.cs" />
     <Compile Include="UI\Activites\AlbumViewController.cs" />
     <Compile Include="UI\Activites\SongListViewController.cs" />
+    <Compile Include="UI\Activites\BaseViewController.cs" />
+    <Compile Include="..\gMusic\ViewModels\ArtistAlbumViewModel.cs">
+      <Link>gMusic\ViewModels\ArtistAlbumViewModel.cs</Link>
+    </Compile>
+    <Compile Include="UI\Activites\AlbumArtistViewController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -303,6 +306,8 @@
     <AndroidResource Include="..\gMusic\Images\forward.png">
       <Link>Resources\drawable\forward.png</Link>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\artistCell.xml" />
+    <AndroidResource Include="Resources\layout\songCell.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup>

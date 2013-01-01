@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,29 +9,36 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Xamarin.Data;
 
 namespace GoogleMusic
 {
-	[Activity (Label = "Songs")]			
-	public class SongFragment : BaseViewController , IBaseViewController
+	public class AlbumArtistViewController: BaseViewController , IBaseViewController, IViewController
 	{
-		public SongFragment ()
+		GroupInfo GroupInfo;
+		public AlbumArtistViewController( string title, GroupInfo groupinfo)
 		{
-			this.Title = "Songs";
+			Title = title;
+			GroupInfo = groupinfo;
+			
 		}
-		SongViewModel model;
+		public Artist Artist{get;set;}
+		ArtistAlbumViewModel model;
 		public override void OnActivityCreated (Bundle savedInstanceState)
 		{			
 			base.OnActivityCreated (savedInstanceState);
 			//ListView.FastScrollEnabled = true;
-			model = new SongViewModel (Activity, this.ListView, this);
-			this.ListView.Adapter = model;
-			//model.PrecachData ();
+			model = new ArtistAlbumViewModel (Activity, this.ListView, this,GroupInfo);
+			
+			ListView.Adapter = model;
+			
 		}
+		
 		public void ReloadData ()
 		{
 			model.NotifyDataSetChanged ();
 		}
+		
 	}
 }
 

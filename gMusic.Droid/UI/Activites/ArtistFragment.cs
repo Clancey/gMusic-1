@@ -14,7 +14,7 @@ using Android.Widget;
 namespace GoogleMusic
 {
 	[Activity (Label = "Artists")]			
-	public class ArtistFragment :  BaseFragment , IBaseViewController
+	public class ArtistFragment :  BaseViewController , IBaseViewController
 	{
 		public ArtistFragment()
 		{

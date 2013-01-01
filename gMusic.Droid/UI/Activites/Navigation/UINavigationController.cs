@@ -47,7 +47,6 @@ namespace GoogleMusic
 				}
 				catch(Exception ex)
 				{
-					Console.WriteLine(ex);
 				}
 			}
 			SetLeftButton ();
@@ -65,7 +64,6 @@ namespace GoogleMusic
 					}
 					catch(Exception ex)
 					{
-						Console.WriteLine(ex);
 					}
 				}
 			}

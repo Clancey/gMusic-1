@@ -13,7 +13,7 @@ using Android.Widget;
 namespace GoogleMusic
 {
 	[Activity (Label = "Genres")]			
-	public class GenreFragment : BaseFragment, IBaseViewController
+	public class GenreFragment : BaseViewController, IBaseViewController
 	{
 		GenreViewModel model;
 		public GenreFragment()

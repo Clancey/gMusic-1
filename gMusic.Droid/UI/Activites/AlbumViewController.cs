@@ -12,7 +12,7 @@ using Android.Widget;
 namespace GoogleMusic
 {
 	[Activity (Label = "Albums")]			
-	public class AlbumViewController : BaseFragment , IBaseViewController, IViewController
+	public class AlbumViewController : BaseViewController , IBaseViewController, IViewController
 	{
 		public AlbumViewController()
 		{

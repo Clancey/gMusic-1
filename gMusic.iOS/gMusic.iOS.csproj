@@ -266,6 +266,7 @@
     <Compile Include="..\gMusic.Droid\UI\Activites\Navigation\iViewController.cs">
       <Link>gMusic\ViewControllers\iViewController.cs</Link>
     </Compile>
+    <Compile Include="ViewControllers\AlbumArtistViewController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

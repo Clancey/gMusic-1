@@ -1,5 +1,6 @@
 using System;
 using Xamarin.Tables;
+using Xamarin.Data;
 
 namespace GoogleMusic
 {
@@ -23,8 +24,19 @@ namespace GoogleMusic
 		public Action<Genre> GenreSelected {get;set;}
 		public override void RowSelected (Genre item)
 		{
-			if (GenreSelected != null)
+			if (GenreSelected != null) {
 				GenreSelected (item);
+				return;
+			}
+			var groupInfo = new GroupInfo(){Filter = string.Format("ArtistId = {0}",item.Id), OrderBy = "NameNorm"};
+			var albumCount = Database.Main.GetObjectCount<Album>(groupInfo);
+			Console.WriteLine(albumCount);
+			//Parent.NavigationController.PushViewController(new AlbumViewController(item){HasBackButton = true},true);
+
+		}
+		public static BaseViewController GetNextScreen(Genre genre)
+		{
+			return null;
 		}
 		public override ICell GetICell (int section, int position)
 		{
