@@ -12,6 +12,12 @@ namespace GoogleMusic
 		{
 			
 		}
+		public AlbumViewController( Artist artist): this(true)
+		{
+			Artist = artist;
+			Title = Artist.Name;
+			
+		}
 		public AlbumViewController (bool hasSearch) : base (UITableViewStyle.Plain,false,hasSearch)
 		{
 			//	Root = new RootElement ("Artists");

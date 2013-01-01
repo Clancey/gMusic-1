@@ -541,9 +541,16 @@ namespace GoogleMusic
 					albumUrl = d [GoogleServiceConfig.Default.TrackAlbumArtUrl];
 				Song song = new Song ();
 				if (Util.ArtistIdsDict.ContainsKey (albumArtistNameNorm)) {
-					song.ArtistId = Util.ArtistIdsDict [albumArtistNameNorm];
-				} else {
-					var artist = new Artist{Id = NextArtistId,Name = albumArtist,NormName = albumArtistNameNorm,IndexCharacter = Util.GetIndexChar (albumArtistNameNorm)};
+					song.ArtistId =  Util.ArtistIdsDict [albumArtistNameNorm];
+				}
+				else {
+					Artist artist;
+					lock(Database.DatabaseLocker)
+					{
+						artist = Database.Main.Query<Artist>("select * from Artist where Name = ?", albumArtist).FirstOrDefault();
+					}
+					if(artist == null)
+						artist = new Artist{Id = NextArtistId,Name = albumArtist,NormName = albumArtistNameNorm,IndexCharacter = Util.GetIndexChar (albumArtistNameNorm)};
 					song.ArtistId = NextArtistId;
 					Util.ArtistIdsDict.Add (albumArtistNameNorm, song.ArtistId);
 					NextArtistId ++;
@@ -556,7 +563,9 @@ namespace GoogleMusic
 				if (Util.AlbumsIdsDict.ContainsKey (albumTuple)) {
 					song.AlbumId = Util.AlbumsIdsDict [albumTuple];
 				} else if (!string.IsNullOrEmpty (albumNameNorm)) {
-					var album = new Album{Id = NextAlbumId,ArtistId = song.ArtistId,Name = albumName,NameNorm = albumNameNorm,Url = albumUrl,IndexCharacter = Util.GetIndexChar (albumNameNorm)};
+					Album album = Database.Main.Query<Album>("select * from Album where Name = ?", albumName).FirstOrDefault();
+					if(album == null)
+						album = new Album{Id = NextAlbumId,ArtistId = song.ArtistId,Name = albumName,NameNorm = albumNameNorm,Url = albumUrl,IndexCharacter = Util.GetIndexChar (albumNameNorm)};
 					song.AlbumId = album.Id;
 					AlbumsToInsert.Add (album);
 					//lock(Database.DatabaseLocker)Database.Main.Insert (album,"OR REPLACE");
@@ -566,7 +575,10 @@ namespace GoogleMusic
 				if (Util.GenresIdsDict.ContainsKey (genreName)) {
 					song.GenreId = Util.GenresIdsDict [genreName];
 				} else {
-					var genre = new Genre{Id = NextGenreId,Name = genreName,IndexCharacter = Util.GetIndexChar (genreName)};
+
+					Genre genre =  Database.Main.Query<Genre>("select * from Genre where Name = ?", genreName).FirstOrDefault();
+					if(genre == null)
+						genre = new Genre{Id = NextGenreId,Name = genreName,IndexCharacter = Util.GetIndexChar (genreName)};
 					song.GenreId = NextGenreId;
 					Util.GenresIdsDict.Add (genreName, NextGenreId);
 					NextGenreId ++;

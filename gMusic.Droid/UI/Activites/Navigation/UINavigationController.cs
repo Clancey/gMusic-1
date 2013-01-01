@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Android.Views;
 using Android.Widget;
+using Android;
 
 namespace GoogleMusic
 {
@@ -30,6 +31,7 @@ namespace GoogleMusic
 			//ListView = v.FindViewById<ListView> (Resource.Id.listView);
 			RightButton = v.FindViewById<Button> (Resource.Id.RightBtn);
 			LeftButton = v.FindViewById<Button> (Resource.Id.LeftBtn);
+			LeftButton.SetTextColor (Android.Graphics.Color.White);
 			LeftButton.Click += LeftClicked;
 			TitleTv = v.FindViewById<TextView> (Resource.Id.title);
 			var curFrag = CurrentFragment;

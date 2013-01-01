@@ -39,7 +39,7 @@ namespace GoogleMusic
 				var groupInfo = new GroupInfo(){Filter = string.Format("ArtistId = {0}",item.Id), OrderBy = "NameNorm"};
 				var albumCount = Database.Main.GetObjectCount<Album>(groupInfo);
 				Console.WriteLine(albumCount);
-				Parent.NavigationController.PushViewController(new AlbumViewController{Artist = item,HasBackButton = true},true);
+				Parent.NavigationController.PushViewController(new AlbumViewController(item){HasBackButton = true},true);
 				}			
 		}
 		public override ICell GetICell (int section, int position)

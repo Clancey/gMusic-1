@@ -68,6 +68,10 @@ namespace GoogleMusic
 				
 			var db = user + ".db";// "-Databases.db";
 			dbPath = Path.Combine (BaseDir, db);
+#if Droid
+			//dbPath = Path.Combine (Android.OS.Environment.ExternalStorageDirectory.AbsolutePath,"Download", "test.db");
+			//File.Copy (dbPath, outpath);
+#endif
 			if (CurrentUser == user && Main != null)
 				return;
 			CurrentUser = user;
