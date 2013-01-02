@@ -15,6 +15,10 @@ namespace GoogleMusic
 {
 	public class AlbumArtistViewController: BaseViewController , IBaseViewController, IViewController
 	{
+		public AlbumArtistViewController()
+		{
+
+		}
 		GroupInfo GroupInfo;
 		public AlbumArtistViewController( string title, GroupInfo groupinfo)
 		{

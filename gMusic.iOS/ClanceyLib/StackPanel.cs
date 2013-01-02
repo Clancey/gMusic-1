@@ -36,8 +36,7 @@ namespace ClanceysLib
 			foreach (var view in Subviews) {
 				var frame = view.Frame;
 				frame.Y = h;
-				// You can also set the width to fill!
-				//frame.Width = width;
+				frame.Width = width;
 				view.Frame = frame;
 				h = frame.Bottom + padding;
 			}

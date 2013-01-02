@@ -251,6 +251,8 @@
       <Link>gMusic\ViewModels\ArtistAlbumViewModel.cs</Link>
     </Compile>
     <Compile Include="UI\Activites\AlbumArtistViewController.cs" />
+    <Compile Include="UI\GetCellCalls\AlbumHeaderCell.cs" />
+    <Compile Include="UI\GetCellCalls\SongAlbumCell.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

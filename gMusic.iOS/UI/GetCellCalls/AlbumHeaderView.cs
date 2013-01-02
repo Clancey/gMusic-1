@@ -20,6 +20,7 @@ using MonoTouch.CoreGraphics;
 using MonoTouch.CoreAnimation;
 using MonoTouch.Dialog;
 using MonoTouch.Foundation;
+using Xamarin.Tables;
 
 namespace GoogleMusic
 {
@@ -133,35 +134,26 @@ namespace GoogleMusic
 		}
 	}
 
-	public class AlbumHeaderElement : Element, IElementSizing {
-		static int count;
+	public class AlbumHeaderCell : Cell {
 		NSString key;
-		protected UIView View;
+		protected AlbumHeaderView View;
 		public CellFlags Flags;
-		
+		Album album;
+		int songs,length;
+		bool isDarkThemed;
 		public enum CellFlags {
 			Transparent = 1,
 			DisableSelection = 2
 		}
-		
-		/// <summary>
-		///   Constructor
-		/// </summary>
-		/// <param name="caption">
-		/// The caption, only used for RootElements that might want to summarize results
-		/// </param>
-		/// <param name="view">
-		/// The view to display
-		/// </param>
-		/// <param name="transparent">
-		/// If this is set, then the view is responsible for painting the entire area,
-		/// otherwise the default cell paint code will be used.
-		/// </param>
-		public AlbumHeaderElement (string caption, UIView view, bool transparent) : base (caption) 
+
+		public AlbumHeaderCell (Album album,int songs,int length, bool isDarkThemed = false) : base(album.Name)
 		{
-			this.View = view;
-			this.Flags = transparent ? CellFlags.Transparent : 0;
-			key = new NSString ("UIViewElement" + count++);
+			this.album = album;
+			this.songs = songs;
+			this.length = length;
+			this.isDarkThemed = isDarkThemed;
+			this.Flags =  0;
+			key = new NSString ("AlbumHeaderCell" + isDarkThemed + album.Id);
 		}
 		
 		public override UITableViewCell GetCell (UITableView tv)
@@ -182,18 +174,15 @@ namespace GoogleMusic
 				}
 				if ((Flags & CellFlags.DisableSelection) != 0)
 					cell.SelectionStyle = UITableViewCellSelectionStyle.None;
+				View = new AlbumHeaderView(album,songs,length,isDarkThemed);
 				var frame = View.Frame;
 				frame.Width = tv.Frame.Width;
+				View.Frame = frame;
 				cell.ContentView.AddSubview (View);
 			} 
 			return cell;
 		}
-		
-		float IElementSizing.GetHeight (UITableView tableView, NSIndexPath indexPath)
-		{
-			return View.Bounds.Height;
-		}
-		
+
 		protected override void Dispose (bool disposing)
 		{
 			base.Dispose (disposing);

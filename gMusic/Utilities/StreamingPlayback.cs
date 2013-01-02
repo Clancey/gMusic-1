@@ -359,7 +359,7 @@ namespace GoogleMusic
 			try{
 				AudioSession.AddListener (AudioSessionProperty.AudioRouteChange, PropertyChanged);
 				AudioSession.SetActive (true);
-				IntPtr lib = MonoTouch.ObjCRuntime.Dlfcn.dlopen (MonoTouch.Constants.AudioToolboxLibrary, 0);
+				//IntPtr lib = MonoTouch.ObjCRuntime.Dlfcn.dlopen (MonoTouch.Constants.AudioToolboxLibrary, 0);
 				
 				//AudioRouteChangeReasonKey = new NSString (MonoTouch.ObjCRuntime.Dlfcn.GetIntPtr (lib, "kAudioSession_AudioRouteChangeKey_Reason"));
 				//AudioRouteOldRouteKey = new NSString (MonoTouch.ObjCRuntime.Dlfcn.GetIntPtr (lib, "kAudioSession_AudioRouteChangeKey_OldRoute"));
@@ -372,7 +372,11 @@ namespace GoogleMusic
 			{
 				Console.WriteLine(ex);
 			}
-			
+#elif Droid
+			Android.Media.AudioManager manager = (Android.Media.AudioManager)Context.GetSystemService (Android.Content.Context.AudioService);
+			var result = manager.RequestAudioFocus (new AudioChangeListener (), Android.Media.Stream.Music, Android.Media.AudioFocus.Gain);
+			Console.WriteLine (result);
+			isAudioInitialized = result == Android.Media.AudioFocusRequest.Granted;
 #endif
 		}
 		enum AudioSessionRouteChangeReason {
@@ -489,6 +493,29 @@ namespace GoogleMusic
 				Console.Write(ex);
 			}
 		}
+#if Droid
+		class AudioChangeListener : Java.Lang.Object, Android.Media.AudioManager.IOnAudioFocusChangeListener
+		{
+			#region IOnAudioFocusChangeListener implementation
+			
+			public void OnAudioFocusChange (Android.Media.AudioFocus focusChange)
+			{
+				switch (focusChange) {
+					case Android.Media.AudioFocus.Loss:
+					case Android.Media.AudioFocus.LossTransient:	
+					case Android.Media.AudioFocus.LossTransientCanDuck:
+					isInitialized = false;
+					Util.Player.Pause();
+					return;
+				}
+			}
+			
+			#endregion
+			
+			
+		}
+		public static Android.Content.Context Context;
+#endif
 	}
 }
 

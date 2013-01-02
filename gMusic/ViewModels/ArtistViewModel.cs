@@ -37,7 +37,7 @@ namespace GoogleMusic
 				ArtistSelected (artist);
 				return;
 			}
-			GroupInfo groupInfo = new GroupInfo{Filter = string.Format ("ArtistId = {0}", artist.Id), GroupBy = "Album", OrderBy =  "Album, Disc, Track", Ignore = true};
+			GroupInfo groupInfo = new GroupInfo{Filter = string.Format ("ArtistId = {0}", artist.Id), GroupBy = "AlbumId", OrderBy =  "UPPER(Album), Disc, Track", Ignore = true};
 
 			Parent.NavigationController.PushViewController(new AlbumArtistViewController(artist.Name,groupInfo){HasBackButton = true},true);
 							

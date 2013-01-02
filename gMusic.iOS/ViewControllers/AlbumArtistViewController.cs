@@ -21,7 +21,8 @@ namespace GoogleMusic
 		{
 			base.setupTable ();
 			this.TableView.Source = model;
-			this.TableView.RowHeight = DarkThemed ?  80 : 40;
+			this.TableView.RowHeight = DarkThemed ?  80 : 50;
+			this.TableView.SeparatorStyle = UITableViewCellSeparatorStyle.None;
 		}
 		
 		#region implemented abstract members of BaseViewController

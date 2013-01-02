@@ -212,7 +212,6 @@
     <Compile Include="UI\GetCellCalls\Playlist.cs" />
     <Compile Include="UI\GetCellCalls\Song.cs" />
     <Compile Include="UI\Shared\SectionScrollView.cs" />
-    <Compile Include="UI\Shared\AlbumHeaderView.cs" />
     <Compile Include="ClanceyLib\StackPanel.cs" />
     <Compile Include="UI\Shared\AlbumImageView.cs" />
     <Compile Include="UI\Shared\AlbumCell.cs" />
@@ -224,7 +223,6 @@
     <Compile Include="UI\Shared\TextFieldAlertView.cs" />
     <Compile Include="UI\Shared\RCSwitch.cs" />
     <Compile Include="UI\Shared\ProgressBar.cs" />
-    <Compile Include="UI\Shared\AlbumSongView.cs" />
     <Compile Include="UI\Shared\OBSlider.cs" />
     <Compile Include="ViewControllers\AccountController.cs" />
     <Compile Include="..\gMusic\ViewModels\SongViewModel.cs">
@@ -267,6 +265,8 @@
       <Link>gMusic\ViewControllers\iViewController.cs</Link>
     </Compile>
     <Compile Include="ViewControllers\AlbumArtistViewController.cs" />
+    <Compile Include="UI\GetCellCalls\AlbumHeaderView.cs" />
+    <Compile Include="UI\GetCellCalls\SongAlbumCell.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -30,17 +30,33 @@ namespace GoogleMusic
 		}
 		public override ICell GetICell (int section, int position)
 		{
-			return Database.Main.ObjectForRow<Song> (GroupInfo,section, position);
+			return new SongAlbumCell(Database.Main.ObjectForRow<Song> (GroupInfo,section, position));
 		}
 		public override ICell GetHeaderICell (int section)
 		{
 			int albumId = 0;
-			if (!int.TryParse (HeaderForSection (section),out albumId)) {
-				return new StringCell("Unknown Album".Translate());
+			var h = HeaderForSection (section);
+			if (!int.TryParse (h,out albumId) || albumId == 0) {
+				return  new StringCell("Unknown Album".Translate());
 			}
-			return new StringCell (Database.Main.GetObject<Album> (albumId).Name);
+			return new AlbumHeaderCell(Database.Main.GetObject<Album> (albumId),1,1);
 		}
+#if iOS
+		public override float GetHeightForHeader (MonoTouch.UIKit.UITableView tableView, int section)
+		{
+			int albumId = 0;
+			var h = HeaderForSection (section);
+			if (!int.TryParse (h,out albumId)|| albumId == 0) {
+				return 15f;
+			}
+			return 90f;
+		}
+#endif
 
+		public override string[] SectionIndexTitles ()
+		{
+			return null;
+		}
 		#endregion
 	}
 }

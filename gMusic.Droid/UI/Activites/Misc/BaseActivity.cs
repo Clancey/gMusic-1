@@ -12,6 +12,7 @@ using Android.Views;
 using Android.Widget;
 using Com.Slidingmenu.Lib;
 using Com.Slidingmenu.Lib.App;
+using Android.Media;
 
 namespace GoogleMusic
 {
@@ -40,8 +41,22 @@ namespace GoogleMusic
 			sm.SetFadeDegree(0.35f);
 			sm.TouchModeAbove = 1;
 
+			StreamingPlayback.Context = this;
 			//menu.AttachToActivity (this, 1);
 			//menu.SetMenu (Resource.Layout.menu);
+
+		}
+		class AudioChangeListener : Java.Lang.Object, AudioManager.IOnAudioFocusChangeListener
+		{
+			#region IOnAudioFocusChangeListener implementation
+
+			public void OnAudioFocusChange (AudioFocus focusChange)
+			{
+				Console.WriteLine (focusChange);
+			}
+
+			#endregion
+
 
 		}
 
