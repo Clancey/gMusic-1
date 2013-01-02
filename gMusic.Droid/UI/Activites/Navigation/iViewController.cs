@@ -12,7 +12,6 @@ namespace GoogleMusic
 			set;
 #endif
 		}
-		bool HasBackButton{ get; set; }
 		string Title {get;set;}
 	}
 }

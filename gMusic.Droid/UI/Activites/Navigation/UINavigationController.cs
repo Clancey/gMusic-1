@@ -21,10 +21,6 @@ namespace GoogleMusic
 		{
 
 		}
-//		public static implicit operator Fragment (UINavigationController nav)
-//		{
-//			return nav.CurrentFragment;
-//		}
 		public override View OnCreateView (Android.Views.LayoutInflater inflater, Android.Views.ViewGroup container, Android.OS.Bundle savedInstanceState)
 		{
 			View v = inflater.Inflate (Resource.Layout.NavListView, container, false);
@@ -109,7 +105,6 @@ namespace GoogleMusic
 			ControllerStack.Add (root);
 			if (root is IViewController) {
 				((IViewController)root).NavigationController = this;
-				((IViewController)root).HasBackButton = false;
 			}
 		}
 		public Fragment CurrentFragment

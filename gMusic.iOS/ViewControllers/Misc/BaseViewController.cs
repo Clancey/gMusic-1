@@ -38,7 +38,7 @@ namespace GoogleMusic
 	{
 
 		public Screens Screen { get; protected set; }
-		public bool HasBackButton { get; set; }
+		public bool HasMenu { get; set; }
 		//protected SonglistViewController CurrentSongListViewController;
 		protected EditSongViewController CurrentSongEditor;
 		protected PopUpView popUpView;
@@ -456,7 +456,7 @@ namespace GoogleMusic
 				else
 					this.NavigationItem.RightBarButtonItem = null;
 				if(!DarkThemed  && (Util.IsIphone || (Util.MainVC.InterfaceOrientation == UIInterfaceOrientation.Portrait || Util.MainVC.InterfaceOrientation == UIInterfaceOrientation.PortraitUpsideDown))){
-					if(!HasBackButton)
+					if(HasMenu)
 					this.NavigationItem.LeftBarButtonItem = new UIBarButtonItem (UIImage.FromFile("Images/menu.png"), UIBarButtonItemStyle.Bordered, delegate {
 						//if(DarkThemed)
 						//	Util.AppDelegate.MainVC.tvViewController.ToggleMenu();

@@ -35,7 +35,7 @@ namespace GoogleMusic
 				AlbumSelected (item);
 				return;
 			}
-			Parent.NavigationController.PushViewController(new SongListViewController(item.Name,string.Format("AlbumId = {0}",item.Id),"Disc, Track"){HasBackButton = true},true);
+			Parent.NavigationController.PushViewController(new SongListViewController(item.Name,string.Format("AlbumId = {0}",item.Id),"Disc, Track"),true);
 		}
 		public override ICell GetICell (int section, int position)
 		{

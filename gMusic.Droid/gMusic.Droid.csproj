@@ -230,14 +230,10 @@
     </Compile>
     <Compile Include="UI\GetCellCalls\Album.cs" />
     <Compile Include="UI\GetCellCalls\Genre.cs" />
-    <Compile Include="UI\Activites\PlaylistFragment.cs" />
-    <Compile Include="UI\Activites\SongFragment.cs" />
     <Compile Include="UI\Activites\Misc\BaseActivity.cs" />
     <Compile Include="UI\Activites\Misc\FragmentChangeActivity.cs" />
     <Compile Include="UI\Activites\Misc\WebLoginActivity.cs" />
     <Compile Include="UI\Activites\Misc\MenuFragment.cs" />
-    <Compile Include="UI\Activites\ArtistFragment.cs" />
-    <Compile Include="UI\Activites\GenreFragment.cs" />
     <Compile Include="UI\Views\AlbumCellView.cs" />
     <Compile Include="gMusic\Images\ImageLoader.cs" />
     <Compile Include="UI\Activites\Navigation\UINavigationController.cs" />
@@ -253,6 +249,14 @@
     <Compile Include="UI\Activites\AlbumArtistViewController.cs" />
     <Compile Include="UI\GetCellCalls\AlbumHeaderCell.cs" />
     <Compile Include="UI\GetCellCalls\SongAlbumCell.cs" />
+    <Compile Include="..\gMusic\ViewModels\PlaylistSongViewModel.cs">
+      <Link>gMusic\ViewModels\PlaylistSongViewModel.cs</Link>
+    </Compile>
+    <Compile Include="UI\Activites\PlaylistSongViewController.cs" />
+    <Compile Include="UI\Activites\ArtistViewController.cs" />
+    <Compile Include="UI\Activites\GenreViewController.cs" />
+    <Compile Include="UI\Activites\PlaylistViewController.cs" />
+    <Compile Include="UI\Activites\SongViewController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -282,7 +286,9 @@
     <AndroidResource Include="Resources\layout\list.xml" />
     <AndroidResource Include="Resources\layout\row.xml" />
     <AndroidResource Include="Resources\drawable\ic_launcher.png" />
-    <AndroidResource Include="Resources\layout\albumCell.xml" />
+    <AndroidResource Include="Resources\layout\albumCell.xml">
+      <DependentUpon>albumCell.xml</DependentUpon>
+    </AndroidResource>
     <AndroidResource Include="Resources\drawable\default_album.png" />
     <AndroidResource Include="..\gMusic\Images\default_album_large.png">
       <Link>Resources\drawable\default_album_large.png</Link>
@@ -310,6 +316,7 @@
     </AndroidResource>
     <AndroidResource Include="Resources\layout\artistCell.xml" />
     <AndroidResource Include="Resources\layout\songCell.xml" />
+    <AndroidResource Include="Resources\layout\albumHeaderCell.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup>

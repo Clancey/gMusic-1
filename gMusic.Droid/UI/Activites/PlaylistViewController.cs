@@ -14,15 +14,15 @@ using Android.Widget;
 
 namespace GoogleMusic
 {
-	public class PlaylistFragment : BaseViewController , IBaseViewController
+	public class PlaylistViewController : BaseViewController , IBaseViewController
 	{
 		bool IsAutoPlaylist;
 		PlaylistViewModel model;
-		public PlaylistFragment() : this(false)
+		public PlaylistViewController() : this(false)
 		{
 
 		}
-		public PlaylistFragment(bool isAutoPlaylist)
+		public PlaylistViewController(bool isAutoPlaylist)
 		{
 			IsAutoPlaylist = isAutoPlaylist;
 			

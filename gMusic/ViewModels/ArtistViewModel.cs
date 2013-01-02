@@ -18,11 +18,19 @@ namespace GoogleMusic
 		{
 
 		}
+		public ArtistViewModel (IBaseViewController parent, GroupInfo groupInfo) : base(parent)
+		{
+			GroupInfo = groupInfo;
+		}
 		
 		#elif Droid
 		public ArtistViewModel (Android.Content.Context context,Android.Widget.ListView listView,IBaseViewController parent, string filter, string orderby ) : base (context,listView, parent)
 		{
 			GroupInfo = new GroupInfo (){Filter = filter,OrderBy = orderby,Ignore = true};
+		}
+		public ArtistViewModel (Android.Content.Context context, Android.Widget.ListView listView ,IBaseViewController parent , GroupInfo groupInfo) : base (context,listView ,parent)
+		{
+			GroupInfo = groupInfo;
 		}
 		public ArtistViewModel (Android.Content.Context context, Android.Widget.ListView listView ,IBaseViewController parent ) : base (context,listView ,parent)
 		{
@@ -37,20 +45,18 @@ namespace GoogleMusic
 				ArtistSelected (artist);
 				return;
 			}
-			GroupInfo groupInfo = new GroupInfo{Filter = string.Format ("ArtistId = {0}", artist.Id), GroupBy = "AlbumId", OrderBy =  "UPPER(Album), Disc, Track", Ignore = true};
-
-			Parent.NavigationController.PushViewController(new AlbumArtistViewController(artist.Name,groupInfo){HasBackButton = true},true);
-							
+			Parent.NavigationController.PushViewController(ViewControllerForArtist(artist), true);			
 		}
-		public static BaseViewController GetNextScreen(Artist artist)
+		public static AlbumArtistViewController ViewControllerForArtist(Artist artist)
 		{
-			var groupInfo = new GroupInfo(){Filter = string.Format("ArtistId = {0}",artist.Id), OrderBy = "NameNorm"};
-			var albumCount = Database.Main.GetObjectCount<Album>(groupInfo);
-			return null;
+			
+			GroupInfo groupInfo = new GroupInfo{Filter = string.Format ("ArtistId = {0}", artist.Id), GroupBy = "AlbumId", OrderBy =  "UPPER(Album), Disc, Track", Ignore = true};
+			
+			return new AlbumArtistViewController (artist.Name, groupInfo);
 		}
 		public override ICell GetICell (int section, int position)
 		{
-			return Database.Main.ObjectForRow<Artist> (section, position);
+			return Database.Main.ObjectForRow<Artist> (GroupInfo,section, position);
 		}
 
 		#endregion

@@ -40,11 +40,11 @@ namespace GoogleMusic
 			if (Settings.CurrentTab == 0)
 				Settings.CurrentTab = 1;
 			NavigationController = new FlyOutNavigationController ();
-			songVc = new SongViewController ();
-			artistVc = new ArtistViewController ();
-			playlistVc = new PlaylistViewController ();
-			albumVc = new AlbumViewController ();
-			genreVc = new GenreViewController ();
+			songVc = new SongViewController (){HasMenu = true};
+			artistVc = new ArtistViewController (){HasMenu = true};
+			playlistVc = new PlaylistViewController (){HasMenu = true};
+			albumVc = new AlbumViewController (){HasMenu = true};
+			genreVc = new GenreViewController (){HasMenu = true};
 			NavigationController.ViewControllers = new UIViewController[]{
 				new UINavigationController (songVc),
 				new UINavigationController(artistVc),

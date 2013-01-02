@@ -73,9 +73,11 @@ namespace GoogleMusic
 
 		public override void RowSelected (Playlist playlist)
 		{
-			if (PlaylistSelected != null)
+			if (PlaylistSelected != null) {
 				PlaylistSelected (playlist);
-			//Util.PlaySong(song,song.ArtistId,song.AlbumId,true);
+				return;
+			}
+			this.Parent.NavigationController.PushViewController (new PlaylistSongViewController (playlist),true);
 		}
 
 		public override Playlist ItemFor (int section, int row)

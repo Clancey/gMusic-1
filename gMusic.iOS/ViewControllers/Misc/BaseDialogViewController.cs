@@ -144,35 +144,6 @@ namespace GoogleMusic
 			base.ViewWillDisappear (animated);
 		}
 
-		public override void RemoteControlReceived (UIEvent theEvent)
-		{
-			Console.WriteLine ("base dvc remote event:" + theEvent.Type);	
-			if (theEvent.Type == UIEventType.RemoteControl) {
- 
-				switch (theEvent.Subtype) {
- 
-				case UIEventSubtype.RemoteControlPause:
-				case UIEventSubtype.RemoteControlPlay:
-				case UIEventSubtype.RemoteControlTogglePlayPause:
-					Util.PlayPause ();
-					break;
-				case UIEventSubtype.RemoteControlPreviousTrack:
-				case UIEventSubtype.RemoteControlEndSeekingBackward:
-					Util.Previous ();
-					break;
- 
-				case UIEventSubtype.RemoteControlNextTrack:
-				case UIEventSubtype.RemoteControlEndSeekingForward:
-					Util.Next ();
-					break;
- 
-				default:
-					break;
-				}
-			}
-		}
-		
-		
 	}
 }
 

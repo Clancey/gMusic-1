@@ -43,12 +43,12 @@ namespace GoogleMusic
 		CALayer borderLayer;
 		UIButton shuffleButton;
 		bool IsDarkThemed;
-		public AlbumHeaderView (Album album,int songs,int length, bool isDarkThemed) : base (new RectangleF(0,0,320,90))
+		public AlbumHeaderView (Album album,int songs,int length, bool isDarkThemed) : base (new RectangleF(0,0,320,60))
 		{
 			IsDarkThemed = isDarkThemed;
 			Album = album;
 			this.AutoresizingMask = UIViewAutoresizing.FlexibleWidth;
-			albumArt = new AlbumImageView(new RectangleF(5,5,80,80),false);
+			albumArt = new AlbumImageView(new RectangleF(5,5,40,40),true);
 			detailsView = new StackPanel();
 			detailsView.BackgroundColor = UIColor.Clear;
 			
@@ -99,7 +99,7 @@ namespace GoogleMusic
 			borderLayer.Frame = new RectangleF(0,Bounds.Height,Bounds.Width,1);
 			Layer.AddSublayer(borderLayer);
 			
-			shuffleButton = new UIButton(new RectangleF(this.Bounds.Width - 91,this.Bounds.Height - 66,81,66));
+			shuffleButton = new UIButton(new RectangleF(this.Bounds.Width - 91,this.Bounds.Height - 66,70,66));
 			shuffleButton.AutoresizingMask = UIViewAutoresizing.FlexibleLeftMargin | UIViewAutoresizing.FlexibleTopMargin;
 			shuffleButton.SetImage(UIImage.FromFile("Images/shuffleButton.png"),UIControlState.Normal);
 			shuffleButton.TouchDown += delegate {

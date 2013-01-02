@@ -50,10 +50,6 @@ namespace GoogleMusic
 		{
 			return ItemFor (section, position);
 		}
-		public override string[] SectionIndexTitles ()
-		{
-			return null;
-		}
 		
 		public override string HeaderForSection (int section)
 		{	

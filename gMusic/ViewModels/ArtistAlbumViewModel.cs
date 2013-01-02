@@ -49,7 +49,7 @@ namespace GoogleMusic
 			if (!int.TryParse (h,out albumId)|| albumId == 0) {
 				return 15f;
 			}
-			return 90f;
+			return 60f;
 		}
 #endif
 

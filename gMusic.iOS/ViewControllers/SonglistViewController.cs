@@ -24,7 +24,7 @@ namespace GoogleMusic
 		}
 		public SongListViewController (bool isTvOut) : base(UITableViewStyle.Plain,true,isTvOut)
 		{
-			HasBackButton = true;
+			HasMenu = true;
 			IsTvOut = isTvOut;
 			Screen = Screens.Songs;
 			this.Title = "Songs".Translate();

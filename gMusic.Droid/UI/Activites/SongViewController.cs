@@ -14,9 +14,9 @@ using Android.Widget;
 namespace GoogleMusic
 {
 	[Activity (Label = "Songs")]			
-	public class SongFragment : BaseViewController , IBaseViewController
+	public class SongViewController : BaseViewController , IBaseViewController
 	{
-		public SongFragment ()
+		public SongViewController ()
 		{
 			this.Title = "Songs";
 		}

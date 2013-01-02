@@ -129,6 +129,7 @@ namespace GoogleMusic
 			if (Util.IsIphone) {
 				MainVC = new iPhoneBaseViewController ();
 			} else {
+				MainVC = new iPhoneBaseViewController ();
 				//MainVC = new iPadBaseViewController ();
 			}
 			Util.MainVC = MainVC;

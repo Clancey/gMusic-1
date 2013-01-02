@@ -16,7 +16,7 @@ namespace GoogleMusic
 		[Indexed]
 		public int SOrder {get;set;}
 #if !mp3tunes
-	//	[PrimaryKey]
+		[PrimaryKey]
 #endif
 		public string EntryId {get;set;}
 		public bool Deleted {get;set;}

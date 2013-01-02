@@ -28,10 +28,16 @@ namespace GoogleMusic
 				GenreSelected (item);
 				return;
 			}
-			var groupInfo = new GroupInfo(){Filter = string.Format("ArtistId = {0}",item.Id), OrderBy = "NameNorm"};
-			var albumCount = Database.Main.GetObjectCount<Album>(groupInfo);
-			Console.WriteLine(albumCount);
-			//Parent.NavigationController.PushViewController(new AlbumViewController(item){HasBackButton = true},true);
+			var groupInfo = new GroupInfo(){Filter = string.Format("GenreId = {0}",item.Id), Ignore = true};
+			var artistCount = Database.Main.GetDistinctObjectCount<Song>(groupInfo, "ArtistId");
+			if (artistCount == 1) {
+				var song = Database.Main.ObjectForRow<Song> (groupInfo, 0, 0);
+				var artist = Database.Main.GetObject<Artist> (song.ArtistId);
+				Parent.NavigationController.PushViewController (ArtistViewModel.ViewControllerForArtist(artist), true);
+			} else {
+				groupInfo = new GroupInfo(){Filter = string.Format("Id in (select distinct ArtistId from song where genreid = {0})",item.Id), OrderBy = "NormName", Ignore = true};
+				Parent.NavigationController.PushViewController (new ArtistViewController(){GroupInfo = groupInfo}, true);
+			}
 
 		}
 		public static BaseViewController GetNextScreen(Genre genre)

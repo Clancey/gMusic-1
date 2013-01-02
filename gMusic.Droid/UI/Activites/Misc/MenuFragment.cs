@@ -23,11 +23,11 @@ namespace GoogleMusic
 			MenuItems = new MenuItem[]{
 				new MenuItem{
 					Title = "Songs",
-					Content = new UINavigationController(new SongFragment()),
+					Content = new UINavigationController(new SongViewController()),
 				},
 				new MenuItem{
 					Title = "Artists",
-					Content = new UINavigationController(new ArtistFragment()),
+					Content = new UINavigationController(new ArtistViewController()),
 				},
 				new MenuItem{
 					Title = "Albums",
@@ -35,15 +35,15 @@ namespace GoogleMusic
 				},
 				new MenuItem{
 					Title = "Genres",
-					Content = new UINavigationController(new GenreFragment()),
+					Content = new UINavigationController(new GenreViewController()),
 				},
 				new MenuItem{
 					Title = "Playlists",
-					Content = new UINavigationController(new PlaylistFragment()),
+					Content = new UINavigationController(new PlaylistViewController()),
 				},
 				new MenuItem{
 					Title = "Auto Playlists",
-					Content = new UINavigationController(new PlaylistFragment(true)),
+					Content = new UINavigationController(new PlaylistViewController(true)),
 				},
 			};
 		}

@@ -23,7 +23,7 @@ namespace GoogleMusic
 
 		[Indexed]
 		public int ArtistId { get; set; }
-
+		[Indexed]
 		public int AlbumId { get; set; }
 
 		[Indexed]

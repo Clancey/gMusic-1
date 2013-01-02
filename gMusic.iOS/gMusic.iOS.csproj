@@ -267,6 +267,10 @@
     <Compile Include="ViewControllers\AlbumArtistViewController.cs" />
     <Compile Include="UI\GetCellCalls\AlbumHeaderView.cs" />
     <Compile Include="UI\GetCellCalls\SongAlbumCell.cs" />
+    <Compile Include="..\gMusic\ViewModels\PlaylistSongViewModel.cs">
+      <Link>gMusic\ViewModels\PlaylistSongViewModel.cs</Link>
+    </Compile>
+    <Compile Include="ViewControllers\PlaylistSongViewController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
