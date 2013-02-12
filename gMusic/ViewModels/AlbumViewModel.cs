@@ -37,6 +37,10 @@ namespace GoogleMusic
 			}
 			Parent.NavigationController.PushViewController(new SongListViewController(item.Name,string.Format("AlbumId = {0}",item.Id),"Disc, Track"),true);
 		}
+		public override void LongPressOnItem (Album item)
+		{
+
+		}
 		public override ICell GetICell (int section, int position)
 		{
 			return Database.Main.ObjectForRow<Album> (GroupInfo,section, position);

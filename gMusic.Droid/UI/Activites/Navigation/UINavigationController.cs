@@ -6,7 +6,7 @@ using Android.Views;
 using Android.Widget;
 using Android;
 
-namespace GoogleMusic
+namespace Xamarin.Tables
 {
 	public class UINavigationController : Fragment
 	{

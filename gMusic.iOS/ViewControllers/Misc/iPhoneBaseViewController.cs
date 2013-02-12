@@ -1,6 +1,6 @@
 using System;
 using MonoTouch.UIKit;
-using FlyOutNavigation;
+using FlyoutNavigation;
 using ClanceysLib;
 using MonoTouch.Dialog;
 using System.Linq;
@@ -39,7 +39,7 @@ namespace GoogleMusic
 			//SilentPlayer.NumberOfLoops = -1;
 			if (Settings.CurrentTab == 0)
 				Settings.CurrentTab = 1;
-			NavigationController = new FlyOutNavigationController ();
+			NavigationController = new FlyoutNavigationController ();
 			songVc = new SongViewController (){HasMenu = true};
 			artistVc = new ArtistViewController (){HasMenu = true};
 			playlistVc = new PlaylistViewController (){HasMenu = true};

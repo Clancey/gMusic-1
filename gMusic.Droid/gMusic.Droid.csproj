@@ -231,9 +231,7 @@
     <Compile Include="UI\GetCellCalls\Album.cs" />
     <Compile Include="UI\GetCellCalls\Genre.cs" />
     <Compile Include="UI\Activites\Misc\BaseActivity.cs" />
-    <Compile Include="UI\Activites\Misc\FragmentChangeActivity.cs" />
     <Compile Include="UI\Activites\Misc\WebLoginActivity.cs" />
-    <Compile Include="UI\Activites\Misc\MenuFragment.cs" />
     <Compile Include="UI\Views\AlbumCellView.cs" />
     <Compile Include="gMusic\Images\ImageLoader.cs" />
     <Compile Include="UI\Activites\Navigation\UINavigationController.cs" />
@@ -257,6 +255,12 @@
     <Compile Include="UI\Activites\GenreViewController.cs" />
     <Compile Include="UI\Activites\PlaylistViewController.cs" />
     <Compile Include="UI\Activites\SongViewController.cs" />
+    <Compile Include="UI\Activites\NowPlayingViewController.cs" />
+    <Compile Include="UI\Activites\Misc\MainActivity.cs" />
+    <Compile Include="UI\Activites\Misc\SlidingMenu.cs" />
+    <Compile Include="..\gMusic\ViewControllers\INowPlayingViewController.cs">
+      <Link>gMusic\ViewControllers\INowPlayingViewController.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -317,6 +321,7 @@
     <AndroidResource Include="Resources\layout\artistCell.xml" />
     <AndroidResource Include="Resources\layout\songCell.xml" />
     <AndroidResource Include="Resources\layout\albumHeaderCell.xml" />
+    <AndroidResource Include="Resources\layout\nowplaying.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup>

@@ -2,7 +2,7 @@ using System;
 using MonoTouch.UIKit;
 using MonoTouch.Dialog;
 using MonoTouch.Foundation;
-using FlyOutNavigation;
+using FlyoutNavigation;
 using MonoTouch.CoreAnimation;
 using System.Drawing;
 using ClanceysLib;
@@ -76,7 +76,7 @@ namespace GoogleMusic
 			//infoLabel.Text = string.Format("Screen mode changed");
 		}
 		
-		public FlyOutNavigationController NavigationController;
+		public FlyoutNavigationController NavigationController;
 		protected BooleanElement offlineSwitch;
 //		public TVOutManager.TVOutManager tvManager;
 //		public TvOutViewController tvViewController;

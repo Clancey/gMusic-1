@@ -40,6 +40,10 @@ namespace GoogleMusic
 			}
 
 		}
+		public override void LongPressOnItem (Genre item)
+		{
+
+		}
 		public static BaseViewController GetNextScreen(Genre genre)
 		{
 			return null;

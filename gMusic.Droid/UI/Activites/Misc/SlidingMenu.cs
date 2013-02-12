@@ -15,37 +15,12 @@ using Android.Graphics;
 namespace GoogleMusic
 {
 
-	public class MenuFragment : ListFragment
+	public class SlidingMenu : ListFragment
 	{
 		public int CurrentIndex { get; set; }
-		public MenuFragment ()
+		public SlidingMenu (MenuItem[] items)
 		{
-			MenuItems = new MenuItem[]{
-				new MenuItem{
-					Title = "Songs",
-					Content = new UINavigationController(new SongViewController()),
-				},
-				new MenuItem{
-					Title = "Artists",
-					Content = new UINavigationController(new ArtistViewController()),
-				},
-				new MenuItem{
-					Title = "Albums",
-					Content = new UINavigationController(new AlbumViewController()),
-				},
-				new MenuItem{
-					Title = "Genres",
-					Content = new UINavigationController(new GenreViewController()),
-				},
-				new MenuItem{
-					Title = "Playlists",
-					Content = new UINavigationController(new PlaylistViewController()),
-				},
-				new MenuItem{
-					Title = "Auto Playlists",
-					Content = new UINavigationController(new PlaylistViewController(true)),
-				},
-			};
+			MenuItems = items;
 		}
 		public override View OnCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 		{
@@ -71,8 +46,8 @@ namespace GoogleMusic
 			if (Activity == null)
 				return;
 			
-			if (Activity is FragmentChangeActivity) {
-				FragmentChangeActivity fca = (FragmentChangeActivity) Activity;
+			if (Activity is MainActivity) {
+				MainActivity fca = (MainActivity) Activity;
 				fca.SwitchContent(fragment);
 			}
 		}
@@ -81,8 +56,8 @@ namespace GoogleMusic
 		{
 			#region implemented abstract members of BaseAdapter
 			MenuItem[] Items = new MenuItem[0];
-			MenuFragment Parent;
-			public MenuAdapater(MenuFragment parent,MenuItem[] items)
+			SlidingMenu Parent;
+			public MenuAdapater(SlidingMenu parent,MenuItem[] items)
 			{
 				Parent = parent;
 				Items = items;

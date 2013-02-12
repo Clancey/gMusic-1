@@ -19,10 +19,24 @@ namespace GoogleMusic
 	public partial class Resource
 	{
 		
+		Resource()
+		{
+			global::Android.Runtime.ResourceIdManager.UpdateIdValues ();
+		}
+		
 		public static void UpdateIdValues()
 		{
+			Xamarin.Tables.Resource.Animation.slide_in_left = GoogleMusic.Resource.Animation.slide_in_left;
+			Xamarin.Tables.Resource.Animation.slide_in_right = GoogleMusic.Resource.Animation.slide_in_right;
+			Xamarin.Tables.Resource.Animation.slide_out_left = GoogleMusic.Resource.Animation.slide_out_left;
+			Xamarin.Tables.Resource.Animation.slide_out_right = GoogleMusic.Resource.Animation.slide_out_right;
 			Xamarin.Tables.Resource.Drawable.dialog_disclosure = GoogleMusic.Resource.Drawable.dialog_disclosure;
 			Xamarin.Tables.Resource.Drawable.dialog_expander_ic_minimized = GoogleMusic.Resource.Drawable.dialog_expander_ic_minimized;
+			Xamarin.Tables.Resource.Id.LeftBtn = GoogleMusic.Resource.Id.LeftBtn;
+			Xamarin.Tables.Resource.Id.LeftButtonLayout = GoogleMusic.Resource.Id.LeftButtonLayout;
+			Xamarin.Tables.Resource.Id.LinearLayout01 = GoogleMusic.Resource.Id.LinearLayout01;
+			Xamarin.Tables.Resource.Id.RightBtn = GoogleMusic.Resource.Id.RightBtn;
+			Xamarin.Tables.Resource.Id.RightButtonLayout = GoogleMusic.Resource.Id.RightButtonLayout;
 			Xamarin.Tables.Resource.Id.dialog_BoolField = GoogleMusic.Resource.Id.dialog_BoolField;
 			Xamarin.Tables.Resource.Id.dialog_Button = GoogleMusic.Resource.Id.dialog_Button;
 			Xamarin.Tables.Resource.Id.dialog_DisclosureField = GoogleMusic.Resource.Id.dialog_DisclosureField;
@@ -36,6 +50,8 @@ namespace GoogleMusic
 			Xamarin.Tables.Resource.Id.dialog_Spinner = GoogleMusic.Resource.Id.dialog_Spinner;
 			Xamarin.Tables.Resource.Id.dialog_ValueField = GoogleMusic.Resource.Id.dialog_ValueField;
 			Xamarin.Tables.Resource.Id.iFormFieldValue = GoogleMusic.Resource.Id.iFormFieldValue;
+			Xamarin.Tables.Resource.Id.navContent = GoogleMusic.Resource.Id.navContent;
+			Xamarin.Tables.Resource.Id.title = GoogleMusic.Resource.Id.title;
 			Xamarin.Tables.Resource.Layout.dialog_achievements = GoogleMusic.Resource.Layout.dialog_achievements;
 			Xamarin.Tables.Resource.Layout.dialog_boolfieldleft = GoogleMusic.Resource.Layout.dialog_boolfieldleft;
 			Xamarin.Tables.Resource.Layout.dialog_boolfieldright = GoogleMusic.Resource.Layout.dialog_boolfieldright;
@@ -55,6 +71,7 @@ namespace GoogleMusic
 			Xamarin.Tables.Resource.Layout.dialog_textarea = GoogleMusic.Resource.Layout.dialog_textarea;
 			Xamarin.Tables.Resource.Layout.dialog_textfieldbelow = GoogleMusic.Resource.Layout.dialog_textfieldbelow;
 			Xamarin.Tables.Resource.Layout.dialog_textfieldright = GoogleMusic.Resource.Layout.dialog_textfieldright;
+			Xamarin.Tables.Resource.Layout.NavListView = GoogleMusic.Resource.Layout.NavListView;
 			Xamarin.Tables.Resource.String.library_name = GoogleMusic.Resource.String.library_name;
 		}
 		
@@ -314,6 +331,9 @@ namespace GoogleMusic
 			// aapt resource value: 0x7f050018
 			public const int iFormFieldValue = 2131034136;
 			
+			// aapt resource value: 0x7f050028
+			public const int imageView1 = 2131034152;
+			
 			// aapt resource value: 0x7f050000
 			public const int left = 2131034112;
 			
@@ -322,6 +342,9 @@ namespace GoogleMusic
 			
 			// aapt resource value: 0x7f050009
 			public const int linearLayout2 = 2131034121;
+			
+			// aapt resource value: 0x7f050024
+			public const int linearLayout3 = 2131034148;
 			
 			// aapt resource value: 0x7f050019
 			public const int listView = 2131034137;
@@ -341,29 +364,41 @@ namespace GoogleMusic
 			// aapt resource value: 0x7f050001
 			public const int right = 2131034113;
 			
-			// aapt resource value: 0x7f050023
-			public const int row_icon = 2131034147;
+			// aapt resource value: 0x7f050029
+			public const int row_icon = 2131034153;
 			
-			// aapt resource value: 0x7f050024
-			public const int row_title = 2131034148;
+			// aapt resource value: 0x7f05002a
+			public const int row_title = 2131034154;
+			
+			// aapt resource value: 0x7f050026
+			public const int seekBar1 = 2131034150;
 			
 			// aapt resource value: 0x7f050004
 			public const int selected_view = 2131034116;
 			
-			// aapt resource value: 0x7f050026
-			public const int slidingmenulayout = 2131034150;
+			// aapt resource value: 0x7f05002c
+			public const int slidingmenulayout = 2131034156;
+			
+			// aapt resource value: 0x7f05002b
+			public const int slidingmenumain = 2131034155;
+			
+			// aapt resource value: 0x7f05002d
+			public const int slidingmenurowicon = 2131034157;
+			
+			// aapt resource value: 0x7f05002e
+			public const int slidingmenurowtitle = 2131034158;
+			
+			// aapt resource value: 0x7f05002f
+			public const int songTitle = 2131034159;
 			
 			// aapt resource value: 0x7f050025
-			public const int slidingmenumain = 2131034149;
+			public const int textView1 = 2131034149;
 			
 			// aapt resource value: 0x7f050027
-			public const int slidingmenurowicon = 2131034151;
+			public const int textView2 = 2131034151;
 			
-			// aapt resource value: 0x7f050028
-			public const int slidingmenurowtitle = 2131034152;
-			
-			// aapt resource value: 0x7f050029
-			public const int songTitle = 2131034153;
+			// aapt resource value: 0x7f050023
+			public const int textView3 = 2131034147;
 			
 			// aapt resource value: 0x7f05001f
 			public const int title = 2131034143;
@@ -472,25 +507,28 @@ namespace GoogleMusic
 			public const int NavListView = 2130903067;
 			
 			// aapt resource value: 0x7f03001c
-			public const int row = 2130903068;
+			public const int nowplaying = 2130903068;
 			
 			// aapt resource value: 0x7f03001d
-			public const int shadow = 2130903069;
+			public const int row = 2130903069;
 			
 			// aapt resource value: 0x7f03001e
-			public const int slidingmenumain = 2130903070;
+			public const int shadow = 2130903070;
 			
 			// aapt resource value: 0x7f03001f
-			public const int slidingmenumainlist = 2130903071;
+			public const int slidingmenumain = 2130903071;
 			
 			// aapt resource value: 0x7f030020
-			public const int slidingmenurow = 2130903072;
+			public const int slidingmenumainlist = 2130903072;
 			
 			// aapt resource value: 0x7f030021
-			public const int songCell = 2130903073;
+			public const int slidingmenurow = 2130903073;
 			
 			// aapt resource value: 0x7f030022
-			public const int window_title = 2130903074;
+			public const int songCell = 2130903074;
+			
+			// aapt resource value: 0x7f030023
+			public const int window_title = 2130903075;
 			
 			private Layout()
 			{

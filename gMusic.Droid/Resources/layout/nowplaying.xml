@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout2">
+        <TextView
+            android:text="Small Text"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:id="@+id/textView3"
+            android:layout_gravity="center" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:minWidth="25px"
+        android:minHeight="45px"
+        android:layout_width="fill_parent"
+        android:layout_height="35dp"
+        android:id="@+id/linearLayout3">
+        <LinearLayout
+            android:id="@+id/LeftButtonLayout"
+            android:orientation="horizontal"
+            android:gravity="right|center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent">
+            <TextView
+                android:text="Small Text"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView1"
+                android:layout_gravity="center" />
+        </LinearLayout>
+        <SeekBar
+            android:id="@+id/seekBar1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_gravity="center" />
+        <LinearLayout
+            android:id="@+id/RightButtonLayout"
+            android:orientation="horizontal"
+            android:gravity="right|center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent">
+            <TextView
+                android:text="Small Text"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView2"
+                android:layout_gravity="center" />
+        </LinearLayout>
+    </LinearLayout>
+    <ImageView
+        android:src="@drawable/default_album"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/imageView1" />
+</LinearLayout>

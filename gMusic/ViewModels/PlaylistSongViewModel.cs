@@ -32,6 +32,10 @@ namespace GoogleMusic
 			var song = Database.Main.GetObject<Song> (ps.SongId);
 			Util.PlayPlaylist (song, Playlist);
 		}
+		public override void LongPressOnItem (PlaylistSongs item)
+		{
+
+		}
 		public override ICell GetICell (int section, int position)
 		{
 			var ps = Database.Main.ObjectForRow<PlaylistSongs> (GroupInfo, section, position);

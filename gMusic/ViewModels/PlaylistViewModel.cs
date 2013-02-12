@@ -79,6 +79,10 @@ namespace GoogleMusic
 			}
 			this.Parent.NavigationController.PushViewController (new PlaylistSongViewController (playlist),true);
 		}
+		public override void LongPressOnItem (Playlist item)
+		{
+
+		}
 
 		public override Playlist ItemFor (int section, int row)
 		{

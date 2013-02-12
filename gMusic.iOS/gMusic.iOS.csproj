@@ -271,6 +271,10 @@
       <Link>gMusic\ViewModels\PlaylistSongViewModel.cs</Link>
     </Compile>
     <Compile Include="ViewControllers\PlaylistSongViewController.cs" />
+    <Compile Include="..\gMusic\ViewControllers\INowPlayingViewController.cs">
+      <Link>gMusic\ViewControllers\INowPlayingViewController.cs</Link>
+    </Compile>
+    <Compile Include="ViewControllers\NowPlayingViewController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

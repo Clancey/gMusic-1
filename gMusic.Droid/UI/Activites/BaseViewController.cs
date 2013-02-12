@@ -12,17 +12,16 @@ namespace GoogleMusic
 		public UINavigationController NavigationController { get; set; }
 		public string Title {get;set;}
 		public ListView ListView { get; private set; }
-		public bool HasBackButton { get; set; }
 		public BaseViewController ()
 		{
-			HasBackButton = true;
+
 		}
 		public override void OnActivityCreated (Bundle savedInstanceState)
 		{
 			base.OnActivityCreated (savedInstanceState);
 			
 			if (this.Activity != null && NavigationController != null)
-				NavigationController.Parent = this.Activity as FragmentChangeActivity;
+				NavigationController.Parent = this.Activity as MainActivity;
 		}
 		public override View OnCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 		{

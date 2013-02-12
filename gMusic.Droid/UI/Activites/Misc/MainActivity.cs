@@ -15,12 +15,12 @@ using System.Threading.Tasks;
 namespace GoogleMusic
 {
 	[Activity (Label = "gMusic", MainLauncher = true)]			
-	public class FragmentChangeActivity : BaseActivity, IMainViewController, IFragmentSwitcher
+	public class MainActivity : BaseActivity, IMainViewController, IFragmentSwitcher
 	{
 	
 		protected Fragment mContent;
 		static bool isInitialized;
-		static MenuFragment Menu;
+		static SlidingMenu Menu;
 		public override void OnCreate (Bundle savedInstanceState)
 		{
 			Util.MainVC = this;
@@ -45,8 +45,38 @@ namespace GoogleMusic
 				});
 				isInitialized = true;
 			}
+			var MenuItems = new MenuItem[]{
+				new MenuItem{
+					Title = "Now Playing",
+					Content = new NowPlayingViewController(),
+				},
+				new MenuItem{
+					Title = "Songs",
+					Content = new UINavigationController(new GoogleMusic.SongViewController()),
+				},
+				new MenuItem{
+					Title = "Artists",
+					Content = new UINavigationController(new ArtistViewController()),
+				},
+				new MenuItem{
+					Title = "Albums",
+					Content = new UINavigationController(new AlbumViewController()),
+				},
+				new MenuItem{
+					Title = "Genres",
+					Content = new UINavigationController(new GenreViewController()),
+				},
+				new MenuItem{
+					Title = "Playlists",
+					Content = new UINavigationController(new PlaylistViewController()),
+				},
+				new MenuItem{
+					Title = "Auto Playlists",
+					Content = new UINavigationController(new PlaylistViewController(true)),
+				},
+			};
 			if(Menu == null)
-				Menu = new MenuFragment ();
+				Menu = new SlidingMenu (MenuItems);
 			// set the Above View
 //			if (savedInstanceState != null)
 //				mContent = FragmentManager.GetFragment (savedInstanceState, "mContent");

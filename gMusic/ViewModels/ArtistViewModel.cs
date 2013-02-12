@@ -47,6 +47,10 @@ namespace GoogleMusic
 			}
 			Parent.NavigationController.PushViewController(ViewControllerForArtist(artist), true);			
 		}
+		public override void LongPressOnItem (Artist item)
+		{
+
+		}
 		public static AlbumArtistViewController ViewControllerForArtist(Artist artist)
 		{
 			

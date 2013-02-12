@@ -35,7 +35,10 @@ namespace GoogleMusic
 				return Util.OfflineSongsGrouped[section].Count();
 			return Database.Main.RowsInSection<Song> (GroupInfo,section);
 		}
-		
+		public override void LongPressOnItem (Song item)
+		{
+
+		}
 		public override int NumberOfSections ()
 		{
 			return Database.Main.NumberOfSections<Song>(GroupInfo);

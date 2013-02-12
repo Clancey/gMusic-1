@@ -28,6 +28,10 @@ namespace GoogleMusic
 //			if (AlbumSelected != null)
 //				AlbumSelected (item);
 		}
+		public override void LongPressOnItem (Song item)
+		{
+			throw new System.NotImplementedException ();
+		}
 		public override ICell GetICell (int section, int position)
 		{
 			return new SongAlbumCell(Database.Main.ObjectForRow<Song> (GroupInfo,section, position));
