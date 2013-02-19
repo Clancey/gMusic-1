@@ -4,6 +4,7 @@ using Android.Widget;
 using Android.Views;
 using Android.OS;
 using Com.Slidingmenu.Lib;
+using Xamarin.Tables;
 
 namespace GoogleMusic
 {
@@ -20,8 +21,8 @@ namespace GoogleMusic
 		{
 			base.OnActivityCreated (savedInstanceState);
 			
-			if (this.Activity != null && NavigationController != null)
-				NavigationController.Parent = this.Activity as MainActivity;
+			//if (this.Activity != null && NavigationController != null)
+			//	NavigationController.Parent = this.Activity as MainActivity;
 		}
 		public override View OnCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 		{

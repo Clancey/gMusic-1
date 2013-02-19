@@ -80,7 +80,7 @@ namespace GoogleMusic
 			set{settings.SetBool(value,"didRateVersion");
 				settings.Synchronize();}
 		}
-		public static void Rate()
+		static void rate()
 		{
 			isRating = true;
 			var version = NSBundle.MainBundle.InfoDictionary.ObjectForKey(new NSString("CFBundleVersion"));
@@ -102,6 +102,14 @@ namespace GoogleMusic
 			});
 			alert.FixedWidthButtons = true;
 			alert.Show();
+		}
+		public static void Rate()
+		{
+			if (NSThread.Current.IsMainThread)
+				rate ();
+			else {
+				settings.BeginInvokeOnMainThread(rate);
+			}
 		}
 		static bool isRating = false;
 		static bool ShouldRate()

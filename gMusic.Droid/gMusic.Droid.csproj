@@ -234,7 +234,6 @@
     <Compile Include="UI\Activites\Misc\WebLoginActivity.cs" />
     <Compile Include="UI\Views\AlbumCellView.cs" />
     <Compile Include="gMusic\Images\ImageLoader.cs" />
-    <Compile Include="UI\Activites\Navigation\UINavigationController.cs" />
     <Compile Include="UI\Activites\Navigation\iViewController.cs" />
     <Compile Include="UI\Activites\Navigation\IFragmentSwitcher.cs" />
     <Compile Include="UI\Activites\ArtistAlbumFragment.cs" />

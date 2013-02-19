@@ -22,7 +22,7 @@ namespace GoogleMusic
 		}
 		protected override void setupTable ()
 		{
-			base.setupTable ();			
+			base.setupTable ();
 			DataSource = new ArtistViewModel(this,GroupInfo);
 			this.TableView.Source = DataSource;
 			this.TableView.RowHeight = DarkThemed ?  80 : 40;

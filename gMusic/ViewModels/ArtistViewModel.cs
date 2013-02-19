@@ -20,7 +20,7 @@ namespace GoogleMusic
 		}
 		public ArtistViewModel (IBaseViewController parent, GroupInfo groupInfo) : base(parent)
 		{
-			GroupInfo = groupInfo;
+			GroupInfo = groupInfo ??  new GroupInfo (){Filter = "Name <> ''",OrderBy = "NormName", GroupBy = "IndexCharacter",Ignore = true};
 		}
 		
 		#elif Droid
@@ -30,7 +30,7 @@ namespace GoogleMusic
 		}
 		public ArtistViewModel (Android.Content.Context context, Android.Widget.ListView listView ,IBaseViewController parent , GroupInfo groupInfo) : base (context,listView ,parent)
 		{
-			GroupInfo = groupInfo;
+			GroupInfo = groupInfo ??  new GroupInfo (){Filter = "Name <> ''",OrderBy = "NormName", GroupBy = "IndexCharacter",Ignore = true};
 		}
 		public ArtistViewModel (Android.Content.Context context, Android.Widget.ListView listView ,IBaseViewController parent ) : base (context,listView ,parent)
 		{
