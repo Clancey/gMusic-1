@@ -42,6 +42,7 @@ namespace GoogleMusic
 
 		public override void ClearCookies ()
 		{
+			Settings.Auth = "";
 			sCookie = "";
 			base.ClearCookies ();
 		}
@@ -87,7 +88,7 @@ namespace GoogleMusic
 					ClearCookies ();				
 				}
 			}
-			Requests.HttpsGet (GoogleServiceConfig.Default.MainUrl, "", null);
+			//Requests.HttpsGet (GoogleServiceConfig.Default.MainUrl, "", null);
 
 	
 			var loginDictionary = GoogleServiceConfig.Default.LoginParameters.ToDictionary (x => x.Key, x => x.Value);
@@ -308,7 +309,6 @@ namespace GoogleMusic
 		List<Song> SongsToInsert = new List<Song> ();
 		int NextGenreId = 1;
 		List<Genre> GenresToInsert = new List<Genre> ();
-		bool showStatus = false;
 
 		int songsImported = 0;
 		float progress = 1;
@@ -321,17 +321,11 @@ namespace GoogleMusic
 				NextArtistId = Util.ArtistIdsDict.Count == 0 ? 1 : Util.ArtistIdsDict.Max (x => x.Value) + 1;
 				NextGenreId = Util.GenresIdsDict.Count == 0 ? 1 : Util.GenresIdsDict.Max (x => x.Value) + 1;
 				Settings.CurrentSyncSong = 0;
-				if (Settings.SongsCount == 0)
-					showStatus = true;
-				if (showStatus) {
-					Util.MainVC.ShowStatus("Loading Library".Translate());
-				}
 				FlurryAnalytics.FlurryAnalytics.LogEvent ("Importing Songs", true);
 				var start = DateTime.Now;
 				while (GetMoreSongs())
 					Console.WriteLine ("Getting songs");
 				var ended = DateTime.Now - start;
-				Util.MainVC.UpdateSongProgress (1f);
 				//Util.Util.EnsureInvokedOnMainThread (delegate{
 				//	var alert = new UIAlertView ("Completed", "Finished parsing in " + ended.TotalSeconds, null, "Ok");
 				//	alert.Show ();
@@ -349,16 +343,10 @@ namespace GoogleMusic
 				Console.WriteLine("**************************************");
 				//FlurryAnalytics.FlurryAnalytics.EndTimedEvent ("Importing Songs", NSDictionary.FromObjectsAndKeys (new string[]{"Number of Songs"}, new string[]{ ended.TotalSeconds.ToString ()}));
 				Util.LoadData ();
-				if (showStatus)
-					Database.Main.ResetOffline ();
 				isGettingSongs = false;
 				bool hasGottenSongs = false;
 				if (Settings.AvailableSongs > Settings.SongsCount && !hasGottenSongs) {
 					Settings.LastUpdateRequest = "";
-					if (showStatus) {
-						Util.MainVC.HideStatus();
-						showStatus = false;
-					}
 					hasGottenSongs = true;
 					GetSongs (getSongsComplete);
 					return;
@@ -366,17 +354,7 @@ namespace GoogleMusic
 				//getPlaylists();
 				if (getSongsComplete != null)
 					getSongsComplete ();
-				if (showStatus) {
-					Util.MainVC.HideStatus();
-				}
-				Util.EnsureInvokedOnMainThread(delegate{
-					if(showStatus)
-					{
-						Util.MainVC.HideStatus();
-					}
-					Util.MainVC.UpdateSongProgress (1f);
-				});
-				showStatus = false;
+
 				if (gettingSongsTask != 0) {
 					Util.EndBackgroundTask (gettingSongsTask);
 					gettingSongsTask = 0;
@@ -464,7 +442,7 @@ namespace GoogleMusic
 						Util.MainVC.UpdateStatus(progress);
 					//Util.MainVC.UpdateSongProgress (progress);
 				});
-			
+				Database.Main.UpdateSongCount();
 				return !string.IsNullOrEmpty (continuationToken);
 			} catch (Exception ex) {
 				Console.WriteLine (ex);	
@@ -689,6 +667,7 @@ namespace GoogleMusic
 					//Util.UpdatePlaylist (true);
 					if (getPlaylistCompleted != null)
 						getPlaylistCompleted ();
+					Database.Main.UpdatePlaylists();
 					Util.PopNetworkActive ();	
 				}
 

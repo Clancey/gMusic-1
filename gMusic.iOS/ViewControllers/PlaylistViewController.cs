@@ -8,13 +8,25 @@ namespace GoogleMusic
 		private PlaylistViewModel DataSource;
 		bool IsTvOut;
 
-		public PlaylistViewController () : this(true)
+		public PlaylistViewController () : this(false,false)
 		{
 		
 		}
-
-		public PlaylistViewController (bool isTvOut) : base(UITableViewStyle.Plain,true,isTvOut)
+		public Action<Playlist> OnPlaylistSelected { get; set; }
+		bool isPicker;
+		
+		public PlaylistViewController(bool isPicker, bool isTvOut) : this( isPicker,isTvOut,true)
 		{
+
+		}
+		public PlaylistViewController (bool isPicker ,bool isTvOut,bool hasSearch) : base(UITableViewStyle.Plain,false,hasSearch)
+		{
+			this.isPicker = isPicker;
+			if(isPicker)
+			DataSource.ItemSelected += (object sender, Xamarin.Tables.EventArg<Playlist> e) => {
+				if(OnPlaylistSelected != null)
+					OnPlaylistSelected(e.Data);
+			};
 			IsTvOut = isTvOut;
 			Screen = Screens.Songs;
 			this.Title = "Playlists".Translate ();
@@ -39,6 +51,21 @@ namespace GoogleMusic
 		{
 			base.ViewWillAppear (animated);
 			this.Title = "Playlists".Translate ();
+		}
+		public override void ViewDidAppear (bool animated)
+		{
+			Database.Main.PlaylistsUpdated += HandlePlaylistsUpdated;
+			base.ViewDidAppear (animated);
+		}
+		public override void ViewDidDisappear (bool animated)
+		{
+			Database.Main.PlaylistsUpdated -= HandlePlaylistsUpdated;
+			base.ViewDidDisappear (animated);
+		}
+
+		void HandlePlaylistsUpdated ()
+		{
+			this.TableView.ReloadData ();
 		}
 	
 	

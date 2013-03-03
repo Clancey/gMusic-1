@@ -32,11 +32,7 @@ namespace GoogleMusic
 			Xamarin.Tables.Resource.Animation.slide_out_right = GoogleMusic.Resource.Animation.slide_out_right;
 			Xamarin.Tables.Resource.Drawable.dialog_disclosure = GoogleMusic.Resource.Drawable.dialog_disclosure;
 			Xamarin.Tables.Resource.Drawable.dialog_expander_ic_minimized = GoogleMusic.Resource.Drawable.dialog_expander_ic_minimized;
-			Xamarin.Tables.Resource.Id.LeftBtn = GoogleMusic.Resource.Id.LeftBtn;
-			Xamarin.Tables.Resource.Id.LeftButtonLayout = GoogleMusic.Resource.Id.LeftButtonLayout;
 			Xamarin.Tables.Resource.Id.LinearLayout01 = GoogleMusic.Resource.Id.LinearLayout01;
-			Xamarin.Tables.Resource.Id.RightBtn = GoogleMusic.Resource.Id.RightBtn;
-			Xamarin.Tables.Resource.Id.RightButtonLayout = GoogleMusic.Resource.Id.RightButtonLayout;
 			Xamarin.Tables.Resource.Id.dialog_BoolField = GoogleMusic.Resource.Id.dialog_BoolField;
 			Xamarin.Tables.Resource.Id.dialog_Button = GoogleMusic.Resource.Id.dialog_Button;
 			Xamarin.Tables.Resource.Id.dialog_DisclosureField = GoogleMusic.Resource.Id.dialog_DisclosureField;
@@ -50,8 +46,13 @@ namespace GoogleMusic
 			Xamarin.Tables.Resource.Id.dialog_Spinner = GoogleMusic.Resource.Id.dialog_Spinner;
 			Xamarin.Tables.Resource.Id.dialog_ValueField = GoogleMusic.Resource.Id.dialog_ValueField;
 			Xamarin.Tables.Resource.Id.iFormFieldValue = GoogleMusic.Resource.Id.iFormFieldValue;
-			Xamarin.Tables.Resource.Id.navContent = GoogleMusic.Resource.Id.navContent;
 			Xamarin.Tables.Resource.Id.title = GoogleMusic.Resource.Id.title;
+			Xamarin.Tables.Resource.Id.uinavigationLeftButtonLayout = GoogleMusic.Resource.Id.uinavigationLeftButtonLayout;
+			Xamarin.Tables.Resource.Id.uinavigationRightButtonLayout = GoogleMusic.Resource.Id.uinavigationRightButtonLayout;
+			Xamarin.Tables.Resource.Id.uinavigationcontent = GoogleMusic.Resource.Id.uinavigationcontent;
+			Xamarin.Tables.Resource.Id.uinavigationleftbtn = GoogleMusic.Resource.Id.uinavigationleftbtn;
+			Xamarin.Tables.Resource.Id.uinavigationrightbtn = GoogleMusic.Resource.Id.uinavigationrightbtn;
+			Xamarin.Tables.Resource.Layout.anav = GoogleMusic.Resource.Layout.anav;
 			Xamarin.Tables.Resource.Layout.dialog_achievements = GoogleMusic.Resource.Layout.dialog_achievements;
 			Xamarin.Tables.Resource.Layout.dialog_boolfieldleft = GoogleMusic.Resource.Layout.dialog_boolfieldleft;
 			Xamarin.Tables.Resource.Layout.dialog_boolfieldright = GoogleMusic.Resource.Layout.dialog_boolfieldright;
@@ -71,7 +72,6 @@ namespace GoogleMusic
 			Xamarin.Tables.Resource.Layout.dialog_textarea = GoogleMusic.Resource.Layout.dialog_textarea;
 			Xamarin.Tables.Resource.Layout.dialog_textfieldbelow = GoogleMusic.Resource.Layout.dialog_textfieldbelow;
 			Xamarin.Tables.Resource.Layout.dialog_textfieldright = GoogleMusic.Resource.Layout.dialog_textfieldright;
-			Xamarin.Tables.Resource.Layout.NavListView = GoogleMusic.Resource.Layout.NavListView;
 			Xamarin.Tables.Resource.String.library_name = GoogleMusic.Resource.String.library_name;
 		}
 		
@@ -259,20 +259,20 @@ namespace GoogleMusic
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f05001e
-			public const int LeftBtn = 2131034142;
+			// aapt resource value: 0x7f050024
+			public const int LeftBtn = 2131034148;
 			
-			// aapt resource value: 0x7f05001d
-			public const int LeftButtonLayout = 2131034141;
+			// aapt resource value: 0x7f050023
+			public const int LeftButtonLayout = 2131034147;
 			
-			// aapt resource value: 0x7f05001c
-			public const int LinearLayout01 = 2131034140;
+			// aapt resource value: 0x7f05000b
+			public const int LinearLayout01 = 2131034123;
 			
-			// aapt resource value: 0x7f050021
-			public const int RightBtn = 2131034145;
+			// aapt resource value: 0x7f050026
+			public const int RightBtn = 2131034150;
 			
-			// aapt resource value: 0x7f050020
-			public const int RightButtonLayout = 2131034144;
+			// aapt resource value: 0x7f050025
+			public const int RightButtonLayout = 2131034149;
 			
 			// aapt resource value: 0x7f050005
 			public const int albumArt = 2131034117;
@@ -286,53 +286,53 @@ namespace GoogleMusic
 			// aapt resource value: 0x7f05000a
 			public const int button1 = 2131034122;
 			
-			// aapt resource value: 0x7f05000b
-			public const int content_frame = 2131034123;
-			
-			// aapt resource value: 0x7f05000e
-			public const int dialog_BoolField = 2131034126;
-			
-			// aapt resource value: 0x7f05000f
-			public const int dialog_Button = 2131034127;
+			// aapt resource value: 0x7f050012
+			public const int content_frame = 2131034130;
 			
 			// aapt resource value: 0x7f050015
-			public const int dialog_DisclosureField = 2131034133;
-			
-			// aapt resource value: 0x7f050011
-			public const int dialog_ImageLeft = 2131034129;
-			
-			// aapt resource value: 0x7f050013
-			public const int dialog_ImageRight = 2131034131;
-			
-			// aapt resource value: 0x7f05000c
-			public const int dialog_LabelField = 2131034124;
-			
-			// aapt resource value: 0x7f05000d
-			public const int dialog_LabelSubtextField = 2131034125;
-			
-			// aapt resource value: 0x7f050014
-			public const int dialog_Panel = 2131034132;
+			public const int dialog_BoolField = 2131034133;
 			
 			// aapt resource value: 0x7f050016
-			public const int dialog_RadioButtonList = 2131034134;
+			public const int dialog_Button = 2131034134;
 			
-			// aapt resource value: 0x7f050012
-			public const int dialog_SliderField = 2131034130;
+			// aapt resource value: 0x7f05001c
+			public const int dialog_DisclosureField = 2131034140;
+			
+			// aapt resource value: 0x7f050018
+			public const int dialog_ImageLeft = 2131034136;
+			
+			// aapt resource value: 0x7f05001a
+			public const int dialog_ImageRight = 2131034138;
+			
+			// aapt resource value: 0x7f050013
+			public const int dialog_LabelField = 2131034131;
+			
+			// aapt resource value: 0x7f050014
+			public const int dialog_LabelSubtextField = 2131034132;
+			
+			// aapt resource value: 0x7f05001b
+			public const int dialog_Panel = 2131034139;
+			
+			// aapt resource value: 0x7f05001d
+			public const int dialog_RadioButtonList = 2131034141;
+			
+			// aapt resource value: 0x7f050019
+			public const int dialog_SliderField = 2131034137;
+			
+			// aapt resource value: 0x7f05001e
+			public const int dialog_Spinner = 2131034142;
 			
 			// aapt resource value: 0x7f050017
-			public const int dialog_Spinner = 2131034135;
-			
-			// aapt resource value: 0x7f050010
-			public const int dialog_ValueField = 2131034128;
+			public const int dialog_ValueField = 2131034135;
 			
 			// aapt resource value: 0x7f050003
 			public const int fullscreen = 2131034115;
 			
-			// aapt resource value: 0x7f050018
-			public const int iFormFieldValue = 2131034136;
+			// aapt resource value: 0x7f05001f
+			public const int iFormFieldValue = 2131034143;
 			
-			// aapt resource value: 0x7f050028
-			public const int imageView1 = 2131034152;
+			// aapt resource value: 0x7f05002d
+			public const int imageView1 = 2131034157;
 			
 			// aapt resource value: 0x7f050000
 			public const int left = 2131034112;
@@ -343,65 +343,80 @@ namespace GoogleMusic
 			// aapt resource value: 0x7f050009
 			public const int linearLayout2 = 2131034121;
 			
-			// aapt resource value: 0x7f050024
-			public const int linearLayout3 = 2131034148;
+			// aapt resource value: 0x7f050029
+			public const int linearLayout3 = 2131034153;
 			
-			// aapt resource value: 0x7f050019
-			public const int listView = 2131034137;
+			// aapt resource value: 0x7f050020
+			public const int listView = 2131034144;
 			
 			// aapt resource value: 0x7f050002
 			public const int margin = 2131034114;
 			
-			// aapt resource value: 0x7f05001b
-			public const int menu_frame = 2131034139;
-			
-			// aapt resource value: 0x7f05001a
-			public const int myButton = 2131034138;
-			
 			// aapt resource value: 0x7f050022
-			public const int navContent = 2131034146;
+			public const int menu_frame = 2131034146;
+			
+			// aapt resource value: 0x7f050021
+			public const int myButton = 2131034145;
+			
+			// aapt resource value: 0x7f050027
+			public const int navContent = 2131034151;
 			
 			// aapt resource value: 0x7f050001
 			public const int right = 2131034113;
 			
-			// aapt resource value: 0x7f050029
-			public const int row_icon = 2131034153;
+			// aapt resource value: 0x7f05002e
+			public const int row_icon = 2131034158;
 			
-			// aapt resource value: 0x7f05002a
-			public const int row_title = 2131034154;
+			// aapt resource value: 0x7f05002f
+			public const int row_title = 2131034159;
 			
-			// aapt resource value: 0x7f050026
-			public const int seekBar1 = 2131034150;
+			// aapt resource value: 0x7f05002b
+			public const int seekBar1 = 2131034155;
 			
 			// aapt resource value: 0x7f050004
 			public const int selected_view = 2131034116;
 			
+			// aapt resource value: 0x7f050031
+			public const int slidingmenulayout = 2131034161;
+			
+			// aapt resource value: 0x7f050030
+			public const int slidingmenumain = 2131034160;
+			
+			// aapt resource value: 0x7f050032
+			public const int slidingmenurowicon = 2131034162;
+			
+			// aapt resource value: 0x7f050033
+			public const int slidingmenurowtitle = 2131034163;
+			
+			// aapt resource value: 0x7f050034
+			public const int songTitle = 2131034164;
+			
+			// aapt resource value: 0x7f05002a
+			public const int textView1 = 2131034154;
+			
 			// aapt resource value: 0x7f05002c
-			public const int slidingmenulayout = 2131034156;
+			public const int textView2 = 2131034156;
 			
-			// aapt resource value: 0x7f05002b
-			public const int slidingmenumain = 2131034155;
+			// aapt resource value: 0x7f050028
+			public const int textView3 = 2131034152;
 			
-			// aapt resource value: 0x7f05002d
-			public const int slidingmenurowicon = 2131034157;
+			// aapt resource value: 0x7f05000e
+			public const int title = 2131034126;
 			
-			// aapt resource value: 0x7f05002e
-			public const int slidingmenurowtitle = 2131034158;
+			// aapt resource value: 0x7f05000c
+			public const int uinavigationLeftButtonLayout = 2131034124;
 			
-			// aapt resource value: 0x7f05002f
-			public const int songTitle = 2131034159;
+			// aapt resource value: 0x7f05000f
+			public const int uinavigationRightButtonLayout = 2131034127;
 			
-			// aapt resource value: 0x7f050025
-			public const int textView1 = 2131034149;
+			// aapt resource value: 0x7f050011
+			public const int uinavigationcontent = 2131034129;
 			
-			// aapt resource value: 0x7f050027
-			public const int textView2 = 2131034151;
+			// aapt resource value: 0x7f05000d
+			public const int uinavigationleftbtn = 2131034125;
 			
-			// aapt resource value: 0x7f050023
-			public const int textView3 = 2131034147;
-			
-			// aapt resource value: 0x7f05001f
-			public const int title = 2131034143;
+			// aapt resource value: 0x7f050010
+			public const int uinavigationrightbtn = 2131034128;
 			
 			private Id()
 			{
@@ -429,106 +444,109 @@ namespace GoogleMusic
 			public const int albumHeaderCell = 2130903041;
 			
 			// aapt resource value: 0x7f030002
-			public const int artistCell = 2130903042;
+			public const int anav = 2130903042;
 			
 			// aapt resource value: 0x7f030003
-			public const int content_frame = 2130903043;
+			public const int artistCell = 2130903043;
 			
 			// aapt resource value: 0x7f030004
-			public const int dialog_achievements = 2130903044;
+			public const int content_frame = 2130903044;
 			
 			// aapt resource value: 0x7f030005
-			public const int dialog_boolfieldleft = 2130903045;
+			public const int dialog_achievements = 2130903045;
 			
 			// aapt resource value: 0x7f030006
-			public const int dialog_boolfieldright = 2130903046;
+			public const int dialog_boolfieldleft = 2130903046;
 			
 			// aapt resource value: 0x7f030007
-			public const int dialog_boolfieldsubleft = 2130903047;
+			public const int dialog_boolfieldright = 2130903047;
 			
 			// aapt resource value: 0x7f030008
-			public const int dialog_boolfieldsubright = 2130903048;
+			public const int dialog_boolfieldsubleft = 2130903048;
 			
 			// aapt resource value: 0x7f030009
-			public const int dialog_button = 2130903049;
+			public const int dialog_boolfieldsubright = 2130903049;
 			
 			// aapt resource value: 0x7f03000a
-			public const int dialog_datefield = 2130903050;
+			public const int dialog_button = 2130903050;
 			
 			// aapt resource value: 0x7f03000b
-			public const int dialog_fieldsetlabel = 2130903051;
+			public const int dialog_datefield = 2130903051;
 			
 			// aapt resource value: 0x7f03000c
-			public const int dialog_floatimage = 2130903052;
+			public const int dialog_fieldsetlabel = 2130903052;
 			
 			// aapt resource value: 0x7f03000d
-			public const int dialog_labelfieldbelow = 2130903053;
+			public const int dialog_floatimage = 2130903053;
 			
 			// aapt resource value: 0x7f03000e
-			public const int dialog_labelfieldright = 2130903054;
+			public const int dialog_labelfieldbelow = 2130903054;
 			
 			// aapt resource value: 0x7f03000f
-			public const int dialog_onofffieldright = 2130903055;
+			public const int dialog_labelfieldright = 2130903055;
 			
 			// aapt resource value: 0x7f030010
-			public const int dialog_panel = 2130903056;
+			public const int dialog_onofffieldright = 2130903056;
 			
 			// aapt resource value: 0x7f030011
-			public const int dialog_root = 2130903057;
+			public const int dialog_panel = 2130903057;
 			
 			// aapt resource value: 0x7f030012
-			public const int dialog_selectlist = 2130903058;
+			public const int dialog_root = 2130903058;
 			
 			// aapt resource value: 0x7f030013
-			public const int dialog_selectlistfield = 2130903059;
+			public const int dialog_selectlist = 2130903059;
 			
 			// aapt resource value: 0x7f030014
-			public const int dialog_textarea = 2130903060;
+			public const int dialog_selectlistfield = 2130903060;
 			
 			// aapt resource value: 0x7f030015
-			public const int dialog_textfieldbelow = 2130903061;
+			public const int dialog_textarea = 2130903061;
 			
 			// aapt resource value: 0x7f030016
-			public const int dialog_textfieldright = 2130903062;
+			public const int dialog_textfieldbelow = 2130903062;
 			
 			// aapt resource value: 0x7f030017
-			public const int list = 2130903063;
+			public const int dialog_textfieldright = 2130903063;
 			
 			// aapt resource value: 0x7f030018
-			public const int Main = 2130903064;
+			public const int list = 2130903064;
 			
 			// aapt resource value: 0x7f030019
-			public const int menu = 2130903065;
+			public const int Main = 2130903065;
 			
 			// aapt resource value: 0x7f03001a
-			public const int menu_frame = 2130903066;
+			public const int menu = 2130903066;
 			
 			// aapt resource value: 0x7f03001b
-			public const int NavListView = 2130903067;
+			public const int menu_frame = 2130903067;
 			
 			// aapt resource value: 0x7f03001c
-			public const int nowplaying = 2130903068;
+			public const int NavListView = 2130903068;
 			
 			// aapt resource value: 0x7f03001d
-			public const int row = 2130903069;
+			public const int nowplaying = 2130903069;
 			
 			// aapt resource value: 0x7f03001e
-			public const int shadow = 2130903070;
+			public const int row = 2130903070;
 			
 			// aapt resource value: 0x7f03001f
-			public const int slidingmenumain = 2130903071;
+			public const int shadow = 2130903071;
 			
 			// aapt resource value: 0x7f030020
-			public const int slidingmenumainlist = 2130903072;
+			public const int slidingmenumain = 2130903072;
 			
 			// aapt resource value: 0x7f030021
-			public const int slidingmenurow = 2130903073;
+			public const int slidingmenumainlist = 2130903073;
 			
 			// aapt resource value: 0x7f030022
-			public const int songCell = 2130903074;
+			public const int slidingmenurow = 2130903074;
 			
 			// aapt resource value: 0x7f030023
-			public const int window_title = 2130903075;
+			public const int songCell = 2130903075;
+			
+			// aapt resource value: 0x7f030024
+			public const int window_title = 2130903076;
 			
 			private Layout()
 			{

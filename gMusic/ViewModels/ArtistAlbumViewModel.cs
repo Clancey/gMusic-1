@@ -41,19 +41,19 @@ namespace GoogleMusic
 			int albumId = 0;
 			var h = HeaderForSection (section);
 			if (!int.TryParse (h,out albumId) || albumId == 0) {
-				return  new StringCell("Unknown Album".Translate());
+				return  new AlbumHeaderCell(new Album{Name = "Unknown"},1,1);
 			}
 			return new AlbumHeaderCell(Database.Main.GetObject<Album> (albumId),1,1);
 		}
 #if iOS
 		public override float GetHeightForHeader (MonoTouch.UIKit.UITableView tableView, int section)
 		{
-			int albumId = 0;
-			var h = HeaderForSection (section);
-			if (!int.TryParse (h,out albumId)|| albumId == 0) {
-				return 15f;
-			}
-			return 60f;
+//			int albumId = 0;
+//			var h = HeaderForSection (section);
+//			if (!int.TryParse (h,out albumId)|| albumId == 0) {
+//				return 15f;
+//			}
+			return 50f;
 		}
 #endif
 

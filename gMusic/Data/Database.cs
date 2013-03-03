@@ -23,16 +23,37 @@ namespace GoogleMusic
 {
 	public class Database: InstantDatabase
 	{
+		public void UpdateSongCount ()
+		{
+			MakeClassInstant<Song> ();
+			MakeClassInstant<Artist> (ArtistViewModel.DefaultGroupInfo);
+			MakeClassInstant<Album> ();
+			MakeClassInstant<Genre> (GenreViewModel.DefaultGroupInfo);
+			ClearMemory ();
+			if (SongsUpdated != null)
+				SongsUpdated ();
+		}
+		public void UpdatePlaylists()
+		{
+			MakeClassInstant<Playlist> (PlaylistViewModel.PlaylistGroupInfo);
+			ClearMemory ();
+			
+			if (PlaylistsUpdated != null)
+				PlaylistsUpdated ();
+		}
+		public event Action SongsUpdated;
+		public event Action PlaylistsUpdated;
+
 		internal Database (string file) : base (file)
 		{
 			CreateTable<Song> ();
 			MakeClassInstant<Song> ();
 			CreateTable<Artist> ();
-			MakeClassInstant<Artist> ();
+			MakeClassInstant<Artist> (ArtistViewModel.DefaultGroupInfo);
 			CreateTable<Album> ();
 			MakeClassInstant<Album> ();
 			CreateTable<Genre> ();
-			MakeClassInstant<Genre> ();
+			MakeClassInstant<Genre> (GenreViewModel.DefaultGroupInfo);
 			CreateTable<Playlist> ();
 			MakeClassInstant<Playlist> (PlaylistViewModel.PlaylistGroupInfo);
 			CreateTable<PlaylistSongs> ();

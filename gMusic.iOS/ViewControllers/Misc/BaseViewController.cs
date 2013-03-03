@@ -111,6 +111,18 @@ namespace GoogleMusic
 			//setupTable ();
 			//this.View.AddGestureRecognizer(new UISwipeGestureRecognizer(this,new Selector("swiperight")){Direction = UISwipeGestureRecognizerDirection.Right});
 		}
+		public override void ViewDidDisappear (bool animated)
+		{
+			base.ViewDidDisappear (animated);
+			
+			Database.Main.SongsUpdated -= HandleSongsUpdated;
+		}
+		void HandleSongsUpdated ()
+		{
+			Util.EnsureInvokedOnMainThread (delegate {
+				TableView.ReloadData ();
+			});
+		}
 		private void setupRefresh()
 		{
 			if(Util.IsIos6)
@@ -404,6 +416,8 @@ namespace GoogleMusic
 			//Console.WriteLine("View did appear base view controller");
 			if (TableView.TableHeaderView != headerView)
 				setupTable ();
+			else
+				this.TableView.ReloadData ();
 			base.ViewWillAppear (animated);
 			if(this.NavigationController != null)
 			{
@@ -549,7 +563,7 @@ namespace GoogleMusic
 		SectionScrollView scrollViewPopUp;
 		public override void ViewDidAppear (bool animated)
 		{
-
+			Database.Main.SongsUpdated += HandleSongsUpdated;
 			if(DarkThemed && sectionOverlay == null )
 			//if(sectionOverlay == null )
 			{

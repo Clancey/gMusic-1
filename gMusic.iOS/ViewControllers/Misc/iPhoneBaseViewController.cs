@@ -20,8 +20,11 @@ namespace GoogleMusic
 		SongViewController songVc;
 		ArtistViewController artistVc;
 		PlaylistViewController playlistVc;
+		PlaylistViewController autoPlaylistVc;
 		AlbumViewController albumVc;
 		GenreViewController genreVc;
+		
+		public NowPlayingViewController playingViewController;
 		string currentPlayId {
 			get;
 			set;
@@ -33,34 +36,57 @@ namespace GoogleMusic
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
-			
-			var outError = new NSError ();
-			//SilentPlayer = AVAudioPlayer.FromUrl(new NSUrl("empty.mp3",true),out outError);
-			//SilentPlayer.NumberOfLoops = -1;
+			#if mp3tunes
+			int settingsIndex = 6;
+			#else
+			int settingsIndex = 7;
+			#endif
+
 			if (Settings.CurrentTab == 0)
 				Settings.CurrentTab = 1;
 			NavigationController = new FlyoutNavigationController ();
+			playingViewController = new NowPlayingViewController ();
 			songVc = new SongViewController (){HasMenu = true};
 			artistVc = new ArtistViewController (){HasMenu = true};
-			playlistVc = new PlaylistViewController (){HasMenu = true};
+			playlistVc = new PlaylistViewController (){HasMenu = true};			
+			autoPlaylistVc = new PlaylistViewController (){HasMenu = true};
 			albumVc = new AlbumViewController (){HasMenu = true};
 			genreVc = new GenreViewController (){HasMenu = true};
 			NavigationController.ViewControllers = new UIViewController[]{
+				new UINavigationController (this.playingViewController),
+				new UINavigationController (playlistVc),
+				new UINavigationController (artistVc),
 				new UINavigationController (songVc),
-				new UINavigationController(artistVc),
-				new UINavigationController(playlistVc),
-				new UINavigationController(albumVc),
-				new UINavigationController(genreVc),
+				new UINavigationController (albumVc),
+				#if mp3tunes
+				//new UINavigationController(movieVc),
+				#else
+				new UINavigationController (genreVc),
+				#endif
+				new UINavigationController (autoPlaylistVc),
+
+//				new UINavigationController(new EqualizerViewController()),
+//				null,
+//				new UINavigationController (downloadVc),
+//				new UINavigationController (settingVc),
 			};
-			NavigationController.NavigationRoot = new RootElement (""){
-				new Section(){
-					new StringElement("Songs"),
-					new StringElement("Artists"),
-					new StringElement("Playlists"),
-					new StringElement("Albums"),
-					new StringElement("Genres"),
-				}
+	
+			NavigationController.NavigationRoot = CreateRoot ();
+			NavigationController.SelectedIndexChanged += delegate {
+				if (NavigationController.SelectedIndex < settingsIndex && NavigationController.SelectedIndex != 0)
+					Settings.CurrentTab = NavigationController.SelectedIndex;	
+				
 			};
+			NavigationController.DisableRotation = false;
+			NavigationController.NavigationTableView.BackgroundView = new UIView (NavigationController.NavigationTableView.Frame);
+			NavigationController.NavigationTableView.BackgroundView.Layer.AddSublayer (MakeBackgroundLayer (NavigationController.NavigationTableView.Frame));
+			
+			//NavigationController.NavigationTableView.BackgroundColor = UIColor.FromPatternImage(UIImage.FromFile("Images/texture.png"));
+			NavigationController.NavigationTableView.SeparatorColor = UIColor.FromPatternImage (UIImage.FromFile ("Images/divider.png")).ColorWithAlpha (.75f);
+			
+			
+			
+			NavigationController.SelectedIndex = Settings.CurrentTab;
 			this.View.AddSubview(NavigationController.View);
 			this.AddChildViewController (NavigationController);
 		}
@@ -81,16 +107,11 @@ namespace GoogleMusic
 		}
 		public override void PlaylistChanged ()
 		{
-//			playingViewController.PlaylistChanged();
+			playingViewController.PlaylistChanged();
 		}
 		public override void SetState (bool state)
 		{
 
-//			if(state && !SilentPlayer.Playing)
-//				SilentPlayer.Play();
-//			else if(!state && SilentPlayer.Playing)
-//				SilentPlayer.Pause();
-				
 			if (Util.CurrentSong == null)
 				return;
 //			if(tvViewController != null)
@@ -100,8 +121,8 @@ namespace GoogleMusic
 //			NowPlayingView.BottomLabel.Text = Util.CurrentSong.Album;
 //			NowPlayingView.UpdateAlbum (Util.CurrentSong.TheAlbum);
 				
-//			if (playingViewController != null)
-//				playingViewController.SetState (state);
+			if (playingViewController != null)
+				playingViewController.SetState (state);
 			if (currentPlayId != Util.CurrentSong.Id) {
 				try{
 				var paths = songVc.TableView.IndexPathsForVisibleRows;
@@ -125,31 +146,31 @@ namespace GoogleMusic
 		{
 //			if(tvViewController != null)
 //				tvViewController.UpdateStatus(currentTime,remainingTime,percent);
-//			if (playingViewController != null && playingViewController.detailView != null) {
-//				if(playingViewController.Seeking)
-//				{
-//					var seekPercent =  playingViewController.CurrentTimeSlider.Value;
-//					var totalTime = Util.CurrentSong.Duration/1000;
-//					var newTime = totalTime * seekPercent;
-//					playingViewController.detailView.currentTimeLabel.Text = Util.FormatTimeSpan (TimeSpan.FromSeconds (newTime));
-//					playingViewController.detailView.remainingTimeLabel.Text =	"-" + Util.FormatTimeSpan (TimeSpan.FromSeconds (totalTime - newTime));
-//
-//				}
-//				else{
-//					playingViewController.detailView.currentTimeLabel.Text = currentTime;
-//					playingViewController.detailView.remainingTimeLabel.Text = remainingTime;
-//					playingViewController.SetSliderProgress(percent);
-//				}
-//			} else {
-//				//	Console.WriteLine("Playing view contorller is null");	
-//			}
+			if (playingViewController != null && playingViewController.detailView != null) {
+				if(playingViewController.Seeking)
+				{
+					var seekPercent =  playingViewController.CurrentTimeSlider.Value;
+					var totalTime = Util.CurrentSong.Duration/1000;
+					var newTime = totalTime * seekPercent;
+					playingViewController.detailView.currentTimeLabel.Text = Util.FormatTimeSpan (TimeSpan.FromSeconds (newTime));
+					playingViewController.detailView.remainingTimeLabel.Text =	"-" + Util.FormatTimeSpan (TimeSpan.FromSeconds (totalTime - newTime));
+
+				}
+				else{
+					playingViewController.detailView.currentTimeLabel.Text = currentTime;
+					playingViewController.detailView.remainingTimeLabel.Text = remainingTime;
+					playingViewController.SetSliderProgress(percent);
+				}
+			} else {
+				//	Console.WriteLine("Playing view contorller is null");	
+			}
 		}
 		
 		public override void UpdateCurrentSongDownloadProgress (float percent)
 		{
 			Util.EnsureInvokedOnMainThread (delegate {
-//				if(playingViewController != null)
-//					playingViewController.DownloadProgressView.Progress = percent;
+				if(playingViewController != null)
+					playingViewController.DownloadProgressView.Progress = percent;
 //				if(tvViewController != null)
 //					tvViewController.UpdateCurrentSongDownloadProgress(percent);
 			});
@@ -161,8 +182,8 @@ namespace GoogleMusic
 			
 		public override void UpdateMeter ()
 		{
-//			Util.SongLevelMeter.AudioLevelState = Util.Player.AudioLevelState;
-//			Util.SongLevelMeter.SetNeedsDisplay ();
+			Util.SongLevelMeter.AudioLevelState = Util.Player.AudioLevelState;
+			Util.SongLevelMeter.SetNeedsDisplay ();
 //			if(tvViewController != null)
 //					tvViewController.UpdateMeter();
 		}
@@ -176,8 +197,8 @@ namespace GoogleMusic
 		{
 //			if(tvViewController != null)
 //				tvViewController.SetPlayCount();
-//			if (playingViewController != null)
-//				playingViewController.SetPlayCount ();
+			if (playingViewController != null)
+				playingViewController.SetPlayCount ();
 		}
 
 		public override void ShowNowPlaying ()
@@ -202,7 +223,7 @@ namespace GoogleMusic
 		{
 //			if(tvViewController != null)
 //				tvViewController.RefreshArtists();
-//			artistDvc.HandleUtilSongsCollectionChanged ();
+			artistVc.HandleUtilSongsCollectionChanged ();
 		}
 
 		public override void RefreshGenre ()
@@ -241,9 +262,9 @@ namespace GoogleMusic
 			if (!Util.ArtistsDict.ContainsKey (artistID))
 				return;
 			
-//			NavigationController.SelectedIndex = 2; 
-//			artistDvc.NavigationController.PopToRootViewController (false);
-//			artistDvc.Selected(Util.ArtistsDict [artistID]);
+			NavigationController.SelectedIndex = 2; 
+			artistVc.NavigationController.PopToRootViewController (false);
+			artistVc.Selected(Database.Main.GetObject<Artist>(artistID));
 		}
 		public override void GoToAlbum (int albumId)
 		{

@@ -14,36 +14,6 @@ using System.Runtime.InteropServices;
 
 namespace GoogleMusic
 {
-	public class EventArgs<T> : EventArgs
-	{
-		public EventArgs (T value)
-		{
-			m_value = value;
-		}
-		
-		private T m_value;
-		
-		public T Value {
-			get { return m_value; }
-		}
-	}
-	
-	public class EventArgs<T, U> : EventArgs<T>
-	{
-		
-		public EventArgs (T value, U value2)
-			: base(value)
-		{
-			m_value2 = value2;
-		}
-		
-		private U m_value2;
-		
-		public U Value2 {
-			get { return m_value2; }
-		}
-	}
-	
 	public static class Downloader
 	{
 		private static bool _isBusy, _isPolling;
@@ -62,7 +32,7 @@ namespace GoogleMusic
 		public static void StartDownload ()
 		{
 			
-			Util.MainViewController.DownloaderUpdated ();
+			Util.MainVC.DownloaderUpdated ();
 			// If already downloading do nothing...
 			if (isBusy)
 				return;
@@ -94,9 +64,9 @@ namespace GoogleMusic
 				var id = user.ToInt32 ();
 				if (!songsInt.ContainsKey (id))
 					return;
-				if(!Util.SongsDict.ContainsKey(songsInt[id]))
+				var song = Database.Main.GetObject<Song>(songsInt [id]);
+				if(song == null || string.IsNullOrEmpty(song.Id))
 					return;
-				var song = Util.SongsDict [songsInt [id]];
 				var soFar = Bass.BASS_StreamGetFilePosition (song.StreamId, BASSStreamFilePosition.BASS_FILEPOS_DOWNLOAD);
 				var total = Bass.BASS_StreamGetFilePosition (song.StreamId, BASSStreamFilePosition.BASS_FILEPOS_END);
 				var percent = (float)soFar / (float)total;
@@ -317,7 +287,7 @@ namespace GoogleMusic
 		{
 			//if(Util.CurrentSong != null)
 			//	Util.QueueNext(null);
-			Util.MainViewController.DownloaderUpdated ();
+			Util.MainVC.DownloaderUpdated ();
 			if (Remaining == 0 || cancel) {
 				downloadComplete ();
 				return;
@@ -351,7 +321,7 @@ namespace GoogleMusic
 			if(bgTask != 0)
 				app.EndBackgroundTask (bgTask);
 			bgTask = 0;
-			Util.MainViewController.DownloaderUpdated ();
+			Util.MainVC.DownloaderUpdated ();
 		}
 		
 		static bool needsNotified = false;
@@ -384,7 +354,7 @@ namespace GoogleMusic
 				if ((song.IsLocal && File.Exists (Path.Combine (Util.MusicDir, song.FileName))) || (song.IsTemp)) {
 					
 					song.PulseDownload (1f);
-					Util.AppDelegate.MainVC.UpdateCurrentSongDownloadProgress (1f);
+					Util.MainVC.UpdateCurrentSongDownloadProgress (1f);
 					stream = Bass.BASS_StreamCreateFile (Path.Combine (Util.MusicDir, song.FileName), 0, 0, BASSFlag.BASS_STREAM_PRESCAN);
 					song.StreamId = stream;
 					songIndex.Add (song.Id, currentIndex);

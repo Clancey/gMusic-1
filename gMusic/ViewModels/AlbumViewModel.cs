@@ -6,7 +6,6 @@ namespace GoogleMusic
 {
 	public class AlbumViewModel: BaseViewModel<Album>
 	{
-		
 		#if iOS
 		public AlbumViewModel (IBaseViewController parent, string filter, string orderby) : base(parent)
 		{

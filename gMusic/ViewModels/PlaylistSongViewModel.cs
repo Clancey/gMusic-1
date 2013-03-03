@@ -24,7 +24,7 @@ namespace GoogleMusic
 		void init(Playlist playlist)
 		{
 			Playlist = playlist;
-			GroupInfo = new GroupInfo{Filter = string.Format("ServerPlaylistId = \"{0}\"",Playlist.ServerId), OrderBy = "SOrder", Ignore = true};
+			GroupInfo = new GroupInfo{Filter = string.Format("ServerPlaylistId = \"{0}\" and SongId in (select Id from song where Id = SongId)",Playlist.ServerId), OrderBy = "SOrder", Ignore = true};
 		}
 		#region implemented abstract members of SectionedAdapter
 		public override void RowSelected (PlaylistSongs ps)

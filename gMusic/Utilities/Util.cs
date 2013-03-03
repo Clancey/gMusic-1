@@ -273,10 +273,37 @@ public static partial class Util
 	{
 
 	}
+#if iOS
+	public static MPNowPlayingInfo NowPlaying = new MPNowPlayingInfo ();
+	public static void UpdateMPNowPlaying(MPNowPlayingInfo nowPlaying)
+	{
+		try{
+			MPNowPlayingInfoCenter.DefaultCenter.NowPlaying = nowPlaying;
+		}
+		catch(Exception ex)
+		{
+			Console.WriteLine(ex);
+		}
+	}
 
+#endif
 	public static void UpdateMpNowPlaying ()
 	{
-		//throw new NotImplementedException ();
+#if iOS
+		EnsureInvokedOnMainThread(delegate{
+			MainVC.UpdateSong(CurrentSong);
+			var downLoadPercent = Util.CurrentSong.GetDownloadPercent();
+			MainVC.UpdateCurrentSongDownloadProgress(downLoadPercent);
+			NowPlaying = MPNowPlayingInfoCenter.DefaultCenter.NowPlaying ?? NowPlaying;
+			NowPlaying.Title = CurrentSong.Title;
+			NowPlaying.Artist = CurrentSong.Artist;
+			NowPlaying.AlbumTitle = CurrentSong.Album;
+			//NowPlaying.Artwork = new MPMediaItemArtwork(CurrentSong.AlbumImage);
+			NowPlaying.PlaybackQueueCount = Util.TotalPlayListCount;
+			NowPlaying.PlaybackQueueIndex = Util.CurrentSongIndex;
+			UpdateMPNowPlaying(NowPlaying);
+		});
+#endif
 	}
 
 	public static void QueueNext (Action<bool> nextSong)

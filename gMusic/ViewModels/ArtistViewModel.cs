@@ -8,7 +8,7 @@ namespace GoogleMusic
 {
 	public class ArtistViewModel : BaseViewModel<Artist>
 	{
-
+		public static GroupInfo DefaultGroupInfo = new GroupInfo (){Filter = "Name <> ''",OrderBy = "NormName", GroupBy = "IndexCharacter",Ignore = false};
 		#if iOS
 		public ArtistViewModel (IBaseViewController parent, string filter, string orderby) : base(parent)
 		{
@@ -20,7 +20,7 @@ namespace GoogleMusic
 		}
 		public ArtistViewModel (IBaseViewController parent, GroupInfo groupInfo) : base(parent)
 		{
-			GroupInfo = groupInfo ??  new GroupInfo (){Filter = "Name <> ''",OrderBy = "NormName", GroupBy = "IndexCharacter",Ignore = true};
+			GroupInfo = groupInfo ??  DefaultGroupInfo;
 		}
 		
 		#elif Droid
@@ -30,10 +30,11 @@ namespace GoogleMusic
 		}
 		public ArtistViewModel (Android.Content.Context context, Android.Widget.ListView listView ,IBaseViewController parent , GroupInfo groupInfo) : base (context,listView ,parent)
 		{
-			GroupInfo = groupInfo ??  new GroupInfo (){Filter = "Name <> ''",OrderBy = "NormName", GroupBy = "IndexCharacter",Ignore = true};
+			GroupInfo = groupInfo ?? DefaultGroupInfo;
 		}
 		public ArtistViewModel (Android.Content.Context context, Android.Widget.ListView listView ,IBaseViewController parent ) : base (context,listView ,parent)
 		{
+
 		}
 		#endif
 

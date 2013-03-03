@@ -275,6 +275,10 @@
       <Link>gMusic\ViewControllers\INowPlayingViewController.cs</Link>
     </Compile>
     <Compile Include="ViewControllers\NowPlayingViewController.cs" />
+    <Compile Include="ViewControllers\CurrentQueueViewController.cs" />
+    <Compile Include="gMusic\Utilities\Downloader.cs" />
+    <Compile Include="UI\Shared\AnisotropicImage.cs" />
+    <Compile Include="Utilities\Reachability.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -384,12 +388,6 @@
     </Content>
     <Content Include="..\gMusic\Images\forward%402x.png">
       <Link>Images\forward%402x.png</Link>
-    </Content>
-    <Content Include="..\gMusic\Images\ipadEmpty.png">
-      <Link>Images\ipadEmpty.png</Link>
-    </Content>
-    <Content Include="..\gMusic\Images\ipadIcon.png">
-      <Link>Images\ipadIcon.png</Link>
     </Content>
     <Content Include="..\gMusic\Images\list.png">
       <Link>Images\list.png</Link>

@@ -11,7 +11,6 @@ namespace GoogleMusic
 	{
 		public GroupInfo GroupInfo;
 			#if iOS
-			
 			public BaseViewModel (IBaseViewController parent)
 			{
 				Parent = parent;

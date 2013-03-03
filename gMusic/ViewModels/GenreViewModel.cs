@@ -6,17 +6,20 @@ namespace GoogleMusic
 {
 	public class GenreViewModel : BaseViewModel<Genre>
 	{
-		
+		public static GroupInfo DefaultGroupInfo = new GroupInfo (){Filter = "Name <> ''",OrderBy = "Name", GroupBy = "IndexCharacter",Ignore = false};
 		#if iOS
 		
 		public GenreViewModel (IBaseViewController parent) : base(parent)
 		{
 			
+			GroupInfo = DefaultGroupInfo;
 		}
 		
 		#elif Droid
 		public GenreViewModel (Android.Content.Context context, Android.Widget.ListView listView ,IBaseViewController parent ) : base (context,listView ,parent)
 		{
+			
+			GroupInfo = DefaultGroupInfo;
 		}
 		#endif
 		
@@ -50,7 +53,7 @@ namespace GoogleMusic
 		}
 		public override ICell GetICell (int section, int position)
 		{
-			return Database.Main.ObjectForRow<Genre> (section, position);
+			return Database.Main.ObjectForRow<Genre> (GroupInfo,section, position);
 		}
 		
 		#endregion

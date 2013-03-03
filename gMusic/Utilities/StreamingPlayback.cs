@@ -347,38 +347,50 @@ namespace GoogleMusic
 				Bass.BASS_ChannelPlay (bassStream,false);
 			}
 		}
-		private void initBass()
+		public static void InitBass()
 		{
+			if (isInitialized)
+				return;
 			Bass.BASS_SetConfig(BASSConfig.IOS_MIXAUDIO, 0);
+			Bass.BASS_SetConfig (BASSConfig.FLOATDSP, true);
 			isInitialized = Bass.BASS_Init (-1, 44100, BASSInit.BASS_DEVICE_DEFAULT, IntPtr.Zero);
 			//Bass.BASS_SetConfig(BASSConfig.
 			//Bass.BASS_SetConfig (BASSConfig.BASS_CONFIG_IOS_SPEAKER, 1);
 			Bass.BASS_SetConfig(BASSConfig.IOS_MIXAUDIO, 0);
-#if iOS
-			Bass.SetInturuption (Inturupt);
+			BassFx.BASS_FX_GetVersion();
+		}
+
+		private void initBass()
+		{
+			
+			InitBass ();
+			initAudio ();
+			
+		}
+		void initAudio()
+		{
 			try{
+#if iOS
 				AudioSession.AddListener (AudioSessionProperty.AudioRouteChange, PropertyChanged);
 				AudioSession.SetActive (true);
-				//IntPtr lib = MonoTouch.ObjCRuntime.Dlfcn.dlopen (MonoTouch.Constants.AudioToolboxLibrary, 0);
-				
-				//AudioRouteChangeReasonKey = new NSString (MonoTouch.ObjCRuntime.Dlfcn.GetIntPtr (lib, "kAudioSession_AudioRouteChangeKey_Reason"));
-				//AudioRouteOldRouteKey = new NSString (MonoTouch.ObjCRuntime.Dlfcn.GetIntPtr (lib, "kAudioSession_AudioRouteChangeKey_OldRoute"));
-				//AudioRouteOldNotAvailable = new NSString (MonoTouch.ObjCRuntime.Dlfcn.GetIntPtr (lib, "kAudioSessionRouteChangeReason_OldDeviceUnavailable"));
-
-				//lastRoute = AudioSession.InputRoute;
 				isAudioInitialized = true;
+#elif Droid
+				Android.Media.AudioManager manager = (Android.Media.AudioManager)Context.GetSystemService (Android.Content.Context.AudioService);
+				var result = manager.RequestAudioFocus (new AudioChangeListener (), Android.Media.Stream.Music, Android.Media.AudioFocus.Gain);
+				Console.WriteLine (result);
+				isAudioInitialized = result == Android.Media.AudioFocusRequest.Granted;
+#endif
 			}
 			catch(Exception ex)
 			{
 				Console.WriteLine(ex);
 			}
-#elif Droid
-			Android.Media.AudioManager manager = (Android.Media.AudioManager)Context.GetSystemService (Android.Content.Context.AudioService);
-			var result = manager.RequestAudioFocus (new AudioChangeListener (), Android.Media.Stream.Music, Android.Media.AudioFocus.Gain);
-			Console.WriteLine (result);
-			isAudioInitialized = result == Android.Media.AudioFocusRequest.Granted;
-#endif
+			
 		}
+
+
+
+
 		enum AudioSessionRouteChangeReason {
 			Unknown = 0,
 			NewDeviceAvailable = 1,
@@ -443,17 +455,30 @@ namespace GoogleMusic
 		/// </summary>
 		public void FlushAndClose ()
 		{
-			Bass.BASS_ChannelStop(bassStream);
-			Bass.BASS_StreamFree(bassStream);
-			var index = songIndex [CurrentlyPlayingSong.Id];
-			CurrentlyPlayingSong.DownloadPercent = 0f;
-			CurrentlyPlayingSong.StreamId = 0;
-			songsInt.Remove (index);
-			songShoudSave.Remove (index);
-			songStream.Remove (index);
-			songIndex.Remove(CurrentlyPlayingSong.Id);
-			bassStream = 0;
+			FlushSong (CurrentlyPlayingSong);
 		}
+		public static void FlushSong(Song song, bool delete = true)
+		{
+			var index = Downloader.songIndex [song.Id];
+			song.DownloadPercent = 0f;
+			Bass.BASS_ChannelStop(song.StreamId);
+			Bass.BASS_StreamFree(song.StreamId);
+			
+			song.StreamId = 0;
+			Downloader.songsInt.Remove (index);
+			Downloader.songIndex.Remove(song.Id);
+			if(!delete)
+				return;
+			try {
+				song.IsTemp = false;
+				var storage = Path.Combine(Util.TempDir , song.FileName);
+				if(File.Exists(storage))
+					File.Delete (storage);
+			} catch {
+				
+			}
+		}
+
 		
 		private static void finishedPlaying (Song song)
 		{

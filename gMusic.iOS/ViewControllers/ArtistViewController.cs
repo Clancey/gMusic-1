@@ -28,6 +28,11 @@ namespace GoogleMusic
 			this.TableView.RowHeight = DarkThemed ?  80 : 40;
 		}
 
+		public void Selected (Artist artist)
+		{
+			DataSource.RowSelected (artist);
+		}
+
 		#region implemented abstract members of BaseViewController
 
 		public override void StartSearch ()

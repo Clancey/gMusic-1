@@ -43,12 +43,12 @@ namespace GoogleMusic
 		CALayer borderLayer;
 		UIButton shuffleButton;
 		bool IsDarkThemed;
-		public AlbumHeaderView (Album album,int songs,int length, bool isDarkThemed) : base (new RectangleF(0,0,320,60))
+		public AlbumHeaderView (Album album,int songs,int length, bool isDarkThemed) : base (new RectangleF(0,0,320,50))
 		{
 			IsDarkThemed = isDarkThemed;
 			Album = album;
 			this.AutoresizingMask = UIViewAutoresizing.FlexibleWidth;
-			albumArt = new AlbumImageView(new RectangleF(5,5,40,40),true);
+			albumArt = new AlbumImageView(new RectangleF(5,5,40,40),false);
 			detailsView = new StackPanel();
 			detailsView.BackgroundColor = UIColor.Clear;
 			
@@ -146,14 +146,14 @@ namespace GoogleMusic
 			DisableSelection = 2
 		}
 
-		public AlbumHeaderCell (Album album,int songs,int length, bool isDarkThemed = false) : base(album.Name)
+		public AlbumHeaderCell (Album album,int songs,int length, bool isDarkThemed = false) : base(album == null ? "Unknown" : album.Name)
 		{
 			this.album = album;
 			this.songs = songs;
 			this.length = length;
 			this.isDarkThemed = isDarkThemed;
 			this.Flags =  0;
-			key = new NSString ("AlbumHeaderCell" + isDarkThemed + album.Id);
+			key = new NSString ("AlbumHeaderCell" + isDarkThemed + (album == null ? 0 : album.Id));
 		}
 		
 		public override UITableViewCell GetCell (UITableView tv)

@@ -137,6 +137,7 @@ var dict = new Dictionary<string,string> () {
 			req.Method = httpMethod;
 			req.ContentType = "application/x-www-form-urlencoded; charset=UTF-8";
 			req.ContentLength = content.Length;
+			//req.AllowAutoRedirect = true;
 			if(httpMethod == "POST")
 			using (var s = req.GetRequestStream ()) {
 				s.Write (content, 0, content.Length);

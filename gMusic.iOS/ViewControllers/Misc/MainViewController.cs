@@ -199,6 +199,7 @@ namespace GoogleMusic
 			UIFont font = isTvOut ?  UIFont.BoldSystemFontOfSize (30) : UIFont.BoldSystemFontOfSize (17);
 			
 			NowPlayingView = nowPlayingView ?? new MusicSectionView (new RectangleF (0, 0, 250, 100), "", "", "", null, false,false, null);
+			NowPlayingView.UserInteractionEnabled = false;
 			RootElement root = new RootElement ("");
 			//if (Util.IsIpad) {
 			if(includeNowPlaing)
@@ -235,7 +236,7 @@ namespace GoogleMusic
 				settings.Add(new StyledStringElement ("Settings".Translate()){TextColor = UIColor.White,BackgroundColor = UIColor.Clear,Font = font});
 				root.Add (settings);
 			}
-			root.UnevenRows = true;
+			root.UnevenRows = false;
 			return root;
 			
 			
